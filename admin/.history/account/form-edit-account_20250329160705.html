@@ -1,0 +1,188 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
+         width="60">
+  </div>
+
+  <!-- Navbar -->
+  <nav th:replace="admin/fragments/navbar :: navbar"></nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">CẬP NHẬT QUYỀN</h1>
+          </div>
+        </div>
+        <form action="/admin/account/add-role" method="post" class="col-md-3" th:each="r:${rolesNotInUser}">
+          <div class="card card-success">
+            <div class="card-header">
+              <input class="form-control" hidden="hidden" name="username"
+                     th:value="${editUserDTO.getUsername()}">
+              <input class="form-control" hidden="hidden" name="roleName" th:value="${r.getName()}">
+              <h6 class="card-title" th:text="${r.getName()}"></h6>
+              <div class="card-tools">
+                <button type="submit" class="btn btn-tool">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </form>
+      </div>
+
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="col-sm-2 col-form-label">Danh sách quyền</label>
+                      <form action="/admin/account/delete-role"
+                            th:each="r:${editUserDTO.getUserRoles()}" class="col-md-3">
+                        <div class="card card-success">
+                          <div class="card-header">
+                            <input class="form-control" hidden="hidden"
+                                   name="username"
+                                   th:value="${editUserDTO.getUsername()}">
+                            <input class="form-control" hidden="hidden"
+                                   name="roleName"
+                                   th:value="${r.getRole().getName()}">
+                            <h6 class="card-title"
+                                th:text="${r.getRole().getName()}"></h6>
+                            <div class="card-tools">
+                              <button type="submit" class="btn btn-tool">
+                                <i class="fas fa-minus"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <!-- /.card-body -->
+                        </div>
+                      </form>
+
+
+                      <form class="form-horizontal" action="/admin/account/form-edit-account"
+                            method="post" th:object="${editUserDTO}">
+                        <div class="card-body">
+                          <div class="form-group row">
+                            <label for="inputID" class="col-sm-2 col-form-label">ID</label>
+                            <div class="col-sm-5">
+                              <input readonly class="form-control" id="inputID"
+                                     th:field="${editUserDTO.id}" placeholder="ID">
+                            </div>
+                            <p th:if="${#fields.hasErrors('id')}"
+                               th:errorclass="text-danger"
+                               th:errors="${editUserDTO.id}"></p>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="inputTenKm"
+                                   class="col-sm-2 col-form-label">Username</label>
+                            <div class="col-sm-5">
+                              <input readonly class="form-control" id="inputTenKm"
+                                     th:field="${editUserDTO.username}"
+                                     placeholder="Tên khuyến mãi">
+                            </div>
+                            <p th:if="${#fields.hasErrors('username')}"
+                               th:errorclass="text-danger"
+                               th:errors="${editUserDTO.username}"></p>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Enabled</label>
+                            <div class="col-sm-3">
+                              <select class="form-control"
+                                      th:field="${editUserDTO.enabled}">
+                                <option value="true">Enable</option>
+                                <option value="false">Disable</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="row">
+                          <div class="col-6">
+                            <button type="submit" class="btn btn-block bg-gradient-primary">
+                              Lưu
+                            </button>
+                          </div>
+                          <div class="col-6">
+                            <a th:href="@{/admin/account}" class="btn btn-danger btn-block">Hủy</a>
+                          </div>
+                        </div>
+                        <!-- /.card-footer -->
+                      </form>
+
+
+                    </div>
+                  </div>
+                  <div class="row"
+                       style="display: flex;justify-content: space-between;align-items: center;">
+                    <div class="col-sm-12 col-md-5">
+                      <div class="dataTables_info" id="example2_info" role="status"
+                           aria-live="polite">
+                        <!--                                                Showing 1 to 10 of 57 entries-->
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-7" style="display: flex;justify-content: flex-end">
+                      <div class="dataTables_paginate paging_simple_numbers"
+                           id="example2_paginate">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <!-- /.content-wrapper -->
+  <footer th:replace="admin/fragments/footer :: footer"></footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<div th:replace="admin/fragments/script :: script"></div>
+</body>
+<!-- </html> --> -->

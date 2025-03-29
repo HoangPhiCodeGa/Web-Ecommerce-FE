@@ -1,0 +1,32 @@
+<div class="order-details" th:fragment="customerDetailModal">
+  <div th:with="kh=${khachHang}" class="container">
+    <div class="row g-3">
+      <!-- Cột 1 -->
+      <div class="col-md-12">
+        <p><strong>ID Khách hàng:</strong> <span th:text="${kh.getId()}"></span></p>
+        <p><strong>Họ tên:</strong> <span th:text="${kh.getTenKH()}"></span></p>
+        <p><strong>SĐT:</strong> <span th:text="${kh.getSdt()}"></span></p>
+        <p><strong>Username:</strong> <span th:text="${kh.getUser().getUsername()}"></span></p>
+        <p><strong>Enabled:</strong> <span th:text="${kh.getUser().isEnabled()}"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="search-bar mt-3 mb-3">
+  <h6>Danh sách quyền</h6>
+</div>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>STT</th>
+    <th>Tên quyền</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="odd" th:each="r, iterStat : ${khachHang.getUser().getUserRoles()}">
+    <td th:text="${iterStat.count}"></td>
+    <td th:text="${r.getRole().getName()}"></td>
+  </tr>
+  </tbody>
+</table>
