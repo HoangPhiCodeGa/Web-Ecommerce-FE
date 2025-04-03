@@ -1,59 +1,52 @@
-<div class="order-details">
-  <div class="container">
+<div class="order-details" th:fragment="orderDetailModal">
+  <div th:with="od=${orderDetails.getFirst()}" class="container">
     <div class="row g-3">
       <!-- Cột 1 -->
       <div class="col-md-6">
-        <p><strong>ID Đơn Hàng:</strong> <span id="order-id">12345</span></p>
-        <p><strong>Ngày Tạo:</strong> <span id="order-date">2025-03-30</span></p>
-        <p><strong>Trạng Thái:</strong> <span id="order-status">Đang xử lý</span></p>
+        <p><strong>ID Đơn Hàng:</strong> <span id="order-id" th:text="${od.getDonHang().getId()}"></span></p>
+        <p><strong>Ngày Tạo:</strong> <span id="order-date" th:text="${od.getDonHang().getNgayDatHang()}"></span></p>
+        <p><strong>Trạng Thái:</strong> <span id="order-status" th:text="${od.getDonHang().getTrangThai()}"></span></p>
       </div>
       <!-- Cột 2 -->
       <div class="col-md-6">
-        <p><strong>Tên Khách Hàng:</strong> <span id="customer-name">Nguyễn Văn A</span></p>
+        <p><strong>Tên Khách Hàng:</strong> <span id="customer-name" th:text="${od.getDonHang().getKhachHang().getTenKH()}"></span></p>
         <p>
           <strong>Khuyến Mãi:</strong>
-          <span id="promo-name">Mua 1 tặng 1</span>
-          <span id="promo-none" style="display:none;">Không</span>
+          <span th:if="${od.getDonHang().getKhuyenMai() != null}" th:text="${od.getDonHang().getKhuyenMai().getTenKhuyenMai()}"></span>
+          <span th:if="${od.getDonHang().getKhuyenMai() == null}">Không</span>
         </p>
-        <p><strong>Tổng Tiền:</strong> <span id="total">2,500,000 VND</span></p>
+        <p><strong>Tổng Tiền:</strong> <span id="total" th:text="${#numbers.formatDecimal(od.getDonHang().getTongTien(), 3, 'COMMA', 0, 'POINT') + ' VND'}"></span></p>
       </div>
     </div>
   </div>
 </div>
 
+<!--<div class="search-bar mt-3 mb-3">-->
+<!--    <input type="search" class="form-control" placeholder="Tìm kiếm sản phẩm">-->
+<!--</div>-->
 <table class="table table-bordered">
   <thead>
-    <tr>
-      <th>ID</th>
-      <th>Tên SP</th>
-      <th>Kích Thước</th>
-      <th>Màu Sắc</th>
-      <th>Giá Gốc</th>
-      <th>Giá Bán</th>
-      <th>Số Lượng</th>
-      <th>Thành Tiền</th>
-    </tr>
+  <tr>
+    <th>ID</th>
+    <th>Tên SP</th>
+    <th>Kích Thước</th>
+    <th>Màu Sắc</th>
+    <th>Giá Gốc</th>
+    <th>Giá Bán</th>
+    <th>Số Lượng</th>
+    <th>Thành Tiền</th>
+  </tr>
   </thead>
   <tbody>
-    <tr>
-      <td id="product-id">001</td>
-      <td id="product-name">Áo thun</td>
-      <td id="product-size">M</td>
-      <td id="product-color">Trắng</td>
-      <td id="product-price-origin" class="text-right">500,000 VND</td>
-      <td id="product-price-sell" class="text-right">450,000 VND</td>
-      <td id="product-quantity" class="text-right">5</td>
-      <td id="product-total" class="text-right">2,250,000 VND</td>
-    </tr>
-    <tr>
-      <td id="product-id">002</td>
-      <td id="product-name">Quần Jean</td>
-      <td id="product-size">L</td>
-      <td id="product-color">Đen</td>
-      <td id="product-price-origin" class="text-right">600,000 VND</td>
-      <td id="product-price-sell" class="text-right">550,000 VND</td>
-      <td id="product-quantity" class="text-right">3</td>
-      <td id="product-total" class="text-right">1,650,000 VND</td>
-    </tr>
+  <tr class="odd" th:each="od : ${orderDetails}">
+    <td th:text="${od.getId()}"></td>
+    <td th:text="${od.getSanPham().getTenSP()}"></td>
+    <td th:text="${od.getSanPham().getThuocTinhSP().getKichCo().getTenKichCo()}"></td>
+    <td th:text="${od.getSanPham().getThuocTinhSP().getMauSac().getTenMau()}"></td>
+    <td th:text="${#numbers.formatDecimal(od.getGiaGoc(), 3, 'COMMA', 0, 'POINT')+ ' VND'}" class="text-right"></td>
+    <td th:text="${#numbers.formatDecimal(od.getGiaBan(), 3, 'COMMA', 0, 'POINT') + ' VND'}" class="text-right"></td>
+    <td th:text="${od.getSoLuong()}" class="text-right"></td>
+    <td th:text="${#numbers.formatDecimal(od.getGiaBan() * od.getSoLuong(), 3, 'COMMA', 0, 'POINT') + ' VND'}" class="text-right"></td>
+  </tr>
   </tbody>
 </table>

@@ -1,122 +1,112 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Add Product Category</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
+<style>
+    /* Chỉ có border-bottom cho input */
+    .custom-input {
+        border: none; /* Bỏ viền mặc định */
+        border-bottom: 1px solid #ccc; /* Chỉ có viền dưới */
+        border-radius: 0; /* Loại bỏ bo góc */
+        outline: none; /* Bỏ đường viền xanh khi focus */
+        box-shadow: none; /* Không có bóng khi focus */
+    }
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
+    /* Thay đổi màu khi input được focus */
+    .custom-input:focus {
+        border-bottom: 1px solid #007bff; /* Màu viền xanh khi focus */
+    }
 
-    <style>
-        .custom-input {
-            border: none;
-            border-bottom: 1px solid #ccc;
-            border-radius: 0;
-            outline: none;
-            box-shadow: none;
-        }
+    /* Căn chỉnh icon thùng rác */
+    .delete-icon {
+        color: #dc3545; /* Màu đỏ cho icon thùng rác */
+        font-size: 18px; /* Kích thước icon */
+        cursor: pointer; /* Hiển thị con trỏ chỉ tay khi hover */
+        transition: color 0.3s;
+    }
 
-        .custom-input:focus {
-            border-bottom: 1px solid #007bff;
-        }
+    /* Thay đổi màu icon khi hover */
+    .delete-icon:hover {
+        color: #a71d2a;
+    }
+    .preview-container {
+        width: 150px; /* Đặt chiều rộng */
+        height: 150px; /* Đặt chiều cao */
+        border: 2px dashed #ccc; /* Viền nét đứt */
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: #f9f9f9;
+    }
 
-        .delete-icon {
-            color: #dc3545;
-            font-size: 18px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
+    .preview-container img {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+    }
 
-        .delete-icon:hover {
-            color: #a71d2a;
-        }
+    .preview-container:hover {
+        border-color: #007bff;
+    }
+    .preview-container img.default-image {
+        content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBkYXRhLW5hbWU9IkxheWVyIDEiIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij4gICA8cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iMTE2IiBoZWlnaHQ9IjExNiIgcng9IjUiIHN0eWxlPSJmaWxsOiNmZmY7c3Ryb2tlOiM2NjY7c3Ryb2tlLWRhc2hhcnJheTozOzQ7ZmlsbC1ydWxlOm5vbnplcm87Ii8+ICAgPGNpcmNsZSBjeD0iNTUiIGN5PSI0NSIgcj0iMTUiIHN0eWxlPSJmaWxsOiNlZWU7c3Ryb2tlOiNkZGQ7c3Ryb2tlLXdpZHRoOjI7Ii8+ICAgPGxpbmUgeDE9IjAiIHkxPSI5NSIgeDI9IjEwMCIgeTI9IjExMiIgc3R5bGU9InN0cm9rZTojYmJiO3N0cm9rZS13aWR0aDoxOyIvPjwvc3ZnPg==");
+        object-fit: contain;
+    }
+</style>
 
-        .preview-container {
-            width: 150px;
-            height: 150px;
-            border: 2px dashed #ccc;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            background-color: #f9f9f9;
-        }
-
-        .preview-container img {
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-        }
-
-        .preview-container:hover {
-            border-color: #007bff;
-        }
-
-        .preview-container img.default-image {
-            content: url("data:image/svg+xml;base64,...");
-            object-fit: contain;
-        }
-    </style>
-</head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="/assets/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
+             width="60">
     </div>
 
     <!-- Navbar -->
-    <nav>
-        <!-- Navbar content -->
-    </nav>
+    <nav th:replace="admin/fragments/navbar :: navbar"></nav>
+    <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside>
-        <!-- Sidebar content -->
-    </aside>
+    <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
-            <!-- Content header -->
         </div>
-
+        <!-- /.content-header -->
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row" style="justify-content: center">
                     <div class="col-md-10">
+                        <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Thêm loại sản phẩm</h3>
+                                <h3 class="card-title">Thêm loại sản phẩm </h3>
                             </div>
-
-                            <form action="/admin/category/save-category" method="post" enctype="multipart/form-data">
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form th:object="${category}" th:action="@{/admin/category/save-category}" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     <div class="form-row">
                                         <div class="form-group col-md-8">
                                             <label for="tenLoaiSP">Tên loại sản phẩm</label>
-                                            <input type="text" class="form-control" id="tenLoaiSP" name="tenLoai">
-                                            <span class="text-danger"></span>
+                                            <input type="text" class="form-control" id="tenLoaiSP" th:field="*{tenLoai}">
+                                            <span th:if="${#fields.hasErrors('tenLoai')}" th:errors="*{tenLoai}" class="text-danger"></span>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /.card-body -->
 
                                 <div class="card-footer" style="display:flex;justify-content: flex-end">
                                     <button type="submit" class="btn btn-primary">Thêm loại sản phẩm</button>
                                 </div>
                             </form>
                         </div>
+                        <!-- /.card -->
+
                     </div>
                 </div>
             </div>
@@ -124,21 +114,19 @@
         <!-- /.content -->
     </div>
 
-    <footer>
-        <!-- Footer content -->
-    </footer>
+    <!-- /.content-wrapper -->
+    <footer th:replace="admin/fragments/footer :: footer"></footer>
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
     </aside>
+    <!-- /.control-sidebar -->
+
 </div>
+<!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="/assets/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/assets/dist/js/adminlte.js"></script>
+<div th:replace="admin/fragments/script :: script"></div>
 </body>
 </html>

@@ -1,173 +1,211 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Update Customer Information</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
-    <style>
-        .custom-input {
-            border: none;
-            border-bottom: 1px solid #ccc;
-            border-radius: 0;
-            outline: none;
-            box-shadow: none;
-        }
-
-        .custom-input:focus {
-            border-bottom: 1px solid #007bff;
-        }
-
-        .delete-icon {
-            color: #dc3545;
-            font-size: 18px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .delete-icon:hover {
-            color: #a71d2a;
-        }
-
-        .preview-container {
-            width: 150px;
-            height: 150px;
-            border: 2px dashed #ccc;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            background-color: #f9f9f9;
-        }
-
-        .preview-container img {
-            max-width: 100%;
-            max-height: 100%;
-            display: block;
-        }
-
-        .preview-container:hover {
-            border-color: #007bff;
-        }
-
-        .preview-container img.default-image {
-            content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBkYXRhLW5hbWU9IkxheWVyIDEiIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij4gICA8cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iMTE2IiBoZWlnaHQ9IjExNiIgcng9IjUiIHN0eWxlPSJmaWxsOiNmZmY7c3Ryb2tlOiM2NjY7c3Ryb2tlLWRhc2hhcnJheTozOzQ7ZmlsbC1ydWxlOm5vbnplcm87Ii8+ICAgPGNpcmNsZSBjeD0iNTUiIGN5PSI0NSIgcj0iMTUiIHN0eWxlPSJmaWxsOiNlZWU7c3Ryb2tlOiNkZGQ7c3Ryb2tlLXdpZHRoOjI7Ii8+ICAgPGxpbmUgeDE9IjAiIHkxPSI5NSIgeDI9IjEwMCIgeTI9IjExMiIgc3R5bGU9InN0cm9rZTojYmJiO3N0cm9rZS13aWR0aDoxOyIvPjwvc3ZnPg==");
-            object-fit: contain;
-        }
-    </style>
-</head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="/assets/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
 
-    <!-- Navbar -->
-    <nav> <!-- Replace with actual navbar HTML --> </nav>
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
+         width="60">
+  </div>
 
-    <!-- Main Sidebar Container -->
-    <aside> <!-- Replace with sidebar content --> </aside>
+  <!-- Navbar -->
+  <nav th:replace="admin/fragments/navbar :: navbar"></nav>
+  <!-- /.navbar -->
 
-    <div class="content-wrapper">
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row" style="justify-content: center">
-                    <div class="col-md-10">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Cập nhật thông tin khách hàng</h3>
-                            </div>
+  <!-- Main Sidebar Container -->
+  <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
 
-                            <form action="/admin/customer/edit" method="post">
-                                <div class="card-body">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label for="inputID">ID</label>
-                                            <input readonly class="form-control" id="inputID" name="id" value="1" placeholder="ID">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label for="inputTenKm">Họ và tên</label>
-                                            <input class="form-control" id="inputTenKm" name="tenKH" placeholder="Họ và tên">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            <label for="inputPhantram">Điện thoại</label>
-                                            <input type="number" class="form-control" id="inputPhantram" name="sdt" placeholder="VD: 5">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            <label for="inputGiaToiThieu">Ngày sinh</label>
-                                            <input type="date" class="form-control" id="inputGiaToiThieu" name="dob">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            <label>Giới tính</label>
-                                            <div class="form-check form-check-inline">
-                                                <input type="radio" class="form-check-input" name="gioiTinh" value="1" id="gioiTinhNam">
-                                                <label class="form-check-label" for="gioiTinhNam">Nam</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input type="radio" class="form-check-input" name="gioiTinh" value="0" id="gioiTinhNu">
-                                                <label class="form-check-label" for="gioiTinhNu">Nữ</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-8">
-                                            <label for="inputDiachi">Địa chỉ</label>
-                                            <input class="form-control" id="inputDiachi" name="diaChi" placeholder="Nhập vào địa chỉ">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <button type="submit" class="btn btn-block bg-gradient-primary">Lưu</button>
-                                    </div>
-                                    <div class="col-6">
-                                        <a href="/admin/customer" class="btn btn-danger btn-block">Hủy</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">CẬP NHẬT THÔNG TIN KHÁCH HÀNG</h1>
+          </div>
+          <div class="col-3"></div>
+          <div class="col-3">
+            <div id="alert-box" th:if="${flag_success}" class="alert alert-success position-absolute">
+              <span th:text="${message}"></span>
             </div>
-        </section>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+    <!-- /.content-header -->
 
-<script src="/assets/plugins/jquery/jquery.min.js"></script>
-<script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/dist/js/adminlte.js"></script>
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <form class="form-horizontal" action="/admin/customer/edit" method="post"
+                            th:object="${khachHangDTO}">
+                        <div class="card-body">
+
+                          <div class="form-group row">
+                            <label for="inputID" class="col-sm-2 col-form-label">ID</label>
+                            <div class="col-sm-5">
+                              <input readonly class="form-control" id="inputID"
+                                     th:field="${khachHangDTO.id}" placeholder="ID">
+                            </div>
+                            <p th:if="${#fields.hasErrors('id')}"
+                               th:errorclass="text-danger"
+                               th:errors="${khachHangDTO.id}"></p>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="inputTenKm" class="col-sm-2 col-form-label">Họ và
+                              tên</label>
+                            <div class="col-sm-5">
+                              <input class="form-control" id="inputTenKm"
+                                     th:field="${khachHangDTO.tenKH}"
+                                     placeholder="Họ và tên">
+                            </div>
+                            <p th:if="${#fields.hasErrors('tenKH')}"
+                               th:errorclass="text-danger"
+                               th:errors="${khachHangDTO.tenKH}"></p>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="inputPhantram" class="col-sm-2 col-form-label">Điện
+                              thoại</label>
+                            <div class="col-sm-3">
+                              <input type="number" class="form-control" id="inputPhantram"
+                                     th:field="${khachHangDTO.sdt}" placeholder="VD: 5">
+                            </div>
+                            <p th:if="${#fields.hasErrors('sdt')}"
+                               th:errorclass="text-danger"
+                               th:errors="${khachHangDTO.sdt}"></p>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputGiaToiThieu" class="col-sm-2 col-form-label">Ngày
+                              sinh</label>
+                            <div class="col-sm-3">
+                              <input type="date" class="form-control"
+                                     id="inputGiaToiThieu" th:field="${khachHangDTO.dob}"
+                              >
+                            </div>
+                            <p th:if="${#fields.hasErrors('dob')}"
+                               th:errorclass="text-danger"
+                               th:errors="${khachHangDTO.dob}"></p>
+                          </div>
+                          <div class="form-group row">
+
+                            <label for="inputGiaToiThieu" class="col-sm-2 col-form-label">Giới
+                              tính</label>
+                            <div class="col-sm-3">
+                              <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input"
+                                       th:field="${khachHangDTO.gioiTinh}" value="1"
+                                       id="gioiTinhNam">
+                                <label class="form-check-label"
+                                       for="gioiTinhNam">Nam</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input"
+                                       th:field="${khachHangDTO.gioiTinh}" value="0"
+                                       id="gioiTinhNu">
+                                <label class="form-check-label"
+                                       for="gioiTinhNu">Nữ</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputDiachi" class="col-sm-2 col-form-label">Địa chỉ</label>
+                            <div class="col-sm-5">
+                              <input class="form-control" id="inputDiachi"
+                                     th:field="${khachHangDTO.diaChi}"
+                                     placeholder="Nhập vào địa chỉ">
+                            </div>
+                            <p th:if="${#fields.hasErrors('diaChi')}"
+                               th:errorclass="text-danger"
+                               th:errors="${khachHangDTO.diaChi}"></p>
+                          </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="row">
+                          <div class="col-6">
+                            <button type="submit" class="btn btn-block bg-gradient-primary">
+                              Lưu
+                            </button>
+                          </div>
+                          <div class="col-6">
+                            <a th:href="@{/admin/customer}"
+                               class="btn btn-danger btn-block">Hủy</a>
+                          </div>
+                        </div>
+                        <!-- /.card-footer -->
+                      </form>
+                    </div>
+                  </div>
+                  <div class="row"
+                       style="display: flex;justify-content: space-between;align-items: center;">
+                    <div class="col-sm-12 col-md-5">
+                      <div class="dataTables_info" id="example2_info" role="status"
+                           aria-live="polite">
+                        <!--                                                Showing 1 to 10 of 57 entries-->
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-7" style="display: flex;justify-content: flex-end">
+                      <div class="dataTables_paginate paging_simple_numbers"
+                           id="example2_paginate">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <!-- /.content-wrapper -->
+  <footer th:replace="admin/fragments/footer :: footer"></footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<div th:replace="admin/fragments/script :: script"></div>
+
 <script>
+  // Tự động ẩn thông báo sau 3 giây
   setTimeout(() => {
     const alertBox = document.getElementById("alert-box");
     if (alertBox) {
       alertBox.style.display = "none";
     }
-  }, 3000);
+  }, 3000); // 3000ms = 3 giây
 </script>
+
+
 </body>
 </html>
