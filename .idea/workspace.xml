@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc106c83-6982-4ce0-808d-0d6da43129d2" name="Changes" comment="" />
+    <list default="true" id="cc106c83-6982-4ce0-808d-0d6da43129d2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/services/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/services/impl/AccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/services/impl/AccountServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/account/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/account/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,7 +42,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "dat",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/DELL/IdeaProjects/SubProject_WWW-tung",
+    "last_opened_file_path": "C:/Users/DELL/IdeaProjects/Web-Ecommerce-",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
@@ -60,6 +66,7 @@
       <updated>1742548189164</updated>
       <workItem from="1742548190195" duration="16000" />
       <workItem from="1742567230179" duration="11000" />
+      <workItem from="1742800261940" duration="6000" />
     </task>
     <servers />
   </component>

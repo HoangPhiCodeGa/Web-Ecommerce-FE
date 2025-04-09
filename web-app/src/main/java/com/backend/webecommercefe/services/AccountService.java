@@ -7,6 +7,7 @@
 package com.backend.webecommercefe.services;
 
 
+import com.backend.webecommercefe.entities.Account;
 import com.backend.webecommercefe.untils.ApiResponse;
 
 /*
@@ -17,7 +18,7 @@ import com.backend.webecommercefe.untils.ApiResponse;
  */
 public interface AccountService {
     public ApiResponse login(String username, String password);
-    public ApiResponse register(String username,String email, String password);
+    public ApiResponse register(Account account);
 }
 
     

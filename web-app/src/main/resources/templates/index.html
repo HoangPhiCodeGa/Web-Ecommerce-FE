@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ABCSZ Shop</title>
+    <title>Molla Shop</title>
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
@@ -110,7 +110,7 @@
                                 <li><a href="#"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
                                 <li><a href="#">About Us</a></li>
 <!--                                <li><a th:href="@{/my-account/profile}">My Account</a></li>-->
-                                <li><a th:href="@{/account/login}">My Account</a></li>
+                                <li><a id="accountLink"  th:href="@{/account/login}">My Account</a></li>
                             </ul>
                         </li>
                     </ul><!-- End .top-menu -->
@@ -185,94 +185,94 @@
         </div><!-- End .page-header -->
 
 
-        <div class="page-content" style="margin-top: 20px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="products mb-3">
-                            <div th:each="sp : ${sanPhamPage.content}" class="product product-list">
-                                <div class="row">
-                                    <!-- Cột hình ảnh sản phẩm -->
-                                    <div class="col-6 col-lg-3">
-                                        <figure class="product-media">
-                                            <span class="product-label label-new" th:if="${sp.giaBan < sp.giaGoc}">Sale</span>
-                                            <a href="#" class="open-modal" data-id="[[${sp.id}]]" data-name="[[${sp.tenSP}]]"
-                                               data-image="[[${sp.hinhAnh}]]" data-price="[[${#numbers.formatDecimal(sp.giaBan, 0, 3)}]]">
-                                                <img th:src="@{'/images/'+${sp.hinhAnh}}" alt="Product image" class="product-image">
+<!--        <div class="page-content" style="margin-top: 20px;">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-9">-->
+<!--                        <div class="products mb-3">-->
+<!--                            <div th:each="sp : ${sanPhamPage.content}" class="product product-list">-->
+<!--                                <div class="row">-->
+<!--                                    &lt;!&ndash; Cột hình ảnh sản phẩm &ndash;&gt;-->
+<!--                                    <div class="col-6 col-lg-3">-->
+<!--                                        <figure class="product-media">-->
+<!--                                            <span class="product-label label-new" th:if="${sp.giaBan < sp.giaGoc}">Sale</span>-->
+<!--                                            <a href="#" class="open-modal" data-id="[[${sp.id}]]" data-name="[[${sp.tenSP}]]"-->
+<!--                                               data-image="[[${sp.hinhAnh}]]" data-price="[[${#numbers.formatDecimal(sp.giaBan, 0, 3)}]]">-->
+<!--                                                <img th:src="@{'/images/'+${sp.hinhAnh}}" alt="Product image" class="product-image">-->
 
-                                            </a>
-                                        </figure>
-                                    </div>
+<!--                                            </a>-->
+<!--                                        </figure>-->
+<!--                                    </div>-->
 
-                                    <!-- Cột thông tin sản phẩm -->
-                                    <div class="col-6 col-lg-3 order-lg-last">
-                                        <div class="product-list-action">
-                                            <div class="product-price">
-                                                <span th:text="${sp.giaBan}"></span> VND
-                                            </div>
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-quickview open-modal" data-id="[[${sp.id}]]"
-                                                   data-name="[[${sp.tenSP}]]" data-image="[[${sp.hinhAnh}]]"
-                                                   data-price="[[${#numbers.formatDecimal(sp.giaBan, 0, 3)}]]" title="Quick view"><span>Quick view</span></a>
-                                            </div>
-                                            <form th:action="@{/cart/add/{sanPhamId}(sanPhamId=${sp.id})}" method="post">
-                                                <button type="submit" class="btn-product btn-cart">
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
+<!--                                    &lt;!&ndash; Cột thông tin sản phẩm &ndash;&gt;-->
+<!--                                    <div class="col-6 col-lg-3 order-lg-last">-->
+<!--                                        <div class="product-list-action">-->
+<!--                                            <div class="product-price">-->
+<!--                                                <span th:text="${sp.giaBan}"></span> VND-->
+<!--                                            </div>-->
+<!--                                            <div class="product-action">-->
+<!--                                                <a href="#" class="btn-product btn-quickview open-modal" data-id="[[${sp.id}]]"-->
+<!--                                                   data-name="[[${sp.tenSP}]]" data-image="[[${sp.hinhAnh}]]"-->
+<!--                                                   data-price="[[${#numbers.formatDecimal(sp.giaBan, 0, 3)}]]" title="Quick view"><span>Quick view</span></a>-->
+<!--                                            </div>-->
+<!--                                            <form th:action="@{/cart/add/{sanPhamId}(sanPhamId=${sp.id})}" method="post">-->
+<!--                                                <button type="submit" class="btn-product btn-cart">-->
+<!--                                                    <span>Add to Cart</span>-->
+<!--                                                </button>-->
+<!--                                            </form>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
 
-                                    <!-- Cột mô tả và tên sản phẩm -->
-                                    <div class="col-lg-6">
-                                        <div class="product-body product-action-inner">
-                                            <a href="#" class="btn-product btn-wishlist" title="Add to wishlist"><span>Add to wishlist</span></a>
-                                            <div class="product-cat">
-                                                <a href="#" th:text="${sp.loaiSP.tenLoai}"></a>
-                                            </div>
-                                            <h3 class="product-title">
-                                                <!-- Tên sản phẩm, nhấn vào sẽ chuyển tới trang chi tiết -->
-                                                <a th:href="@{/product/{id}(id=${sp.id})}" th:text="${sp.tenSP}"></a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--                                    &lt;!&ndash; Cột mô tả và tên sản phẩm &ndash;&gt;-->
+<!--                                    <div class="col-lg-6">-->
+<!--                                        <div class="product-body product-action-inner">-->
+<!--                                            <a href="#" class="btn-product btn-wishlist" title="Add to wishlist"><span>Add to wishlist</span></a>-->
+<!--                                            <div class="product-cat">-->
+<!--                                                <a href="#" th:text="${sp.loaiSP.tenLoai}"></a>-->
+<!--                                            </div>-->
+<!--                                            <h3 class="product-title">-->
+<!--                                                &lt;!&ndash; Tên sản phẩm, nhấn vào sẽ chuyển tới trang chi tiết &ndash;&gt;-->
+<!--                                                <a th:href="@{/product/{id}(id=${sp.id})}" th:text="${sp.tenSP}"></a>-->
+<!--                                            </h3>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- Modal Popup -->
-                        <div id="productModal" class="modal">
-                            <div class="modal-content">
-                                <span class="close">&times;</span>
-                                <h2 id="modal-product-name"></h2>
-                                <img id="modal-product-image" src="" alt="Product image" style="width: 100%;">
-                                <p>Giá: <span id="modal-product-price"></span> VND</p>
-                                <button>Thêm vào giỏ hàng</button>
-                            </div>
-                        </div>
-
-
-                        <!-- Điều hướng phân trang -->
-                        <div class="pagination">
-                            <div th:if="${sanPhamPage.hasPrevious()}">
-                                <a th:href="@{/products(page=${sanPhamPage.number - 1}, size=${sanPhamPage.size})}" class="btn btn-primary">
-                                    Trang trước
-                                </a>
-                            </div>
-                            <div th:if="${sanPhamPage.hasNext()}">
-                                <a th:href="@{/products(page=${sanPhamPage.number + 1}, size=${sanPhamPage.size})}" class="btn btn-primary">
-                                    Trang sau
-                                </a>
-                            </div>
-                            <p>Trang hiện tại: <span th:text="${sanPhamPage.number + 1}"></span> / <span th:text="${sanPhamPage.totalPages}"></span></p>
-                        </div>
+<!--                        &lt;!&ndash; Modal Popup &ndash;&gt;-->
+<!--                        <div id="productModal" class="modal">-->
+<!--                            <div class="modal-content">-->
+<!--                                <span class="close">&times;</span>-->
+<!--                                <h2 id="modal-product-name"></h2>-->
+<!--                                <img id="modal-product-image" src="" alt="Product image" style="width: 100%;">-->
+<!--                                <p>Giá: <span id="modal-product-price"></span> VND</p>-->
+<!--                                <button>Thêm vào giỏ hàng</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
 
-                    </div><!-- End .col-lg-9 -->
+<!--                        &lt;!&ndash; Điều hướng phân trang &ndash;&gt;-->
+<!--                        <div class="pagination">-->
+<!--                            <div th:if="${sanPhamPage.hasPrevious()}">-->
+<!--                                <a th:href="@{/products(page=${sanPhamPage.number - 1}, size=${sanPhamPage.size})}" class="btn btn-primary">-->
+<!--                                    Trang trước-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div th:if="${sanPhamPage.hasNext()}">-->
+<!--                                <a th:href="@{/products(page=${sanPhamPage.number + 1}, size=${sanPhamPage.size})}" class="btn btn-primary">-->
+<!--                                    Trang sau-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <p>Trang hiện tại: <span th:text="${sanPhamPage.number + 1}"></span> / <span th:text="${sanPhamPage.totalPages}"></span></p>-->
+<!--                        </div>-->
 
-                </div><!-- End .row -->
-            </div><!-- End .container -->
-        </div><!-- End .page-content -->
+
+<!--                    </div>&lt;!&ndash; End .col-lg-9 &ndash;&gt;-->
+
+<!--                </div>&lt;!&ndash; End .row &ndash;&gt;-->
+<!--            </div>&lt;!&ndash; End .container &ndash;&gt;-->
+<!--        </div>&lt;!&ndash; End .page-content &ndash;&gt;-->
     </main><!-- End .main -->
 
     <footer class="footer">
@@ -652,43 +652,62 @@
 <!-- Main JS File -->
 <script th:src="@{assets/fe/js/main.js}"></script>
 <script>
-    // Lấy phần tử modal
-    var modal = document.getElementById("productModal");
-    var modalName = document.getElementById("modal-product-name");
-    var modalImage = document.getElementById("modal-product-image");
-    var modalPrice = document.getElementById("modal-product-price");
+    // // Lấy phần tử modal
+    // var modal = document.getElementById("productModal");
+    // var modalName = document.getElementById("modal-product-name");
+    // var modalImage = document.getElementById("modal-product-image");
+    // var modalPrice = document.getElementById("modal-product-price");
+    //
+    // // Lấy tất cả các nút mở modal
+    // var openModalBtns = document.getElementsByClassName("open-modal");
+    //
+    // // Lặp qua các nút và thêm sự kiện mở modal
+    // Array.from(openModalBtns).forEach(function(btn) {
+    //     btn.onclick = function() {
+    //         var id = btn.getAttribute("data-id");
+    //         var name = btn.getAttribute("data-name");
+    //         var image = btn.getAttribute("data-image");
+    //         var price = btn.getAttribute("data-price");
+    //
+    //         modalName.textContent = name;
+    //         modalImage.src = image;
+    //         modalPrice.textContent = price;
+    //
+    //         modal.style.display = "block";
+    //     };
+    // });
+    //
+    // // Đóng modal khi nhấn vào dấu "x"
+    // var closeBtn = document.getElementsByClassName("close")[0];
+    // closeBtn.onclick = function() {
+    //     modal.style.display = "none";
+    // };
+    //
+    // // Đóng modal khi nhấn bên ngoài modal
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // };
 
-    // Lấy tất cả các nút mở modal
-    var openModalBtns = document.getElementsByClassName("open-modal");
+    // account
+    document.addEventListener("DOMContentLoaded", function () {
+        const token = localStorage.getItem("token");
+        console.log(token);
+        const myAccountLink = document.getElementById("accountLink");
+        if (token && myAccountLink) {
+            // Đổi nội dung thành "Logout"
+            myAccountLink.textContent = "Logout";
+            myAccountLink.href = "#"; // Hoặc "#" để không dẫn đi đâu
 
-    // Lặp qua các nút và thêm sự kiện mở modal
-    Array.from(openModalBtns).forEach(function(btn) {
-        btn.onclick = function() {
-            var id = btn.getAttribute("data-id");
-            var name = btn.getAttribute("data-name");
-            var image = btn.getAttribute("data-image");
-            var price = btn.getAttribute("data-price");
-
-            modalName.textContent = name;
-            modalImage.src = image;
-            modalPrice.textContent = price;
-
-            modal.style.display = "block";
-        };
-    });
-
-    // Đóng modal khi nhấn vào dấu "x"
-    var closeBtn = document.getElementsByClassName("close")[0];
-    closeBtn.onclick = function() {
-        modal.style.display = "none";
-    };
-
-    // Đóng modal khi nhấn bên ngoài modal
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+            // Gán sự kiện click để logout
+            myAccountLink.addEventListener("click", function (e) {
+                e.preventDefault();
+                localStorage.removeItem("token");
+                window.location.reload(); // Reload lại trang sau khi logout
+            });
         }
-    };
+    });
 </script>
 
 </body>
