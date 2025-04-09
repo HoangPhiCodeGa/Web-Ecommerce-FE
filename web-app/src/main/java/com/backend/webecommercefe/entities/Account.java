@@ -28,4 +28,9 @@ public class Account {
     private String password;
     private String email;
     private List<Role> roles;
+
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

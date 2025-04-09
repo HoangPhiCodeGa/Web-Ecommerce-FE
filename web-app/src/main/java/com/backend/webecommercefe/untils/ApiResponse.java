@@ -35,4 +35,10 @@ public class ApiResponse {
 
     private long totalElements;
 
+    public ApiResponse(int status, Object data, String message) {
+        this.status = status;
+        this.data = data;
+        this.message = message;
+    }
+
 }
