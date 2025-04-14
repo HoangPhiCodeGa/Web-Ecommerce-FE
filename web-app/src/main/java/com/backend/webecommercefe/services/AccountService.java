@@ -1,23 +1,22 @@
-/*
- * @(#) $(NAME).java    1.0     3/21/2025
- *
- * Copyright (c) 2025 IUH. All rights reserved.
- */
-
 package com.backend.webecommercefe.services;
 
-
+import com.backend.webecommercefe.entities.Account;
+import com.backend.webecommercefe.entities.Role;
 import com.backend.webecommercefe.untils.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
-/*
- * @description
- * @author: Tran Tan Dat
- * @version: 1.0
- * @created: 21-March-2025 10:05 PM
- */
+import java.util.List;
+
 public interface AccountService {
-    public ApiResponse login(String username, String password);
-    public ApiResponse register(String username,String email, String password);
-}
+    ApiResponse login(String username, String password);
+    ApiResponse register(Account account);
+    List<Account> getAccounts(String keyword, int page, int size, HttpServletRequest request);
+    Account getAccountById(Long id, HttpServletRequest request);
+    void updateAccount(Account account, HttpServletRequest request);
+    void addRole(String username, String roleName, HttpServletRequest request);
+    void deleteRole(String username, String roleName, HttpServletRequest request);
+    long getTotalAccounts(String keyword, HttpServletRequest request);
+    Account getAccountByUsername(String username, HttpServletRequest request);
 
-    
+    List<Role> getAllRoles(HttpServletRequest request);
+}

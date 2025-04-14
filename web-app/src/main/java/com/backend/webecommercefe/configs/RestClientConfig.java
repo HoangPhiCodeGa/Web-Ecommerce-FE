@@ -6,13 +6,8 @@
 
 package com.backend.webecommercefe.configs;
 
-/*
- * @description
- * @author: Tran Tan Dat
- * @version: 1.0
- * @created: 20-March-2025 7:13 PM
- */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
@@ -25,4 +20,9 @@ public class RestClientConfig {
         return RestClient.builder().build();
     }
 
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
 }

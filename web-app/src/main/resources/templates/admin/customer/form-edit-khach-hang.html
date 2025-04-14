@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">CHỈNH SỬA KHÁCH HÀNG</h1>
+                    </div>
+                </div>
+
+                <!-- Hiển thị thông báo lỗi/success -->
+                <div th:if="${message}" class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-check"></i> Success</h5>
+                    <span th:text="${message}"></span>
+                </div>
+                <div th:if="${error}" class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-exclamation-triangle"></i> Error</h5>
+                    <span th:text="${error}"></span>
+                </div>
+            </div>
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6"></div>
+                                        <div class="col-sm-12 col-md-6"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <form class="form-horizontal" th:action="@{/admin/customer/update}" method="post" th:object="${customerDTO}">
+                                                <div class="card-body">
+                                                    <div class="form-group row">
+                                                        <label for="inputID" class="col-sm-2 col-form-label">ID</label>
+                                                        <div class="col-sm-5">
+                                                            <input readonly class="form-control" id="inputID" th:field="*{userId}" placeholder="ID">
+                                                        </div>
+                                                        <p th:if="${#fields.hasErrors('userId')}" th:errorclass="text-danger" th:errors="*{userId}"></p>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="inputFullName" class="col-sm-2 col-form-label">Họ và tên</label>
+                                                        <div class="col-sm-5">
+                                                            <input class="form-control" id="inputFullName" th:field="*{fullName}" placeholder="Họ và tên">
+                                                        </div>
+                                                        <p th:if="${#fields.hasErrors('fullName')}" th:errorclass="text-danger" th:errors="*{fullName}"></p>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="inputPhoneNumber" class="col-sm-2 col-form-label">Số điện thoại</label>
+                                                        <div class="col-sm-5">
+                                                            <input class="form-control" id="inputPhoneNumber" th:field="*{phoneNumber}" placeholder="Số điện thoại">
+                                                        </div>
+                                                        <p th:if="${#fields.hasErrors('phoneNumber')}" th:errorclass="text-danger" th:errors="*{phoneNumber}"></p>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="inputDateOfBirth" class="col-sm-2 col-form-label">Ngày sinh</label>
+                                                        <div class="col-sm-5">
+                                                            <input type="date" class="form-control" id="inputDateOfBirth" th:field="*{dateOfBirth}">
+                                                        </div>
+                                                        <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errorclass="text-danger" th:errors="*{dateOfBirth}"></p>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">Giới tính</label>
+                                                        <div class="col-sm-3">
+                                                            <select class="form-control" th:field="*{gender}">
+                                                                <option value="true">Nam</option>
+                                                                <option value="false">Nữ</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="inputAddress" class="col-sm-2 col-form-label">Địa chỉ</label>
+                                                        <div class="col-sm-5">
+                                                            <input class="form-control" id="inputAddress" th:field="*{address}" placeholder="Địa chỉ">
+                                                        </div>
+                                                        <p th:if="${#fields.hasErrors('address')}" th:errorclass="text-danger" th:errors="*{address}"></p>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                                        <div class="col-sm-5">
+                                                            <input type="email" class="form-control" id="inputEmail" th:field="*{email}" placeholder="Email">
+                                                        </div>
+                                                        <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"></p>
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-body -->
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <button type="submit" class="btn btn-block bg-gradient-primary">Lưu</button>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <a th:href="@{/admin/customer}" class="btn btn-danger btn-block">Hủy</a>
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-footer -->
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<div th:replace="~{fragments/script :: script}"></div>
+</body>
+</html>
