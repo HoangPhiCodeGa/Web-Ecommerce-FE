@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
+             width="60">
+    </div>
+
+    <!-- Navbar -->
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Cập nhật sản phẩm</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-10">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Cập nhật sản phẩm</h3>
+                            </div>
+                            <!-- Hiển thị thông báo lỗi nếu có -->
+                            <div th:if="${error}" class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h5><i class="icon fas fa-exclamation-triangle"></i> Lỗi!</h5>
+                                <span th:text="${error}"></span>
+                            </div>
+
+                            <form id="product-form" th:action="@{/admin/product/edit-product/{id}(id=${product != null ? product['id'] : ''})}" method="post" enctype="multipart/form-data">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="maHang">Mã hàng</label>
+                                            <input type="text" class="form-control" id="maHang" th:value="${product != null ? product['id'] : ''}" readonly>
+                                            <input type="hidden" name="id" th:value="${product != null ? product['id'] : ''}">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="gia_nhap">Giá nhập</label>
+                                            <input type="number" class="form-control" id="gia_nhap" name="gia_nhap" th:value="${product != null ? product['gia_nhap'] : ''}" placeholder="Nhập giá nhập" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="ten_sp">Tên sản phẩm</label>
+                                            <input type="text" class="form-control" id="ten_sp" name="ten_sp" th:value="${product != null ? product['ten_sp'] : ''}" placeholder="Nhập tên sản phẩm" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="gia_goc">Giá vốn</label>
+                                            <input type="number" class="form-control" id="gia_goc" name="gia_goc" th:value="${product != null ? product['gia_goc'] : ''}" placeholder="Nhập giá vốn" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="category_id">Loại sản phẩm</label>
+                                            <select class="form-control" id="category_id" name="category_id" required>
+                                                <option th:each="category : ${categories}"
+                                                        th:value="${category.id}"
+                                                        th:text="${category['ten_loai']}"
+                                                        th:selected="${product != null and product['category_id'] == category.id}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="gia_ban">Giá bán</label>
+                                            <input type="number" class="form-control" id="gia_ban" name="gia_ban" th:value="${product != null ? product['gia_ban'] : ''}" placeholder="Nhập giá bán" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="mo_ta">Mô tả</label>
+                                            <textarea class="form-control" id="mo_ta" name="mo_ta" rows="3" th:text="${product != null ? product['mo_ta'] : ''}" placeholder="Nhập mô tả"></textarea>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="so_luong">Tồn kho</label>
+                                            <input type="number" class="form-control" id="so_luong" name="so_luong" th:value="${product != null ? product['so_luong'] : ''}" placeholder="Nhập số lượng tồn kho" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="chonAnh">Chọn ảnh</label>
+                                            <div class="custom-file">
+                                                <div class="preview-container">
+                                                    <img id="imageProduct" th:src="${product != null and product['hinh_anh'] != null ? product['hinh_anh'] : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBkYXRhLW5hbWU9IkxheWVyIDEiIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij4gICA8cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iMTE2IiBoZWlnaHQ9IjExNiIgcng9IjUiIHN0eWxlPSJmaWxsOiNmZmY7c3Ryb2tlOiM2NjY7c3Ryb2tlLWRhc2hhcnJheTozOzQ7ZmlsbC1ydWxlOm5vbnplcm87Ii8+ICAgPGNpcmNsZSBjeD0iNTUiIGN5PSI0NSIgcj0iMTUiIHN0eWxlPSJmaWxsOiNlZWU7c3Ryb2tlOiNkZGQ7c3Ryb2tlLXdpZHRoOjI7Ii8+ICAgPGxpbmUgeDE9IjAiIHkxPSI5NSIgeDI9IjEwMCIgeTI9IjExMiIgc3R5bGU9InN0cm9rZTojYmJiO3N0cm9rZS13aWR0aDoxOyIvPjwvc3ZnPg=='}" alt="Product Image" style="width: 150px; height: 150px; cursor: pointer;" onclick="document.getElementById('chonAnh').click();">
+                                                </div>
+                                                <input type="file" class="custom-file-input" id="chonAnh" style="display: none;" onchange="updateImageDisplay(this);" name="hinhAnh">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="kich_co">Size</label>
+                                            <select class="form-control" id="kich_co" name="kich_co">
+                                                <option value="Standard" th:selected="${product != null and product['kich_co'] == 'Standard'}">Standard</option>
+                                                <option value="14-inch" th:selected="${product != null and product['kich_co'] == '14-inch'}">14-inch</option>
+                                                <option value="One Size" th:selected="${product != null and product['kich_co'] == 'One Size'}">One Size</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="mau_sac">Màu sắc</label>
+                                            <select class="form-control" id="mau_sac" name="mau_sac">
+                                                <option value="Đen" th:selected="${product != null and product['mau_sac'] == 'Đen'}">Đen</option>
+                                                <option value="Trắng" th:selected="${product != null and product['mau_sac'] == 'Trắng'}">Trắng</option>
+                                                <option value="Xám" th:selected="${product != null and product['mau_sac'] == 'Xám'}">Xám</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer" style="display:flex;justify-content: flex-end">
+                                    <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
+                                    <a th:href="@{/admin/product}" class="btn btn-secondary">Hủy</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<!-- jQuery -->
+<div th:replace="~{fragments/script :: script}"></div>
+
+<script>
+    function updateImageDisplay(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var img = document.getElementById('imageProduct');
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+</script>
+</body>
+</html>

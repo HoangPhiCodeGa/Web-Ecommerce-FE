@@ -1,117 +1,173 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AdminLTE 3 | Manage Product Categories</title>
-        <!-- Google Font: Source Sans Pro -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
-        <!-- icheck bootstrap -->
-        <link rel="stylesheet" href="/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
-    </head>
-    <body class="hold-transition sidebar-mini layout-fixed">
-        <div class="wrapper">
-            <!-- Preloader -->
-            <div class="preloader flex-column justify-content-center align-items-center">
-                <img
-                    class="animation__shake"
-                    src="/assets/dist/img/AdminLTELogo.png"
-                    alt="AdminLTELogo"
-                    height="60"
-                    width="60"
-                >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Quản lý loại sản phẩm</h1>
+                    </div>
+                </div>
             </div>
-            <!-- Navbar -->
-            <nav>
-                <!-- Replace with actual navbar HTML --></nav>
-            <!-- Main Sidebar Container -->
-            <aside>
-                <!-- Replace with sidebar content --></aside>
-            <div class="content-wrapper">
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="row" style="justify-content: center">
-                            <div class="col-md-10">
-                                <div class="card card-primary">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Quản lý loại sản phẩm</h3>
-                                    </div>
-                                    <form action="/admin/category/search-category" method="get">
-                                        <div class="card-body">
-                                            <div class="form-row">
-                                                <div class="form-group col-md-8">
-                                                    <input
-                                                        type="search"
-                                                        class="form-control"
-                                                        placeholder="Theo tên loại sản phẩm"
-                                                        name="keyword"
-                                                        value=""
-                                                    >
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <a href="add-category.html">
-                                                        <button type="button" class="btn btn-block bg-gradient-primary">
-                                                            <i class="fa fa-plus" style="margin-right: 5px"></i>
-                                                            Thêm mới
-                                                        </button>
-                                                    </a>
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row" style="display: flex;justify-content: space-between;align-items: center">
+                                    <div class="col-md-5">
+                                        <form>
+                                            <div class="input-group">
+                                                <input type="search" class="form-control" placeholder="Theo tên loại sản phẩm" name="keyword" th:value="${keyword}">
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-default">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                    <div class="card-body">
-                                        <table class="table table-bordered table-hover dataTable">
-                                            <thead>
-                                                <tr>
-                                                    <th class="sorting text-center">Id</th>
-                                                    <th class="sorting text-center">Tên loại sản phẩm</th>
-                                                    <th class="sorting text-center">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Replace this loop with actual product categories -->
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Electronics</td>
-                                                    <td>
-                                                        <a href="/admin/category/edit-category/1">
-                                                            <i class="fas fa-edit" style="color: #1e90ff;"></i>
-                                                        </a>
-                                                        <a href="/admin/category/delete-category/1" onclick="return confirm('Bạn có chắc chắn muốn xóa loại sản phẩm này không?')">
-                                                            <i class="fas fa-trash-alt" style="color: #ff0000;"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <!-- End of loop -->
-                                            </tbody>
-                                        </table>
+                                        </form>
                                     </div>
-                                    <div class="card-footer" style="display:flex;justify-content: flex-end">
-                                        <ul class="pagination">
-                                            <li class="page-item">
-                                                <a class="page-link" href="/admin/category?page=1">Previous</a>
-                                            </li>
-                                            <li class="page-item active">
-                                                <a class="page-link" href="/admin/category?page=1">1</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="/admin/category?page=2">Next</a>
-                                            </li>
-                                        </ul>
+                                    <div class="col-md-2">
+                                        <a th:href="@{/admin/category/add-category}">
+                                            <button type="button" class="btn btn-block bg-gradient-primary">
+                                                <i class="fa fa-plus" style="margin-right: 5px"></i>
+                                                Thêm mới
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <!-- Hiển thị thông báo thành công hoặc lỗi -->
+                                <div th:if="${success}" class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h5><i class="icon fas fa-check"></i> Success!</h5>
+                                    <span th:text="${success}"></span>
+                                </div>
+                                <div th:if="${error}" class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h5><i class="icon fas fa-exclamation-triangle"></i> Error!</h5>
+                                    <span th:text="${error}"></span>
+                                </div>
+
+                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6"></div>
+                                        <div class="col-sm-12 col-md-6"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+                                                <thead>
+                                                <tr>
+                                                    <th class="sorting sorting_asc text-center" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending">
+                                                        Id
+                                                    </th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="example2" rowspan="1" colspan="1">
+                                                        Tên loại sản phẩm
+                                                    </th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="example2" rowspan="1" colspan="2">
+                                                        Actions
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="category : ${categories}">
+                                                    <td th:text="${category.id}"></td>
+                                                    <td th:text="${category['ten_loai']}"></td>
+                                                    <td>
+                                                        <a th:href="@{/admin/category/edit-category/{id}(id=${category.id})}"><i class="fas fa-edit" style="color: #1e90ff; cursor: pointer;"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <a th:href="@{/admin/category/delete-category/{id}(id=${category.id})}"
+                                                           onclick="return confirm('Bạn có chắc chắn muốn xóa loại sản phẩm này không?')">
+                                                            <i class="fas fa-trash-alt" style="color: #ff0000; cursor: pointer;"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="display: flex;justify-content: space-between;align-items: center;">
+                                        <div class="col-sm-12 col-md-5">
+                                            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                                Showing <span th:text="${currentPage}"></span> to <span th:text="${totalPages}"></span> of <span th:text="${size}"></span> entries
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-7" style="display: flex;justify-content: flex-end">
+                                            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                                <ul class="pagination">
+                                                    <li class="paginate_button page-item previous" id="example2_previous"
+                                                        th:classappend="${currentPage > 1 ? 'enabled' : 'disabled'}">
+                                                        <a th:href="@{${keyword != null && keyword != '' ? '/admin/category?keyword='+ keyword + '&': '/admin/category'} + 'pageNo='+${currentPage-1}}"
+                                                           aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                                    </li>
+                                                    <li class="paginate_button page-item"
+                                                        th:each="i: ${#numbers.sequence(1,totalPages)}"
+                                                        th:classappend="${currentPage == i ? 'active' : ''}">
+                                                        <a th:href="@{${keyword != null && keyword != '' ? '/admin/category?keyword='+ keyword + '&': '/admin/category'} + 'pageNo='+${i}}"
+                                                           aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link"
+                                                           th:text="${i}"></a>
+                                                    </li>
+                                                    <li class="paginate_button page-item next" id="example2_next"
+                                                        th:classappend="${currentPage < totalPages ? 'enabled' : 'disabled'}">
+                                                        <a th:href="@{${keyword != null && keyword != '' ? '/admin/category?keyword='+ keyword + '&': '/admin/category'} + 'pageNo='+${currentPage+1}}"
+                                                           aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
+                        <!-- /.card -->
                     </div>
-                </section>
+                    <!-- /.col -->
+                </div>
             </div>
-        </div>
-        <script src="/assets/plugins/jquery/jquery.min.js"></script>
-        <script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/assets/dist/js/adminlte.js"></script>
-    </body>
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<div th:replace="~{fragments/script :: script}"></div>
+</body>
 </html>

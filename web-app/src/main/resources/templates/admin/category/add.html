@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<style>
+    .custom-input {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        outline: none;
+        box-shadow: none;
+    }
+    .custom-input:focus {
+        border-bottom: 1px solid #007bff;
+    }
+</style>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header"></div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-10">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Thêm loại sản phẩm</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form th:action="@{/admin/category/save-category}" method="post">
+                                <div class="card-body">
+                                    <!-- Hiển thị thông báo lỗi -->
+                                    <div th:if="${error}" class="alert alert-danger alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h5><i class="icon fas fa-exclamation-triangle"></i> Error!</h5>
+                                        <span th:text="${error}"></span>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="tenLoaiSP">Tên loại sản phẩm</label>
+                                            <input type="text" class="form-control custom-input" id="tenLoaiSP" name="tenLoai">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer" style="display:flex;justify-content: flex-end">
+                                    <button type="submit" class="btn btn-primary">Thêm loại sản phẩm</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<div th:replace="~{fragments/script :: script}"></div>
+</body>
+</html>
