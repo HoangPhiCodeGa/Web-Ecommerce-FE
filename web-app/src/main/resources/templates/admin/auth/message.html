@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message</title>
+    <script>
+        // Giá trị tĩnh cho các biến message, alertType, và redirectUrl
+        const message = 'Your action was successful!';  // Thay bằng thông điệp của bạn
+        const alertType = 'success';  // Thay bằng 'success' hoặc 'error' tùy thuộc vào kết quả
+        const redirectUrl = '/home';  // Đường dẫn mà bạn muốn chuyển hướng
+
+        if (message) {
+            alert(`${alertType === 'success' ? '✅' : '❌'} ${message}`);
+        }
+
+        if (redirectUrl) {
+            window.location.href = redirectUrl;
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

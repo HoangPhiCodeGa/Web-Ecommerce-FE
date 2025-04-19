@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
+<style>
+    /* Chỉ có border-bottom cho input */
+    .custom-input {
+        border: none; /* Bỏ viền mặc định */
+        border-bottom: 1px solid #ccc; /* Chỉ có viền dưới */
+        border-radius: 0; /* Loại bỏ bo góc */
+        outline: none; /* Bỏ đường viền xanh khi focus */
+        box-shadow: none; /* Không có bóng khi focus */
+    }
+
+    /* Thay đổi màu khi input được focus */
+    .custom-input:focus {
+        border-bottom: 1px solid #007bff; /* Màu viền xanh khi focus */
+    }
+
+    /* Căn chỉnh icon thùng rác */
+    .delete-icon {
+        color: #dc3545; /* Màu đỏ cho icon thùng rác */
+        font-size: 18px; /* Kích thước icon */
+        cursor: pointer; /* Hiển thị con trỏ chỉ tay khi hover */
+        transition: color 0.3s;
+    }
+
+    /* Thay đổi màu icon khi hover */
+    .delete-icon:hover {
+        color: #a71d2a;
+    }
+    .preview-container {
+        width: 150px; /* Đặt chiều rộng */
+        height: 150px; /* Đặt chiều cao */
+        border: 2px dashed #ccc; /* Viền nét đứt */
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: #f9f9f9;
+    }
+
+    .preview-container img {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+    }
+
+    .preview-container:hover {
+        border-color: #007bff;
+    }
+    .preview-container img.default-image {
+        content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBkYXRhLW5hbWU9IkxheWVyIDEiIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij4gICA8cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iMTE2IiBoZWlnaHQ9IjExNiIgcng9IjUiIHN0eWxlPSJmaWxsOiNmZmY7c3Ryb2tlOiM2NjY7c3Ryb2tlLWRhc2hhcnJheTozOzQ7ZmlsbC1ydWxlOm5vbnplcm87Ii8+ICAgPGNpcmNsZSBjeD0iNTUiIGN5PSI0NSIgcj0iMTUiIHN0eWxlPSJmaWxsOiNlZWU7c3Ryb2tlOiNkZGQ7c3Ryb2tlLXdpZHRoOjI7Ii8+ICAgPGxpbmUgeDE9IjAiIHkxPSI5NSIgeDI9IjEwMCIgeTI9IjExMiIgc3R5bGU9InN0cm9rZTojYmJiO3N0cm9rZS13aWR0aDoxOyIvPjwvc3ZnPg==");
+        object-fit: contain;
+    }
+    .error {color:red}
+</style>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
+             width="60">
+    </div>
+
+    <!-- Navbar -->
+    <nav th:replace="admin/fragments/navbar :: navbar"></nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-10">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Thêm sản phẩm </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form th:object="${product}" th:action="@{/admin/product/add-product}" method="post" enctype="multipart/form-data">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="maHang">Mã hàng</label>
+                                            <input type="text" class="form-control" id="maHang" placeholder="Mã hàng tự động" readonly>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="giaNhap">Giá nhập</label>
+                                            <input type="number" class="form-control" id="giaNhap" placeholder="Nhập giá nhập" th:field="*{giaNhap}">
+<!--                                            <span th:errorclass="error" th:errors="*{giaNhap}" ></span>-->
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="tenSanPham">Tên sản phẩm</label>
+                                            <input type="text" class="form-control" id="tenSanPham" placeholder="Nhập tên sản phẩm" th:field="*{tenSP}">
+                                            <span th:if="${#fields.hasErrors('tenSP')}" th:errors="*{tenSP}" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="giaVon">Giá vốn</label>
+                                            <input type="number" class="form-control" id="giaVon" placeholder="Nhập giá vốn"  >
+<!--                                            <span th:errorclass="error" th:errors="*{giaGoc}" ></span>-->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label>Loại sản phẩm</label>
+                                            <select class="form-control" th:field="*{loaiSP.id}">
+                                                <option th:each="category : ${categories}" th:value="${category.id}"
+                                                        th:text="${category.tenLoai}"
+                                                ></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="giaBan">Giá bán</label>
+                                            <input type="number" class="form-control" id="giaBan" placeholder="Nhập giá bán" >
+<!--                                            <span th:errorclass="error" th:errors="*{giaBan}" ></span>-->
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-8">
+                                            <label for="moTa">Mô tả</label>
+                                            <textarea class="form-control" id="moTa" rows="3" placeholder="Nhập mô tả" th:field="*{moTa}"></textarea>
+<!--                                            <span th:errorclass="error" th:errors="*{moTa}" ></span>-->
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="tonKho">Tồn kho</label>
+                                            <input type="number" class="form-control" id="tonKho" placeholder="Nhập số lượng tồn kho" >
+<!--                                            <span th:errorclass="error" th:errors="*{thuocTinhSP.soLuong}" ></span>-->
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="chonAnh">Chọn ảnh</label>
+                                            <div class="custom-file">
+                                                <div class="preview-container">
+                                                    <img id="defaultImage"
+                                                         src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAZABkAAD/7AARRHVja3kAAQAEAAAAPAAA/+EDLWh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8APD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS41LWMwMTQgNzkuMTUxNDgxLCAyMDEzLzAzLzEzLTEyOjA5OjE1ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozRkNFMzU3RDg2QUYxMUU1OEM4OENCQkI2QTc0MTkwRSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozRkNFMzU3Qzg2QUYxMUU1OEM4OENCQkI2QTc0MTkwRSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDEwNzlDODNCQThDMTFFMjg5NTlFMDAzODgzMjZDMkIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDEwNzlDODRCQThDMTFFMjg5NTlFMDAzODgzMjZDMkIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7/7gAOQWRvYmUAZMAAAAAB/9sAhAAGBAQEBQQGBQUGCQYFBgkLCAYGCAsMCgoLCgoMEAwMDAwMDBAMDg8QDw4MExMUFBMTHBsbGxwfHx8fHx8fHx8fAQcHBw0MDRgQEBgaFREVGh8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx//wAARCAHgAoADAREAAhEBAxEB/8QAgQABAAMBAQEBAQAAAAAAAAAAAAYHCAUEAwIBAQEAAAAAAAAAAAAAAAAAAAAAEAEAAAQBBgoHBQgBBQAAAAAAAQIDBQQRkwY2BxchMXHREtKzVHRVQVETU7QVFmGBInLDkaEyQlKCIxSx4WKSosIRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AL4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGLztG0Xs9yrW7HVqkmKodH2kstOaaH45YTw4YfZNAHj3u6E95q5qYDe7oT3mrmpgN7uhPeauamA3u6E95q5qYDe7oT3mrmpgN7uhPeauamA3u6E95q5qYDe7oT3mrmpgN7uhPeauamA3u6E95q5qYDe7oT3mrmpgN7uhPeauamA3u6E95q5qYDe7oT3mrmpgN7uhPeauamA3u6E95q5qYDe7oT3mrmpgN7uhPeauamA3u6E95q5qYDe7oT3mrmpgN7uhPeauamA3u6E95q5qYH2wO1HRDG43D4PD4ipNXxNSSjShGnNCEZ54wllyx5YgloAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM97VtfbnyUPh6YIkAAAAAAAAAAAAAAAAAAAAADr6H62WXx2G7WUGmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZ72ra+3PkofD0wRIHpwtruWLkjUwuErYiSWPRmnpU554Qj6oxlhEH2+n795bisxU6oH0/fvLcVmKnVA+n795bisxU6oH0/fvLcVmKnVA+n795bisxU6oH0/fvLcVmKnVA+n795bisxU6oH0/fvLcVmKnVA+n795bisxU6oH0/fvLcVmKnVA+n795bisxU6oH0/fvLcVmKnVA+n795bisxU6oH0/fvLcVmKnVA+n795bisxU6oH0/fvLcVmKnVA+n795bisxU6oH0/fvLcVmKnVB+K9mu+HpTVq+BxFKlL/FUnpTyywy8HDGMMgPGDr6H62WXx2G7WUGmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZ72ra+3PkofD0wRIF17D9XMb4qPZygsYAAAAAAAAAAAAAAAAAEW2nai3T8tPtZAZ3B19D9bLL47DdrKDTQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM97VtfbnyUPh6YIkC69h+ruN8VHs5QWMAAAAAAAAAAABGMIQyx4IQ44gg1+2vaM2yvNh8PCpcK0kck8aOSFOEfV048f3QB8bPtl0axteFHGU6tvjNHJLUqZJ6f3zS8MP2AntOpTqSS1Kc0J6c8ITSTyxywjCPDCMIwB+gARbafqLdPy0+1kBncHX0P1ssvjsN2soNNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAz3tW19ufJQ+HpgiQLr2H6u43xUezlBYwAAAAAAAAAAAK+2x6R4i3WWhbsLPGnVuM00Ks8sckYUZIQ6UP7ozQhyZQUeAC4NimkWIr0MVZMRPGeXDQhWwkYxyxlkjHJPJyQjGEYcoLRABFtp+ot0/LT7WQGdwdfQ/Wyy+Ow3ayg00AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADPe1bX258lD4emCJAuvYfq7jfFR7OUFjAAA5mkl/wlhs9e54mHSkpQhCSnCOSM880ckssOUH7sN9t98ttK4YCp06NSH4pY/wAUk0OOSaHojAHQAAAAAABVu3K11qmEt1ykhGalQmno1ow/l9pkjJH/ANYwBUAALP2HWyvNcbhc4yxhQp0oYeWb0RnnmhNGEOSEv7wXEACLbT9Rbp+Wn2sgM7g6+h+tll8dhu1lBpoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGe9q2vtz5KHw9MESBdWw/V7HeK/TlBY4AAKQ2w6U/MbxLaMPPlwlujH2sYcU1eP8X/AIQ4OXKCPaGaZY/Rm5Qr0stXB1Ywhi8Ll4J5fXD1TQ9EQaEtN2wF2t9LH4CrCrhq0Mss0OOEfTLND0Rh6YA9gAAAAAPPcLfhLhgq2CxlOFbDV5YyVKcfTCIKhvuxO7UsRNPZsRTxOGmjGMlKtH2dSWHqy5OjNy8APjZ9il/r15fmlelhMNCP4/Zze0qRh6oQh+GH3xBb9ms1vs1upW/AU/Z4elDghxzTRjxzTR9MYg9oAIttP1Fun5afayAzuDr6H62WXx2G7WUGmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZ72ra+3PkofD0wRIF1bD9Xsd4r9OUFjgAj+nOksmj2j2IxsIw/2p/8AFg5Y+mrNDgjk/wC2H4gZvqVJ6lSapUmjNPPGM000eGMYx4YxiD+Ak+gum+M0ZuHDlq22vGH+1hv3dOT1TQ/eDQVvx+DuGDpYzB1YVsNXlhNTqS8UYc/rB6AAAR2xad2C83PF23DVejisNPNLThNkhCtLLxz04+mH2feCRAAAAAAAi20/UW6flp9rIDO4OvofrZZfHYbtZQaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABnvatr7c+Sh8PTBEgXVsP1ex3iv05QWOACgdqelPzrSGbD0J+lgLdlo0cnFNUy/5J/wBsMkPsgCGAAAl+z7T3EaN4z2GIjNVtFeb/AD0ocMacY8HtJIev1w9IL9wuKw2Lw1PE4apLWw9aWE9KrJHLLNLHijAH1BCdqulfyWxRweHn6NwuMI06eTjkpcVSf/5h/wBAUPQr1qFaStRnmp1qcYTU6kkYwmlmhxRhGALp2e7UKN1hTtd5nlpXLglo4iOSWSv9kfRLP+6ILFAAAAABFtp+ot0/LT7WQGdwdfQ/Wyy+Ow3ayg00AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADPe1bX258lD4emCJAurYfq9jvFfpygscET2laUwsOjtT2M/Rx+Ny0MLk45csPx1P7Zf35AZ6AAAABN9nO0Gro/iYYDHTTT2etNw+mNGaP88sP6f6offyheVTH4OTAzY+atL/py041o14Ryy+zhDpdLL6sgM36XaR19IL7iLjUywpTR6GGpx/kpS/ww5fTH7QcYCEYwjlhwRhxRBa2z3ar0PZ2nSCrll4JMNcJo8XohLWj/wATft9YLalmhNCE0scsI8MIw4owB/QAAARbafqLdPy0+1kBncHX0P1ssvjsN2soNNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAz3tW19ufJQ+HpgiQLq2H6vY7xX6coLGjGEIRjGOSEOGMY8WQGdNoWlEdINIq1enNlwWHy0cHD0dCWPDP8A3x4eQEaAAAAAB2ael17k0cq6PwrZbfUnhNkjl6UssI5YySx/pjHhyA4wAAALA2fbTsRZo07bdppq9qj+GlV/inocn9Un2ej0eoF2YbE4fFYeniMPUlq0KssJqdSSOWWaEfTCMAfUAAEW2n6i3T8tPtZAZ3B19D9bLL47DdrKDTQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM97VtfbnyUPh6YIkC6th+r2O8V+nKCRbSMViMLoVdKuHnjTqRpyydKHH0ak8sk0PvlmjAGcwAAAAAAAAAAAAS3QbaDcNGq8KFTLiLVUmy1cNGPDJGPHPTy8UfXDiiC+LTdrfdsBTx2ArQrYarD8M0OOEfTLND0Rh6YA9gAIttP1Fun5afayAzuDr6H62WXx2G7WUGmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZ72ra+3PkofD0wRIF1bD9Xsd4r9OUHf2m06lTQi5SU5Jp54wp5JZYRmjH/LL6IAz/wDLLl3Stm5+YD5Zcu6Vs3PzAfLLl3Stm5+YD5Zcu6Vs3PzAfLLl3Stm5+YD5Zcu6Vs3PzAfLLl3Stm5+YD5Zcu6Vs3PzAfLLl3Stm5+YD5Zcu6Vs3PzAfLLl3Stm5+YD5Zcu6Vs3PzAfLLl3Stm5+YD5Zcu6Vs3PzA7uid90o0ax3t8Jhq0+HnjD/Ywk0k/QqQh93BN6ogvjR+/4K94CXF4aWenHirUKssZJ6c+TLGWaEf+YA6YIttP1Fun5afayAzuDr6H62WXx2G7WUGmgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZ72ra+3PkofD0wRIF1bD9Xsd4r9OUFjgAAAAAAAAAAAAAAAAAi20/UW6flp9rIDO4OvofrZZfHYbtZQaaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABnvatr7c+Sh8PTBEgSHRzTvSDR7CVMLbZ6UtKrP7Sbp04Tx6WSEOOPIDrb4tNfe0MzDnA3xaa+9oZmHOBvi0197QzMOcDfFpr72hmYc4G+LTX3tDMw5wN8WmvvaGZhzgb4tNfe0MzDnA3xaa+9oZmHOBvi0197QzMOcDfFpr72hmYc4G+LTX3tDMw5wN8WmvvaGZhzgb4tNfe0MzDnA3xaa+9oZmHOBvi0197QzMOcDfFpr72hmYc4G+LTX3tDMw5wN8WmvvaGZhzg8V42maU3e217djKlGOGxEIQqQlpwljklmhNDJHlgCKg6+h+tll8dhu1lBpoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGe9q2vtz5KHw9MESAAAAAAAAAAAAAAAAAAAAAB19D9bLL47DdrKDTQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIHpPsowd+vmJutS4VKE+I6GWlLTlmhDoU5afHGMOPo5QcvcVbvNq2al6wG4q3ebVs1L1gNxVu82rZqXrAbird5tWzUvWA3FW7zatmpesBuKt3m1bNS9YDcVbvNq2al6wG4q3ebVs1L1gNxVu82rZqXrAbird5tWzUvWA3FW7zatmpesBuKt3m1bNS9YDcVbvNq2al6wG4q3ebVs1L1gNxVu82rZqXrAbird5tWzUvWA3FW7zatmpesBuKt3m1bNS9YDcVbvNq2al6wG4q3ebVs1L1gNxVu82rZqXrAbird5tWzUvWB6rVsZwNuumDuElzq1JsJXp14U405YQmjTmhNky5fTkBYwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/9k="
+                                                         alt="Default Image"
+                                                         style="width: 150px; height: 150px; cursor: pointer;"
+                                                         onclick="document.getElementById('chonAnh').click();">
+                                                </div>
+
+                                                <input type="file" class="custom-file-input" id="chonAnh"
+                                                       style="display: none;" onchange="updateImageDisplay(this);"
+                                                       name="fileImage"
+                                                >
+<!--                                                <span th:errorclass="error" th:errors="*{hinhAnh}" ></span>-->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="card card-secondary collapsed-card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Thuộc tính</h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body" style="display: none;">
+                                                <div class="form-row">
+
+                                                    <div class="form-group col-md-4">
+                                                        <label>Size</label>
+                                                        <select id="kichCo" name="kichCo" class="form-control" th:field="*{thuocTinhSP.kichCo.id}">
+                                                            <option th:each="size : ${sizes}" th:value="${size.id}"
+                                                                th:text="${size.tenKichCo}" >
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group col-md-4">
+                                                        <label>Màu sắc</label>
+                                                        <select id="mauSac" name="mauSac" class="form-control" th:field="*{thuocTinhSP.mauSac.id}">
+                                                            <option th:each="color : ${colors}" th:value="${color.id}"
+                                                                    th:text="${color.tenMau}"
+                                                            ></option>
+                                                        </select>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-footer">
+                                                <button type="button"  id="add-attribute" class="btn btn-primary">Thêm thuộc tính</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="card card-secondary collapsed-card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Danh sách sản phẩm cùng loại</h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body" style="display: none;">
+                                                <div class="form-row">
+                                                    <table id="attribute-table"
+                                                           class="table table-bordered table-hover dataTable dtr-inline"
+                                                           aria-describedby="attribute-table_info">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="sorting sorting_asc" tabindex="0"
+                                                                aria-controls="attribute-table" rowspan="1" colspan="1"
+                                                                aria-sort="ascending"
+                                                                aria-label="Rendering engine: activate to sort column descending">
+                                                                Tên
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="attribute-table"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Browser: activate to sort column ascending">
+                                                                Mã hàng
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="attribute-table"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Platform(s): activate to sort column ascending">
+                                                                Giá vốn
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="attribute-table"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Engine version: activate to sort column ascending">
+                                                                Giá bán
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="attribute-table"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="CSS grade: activate to sort column ascending">
+                                                                Tồn kho
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer" style="display:flex;justify-content: flex-end">
+                                    <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.card -->
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer th:replace="admin/fragments/footer :: footer"></footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<div th:replace="admin/fragments/script :: script"></div>
+<script>
+    function updateFileName(input) {
+        const fileName = input.files[0]?.name || "Chọn tệp";
+        input.nextElementSibling.textContent = fileName;
+    }
+    function updateImageDisplay(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var img = document.getElementById('defaultImage');
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+    document.getElementById("add-attribute").addEventListener("click", function () {
+        // Lấy dữ liệu từ các trường nhập liệu
+        const sizeSelect = document.getElementById("kichCo");
+        const colorSelect = document.getElementById("mauSac");
+
+        const sizeId = sizeSelect.value;
+        const colorId = colorSelect.value;
+
+        console.log("sizeId",sizeId)
+        console.log("colorId",colorId)
+
+        const giaVon = document.getElementById("giaVon").value;
+        const giaBan = document.getElementById("giaBan").value;
+        const tonKho = document.getElementById("tonKho").value;
+        const sizeText = sizeSelect.options[sizeSelect.selectedIndex].text;
+        const colorText = colorSelect.options[colorSelect.selectedIndex].text;
+
+        if (!tonKho || !giaVon || !giaBan) {
+            alert("Vui lòng nhập đầy đủ thông tin sản phẩm.");
+            return;
+        }
+
+        // Tạo dòng mới trong bảng
+        const tableBody = document.querySelector("#attribute-table tbody");
+        const newRow = document.createElement("tr");
+
+        newRow.innerHTML = `
+            <td>${colorText} - ${sizeText}</td>
+            <td><input type="text" class="form-control custom-input" placeholder="Mã hàng tự động" readonly></td>
+            <input type="hidden" value="${colorId}" name="mauSac[]">
+            <input type="hidden" value="${sizeId}" name="kichCo[]">
+            <td><input type="text" class="form-control custom-input" value="${giaVon}" name="giaGoc[]"></td>
+            <td><input type="text" class="form-control custom-input" value="${giaBan}" name="giaBan[]"></td>
+            <td><input type="text" class="form-control custom-input" value="${tonKho}" name="soLuong[]"></td>
+            <td><i class="fas fa-trash-alt delete-icon"></i></td>
+        `;
+
+        // Thêm dòng vào bảng
+        tableBody.appendChild(newRow);
+    });
+
+    document.querySelector("#attribute-table").addEventListener("click", function (e) {
+        if (e.target.classList.contains("delete-icon")) {
+            e.target.closest("tr").remove();
+        }
+    });
+</script>
+</body>
+</html>

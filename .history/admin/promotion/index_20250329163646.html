@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Khuyến Mãi</title>
+    <link rel="stylesheet" href="/path/to/your/css/styles.css">
+    <!-- Thêm các file CSS của AdminLTE tại đây -->
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="/assets/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        </div>
+
+        <!-- Navbar -->
+        <nav><!-- Navbar code here --></nav>
+
+        <!-- Main Sidebar Container -->
+        <aside><!-- Sidebar code here --></aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">QUẢN LÝ KHUYẾN MÃI</h1>
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-3">
+                            <div id="alert-box" class="alert alert-success position-absolute" style="display: none;">
+                                <span>Message content here</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div class="col-md-5">
+                                            <form>
+                                                <div class="input-group">
+                                                    <input type="search" name="keyword" class="form-control" placeholder="Type your keywords here">
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-default">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a href="/admin/promotion/form-add-khuyen-mai">
+                                                <button type="button" class="btn btn-block bg-gradient-primary">
+                                                    <i class="fa fa-plus" style="margin-right: 5px"></i>
+                                                    Thêm mới
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="sorting text-center">ID</th>
+                                                <th class="sorting text-center">Tên KM</th>
+                                                <th class="sorting text-center">% giảm giá</th>
+                                                <th class="sorting text-center">Giá tối thiểu</th>
+                                                <th class="sorting text-center">Mô tả</th>
+                                                <th class="sorting text-center">Bắt đầu</th>
+                                                <th class="sorting text-center">Kết thúc</th>
+                                                <th class="sorting text-center">Trạng thái</th>
+                                                <th class="sorting text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Lặp danh sách khuyến mãi -->
+                                            <tr>
+                                                <td class="text-center">1</td>
+                                                <td class="text-center">Khuyến mãi A</td>
+                                                <td class="text-center">10%</td>
+                                                <td class="text-center">1000</td>
+                                                <td class="text-center">Mô tả khuyến mãi A</td>
+                                                <td class="text-center">2023-01-01</td>
+                                                <td class="text-center">2023-12-31</td>
+                                                <td class="text-center">Đang diễn ra</td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-primary" href="/admin/promotion/edit/1">Sửa</a>
+                                                    <a class="btn btn-danger" href="/admin/promotion/delete/1" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')">Xóa</a>
+                                                </td>
+                                            </tr>
+                                            <!-- Các khuyến mãi khác sẽ lặp lại ở đây -->
+                                        </tbody>
+                                    </table>
+                                    <!-- Phân trang -->
+                                    <div class="row" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div class="col-sm-12 col-md-5">
+                                            <div class="dataTables_info" role="status" aria-live="polite">
+                                                Showing 1 to 10 of 100 entries
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-7" style="display: flex; justify-content: flex-end">
+                                            <ul class="pagination">
+                                                <li class="paginate_button page-item previous">
+                                                    <a href="?pageNo=1" class="page-link">Previous</a>
+                                                </li>
+                                                <li class="paginate_button page-item active">
+                                                    <a href="?pageNo=1" class="page-link">1</a>
+                                                </li>
+                                                <li class="paginate_button page-item next">
+                                                    <a href="?pageNo=2" class="page-link">Next</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer><!-- Footer code here --></footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        // Tự động ẩn thông báo sau 3 giây
+        setTimeout(() => {
+            const alertBox = document.getElementById("alert-box");
+            if (alertBox) {
+                alertBox.style.display = "none";
+            }
+        }, 3000); // 3000ms = 3 giây
+    </script>
+</body>
+
+</html>

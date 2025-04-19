@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Message</title>
+    <script th:inline="javascript">
+        const message = /*[[${message}]]*/ '';
+        const alertType = /*[[${alertType}]]*/ '';
+        const redirectUrl = /*[[${redirectUrl}]]*/ '';
+
+        if (message) {
+            alert(`${alertType === 'success' ? '✅' : '❌'} ${message}`);
+        }
+
+        if (redirectUrl) {
+            window.location.href = redirectUrl;
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

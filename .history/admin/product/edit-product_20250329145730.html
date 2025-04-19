@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head :: head"></head>
+<style>
+    /* Chỉ có border-bottom cho input */
+    .custom-input {
+        border: none; /* Bỏ viền mặc định */
+        border-bottom: 1px solid #ccc; /* Chỉ có viền dưới */
+        border-radius: 0; /* Loại bỏ bo góc */
+        outline: none; /* Bỏ đường viền xanh khi focus */
+        box-shadow: none; /* Không có bóng khi focus */
+    }
+
+    /* Thay đổi màu khi input được focus */
+    .custom-input:focus {
+        border-bottom: 1px solid #007bff; /* Màu viền xanh khi focus */
+    }
+
+    /* Căn chỉnh icon thùng rác */
+    .delete-icon {
+        color: #dc3545; /* Màu đỏ cho icon thùng rác */
+        font-size: 18px; /* Kích thước icon */
+        cursor: pointer; /* Hiển thị con trỏ chỉ tay khi hover */
+        transition: color 0.3s;
+    }
+
+    /* Thay đổi màu icon khi hover */
+    .delete-icon:hover {
+        color: #a71d2a;
+    }
+    .preview-container {
+        width: 150px; /* Đặt chiều rộng */
+        height: 150px; /* Đặt chiều cao */
+        border: 2px dashed #ccc; /* Viền nét đứt */
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: #f9f9f9;
+    }
+
+    .preview-container img {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+    }
+
+    .preview-container:hover {
+        border-color: #007bff;
+    }
+    .preview-container img.default-image {
+        content: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBkYXRhLW5hbWU9IkxheWVyIDEiIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij4gICA8cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iMTE2IiBoZWlnaHQ9IjExNiIgcng9IjUiIHN0eWxlPSJmaWxsOiNmZmY7c3Ryb2tlOiM2NjY7c3Ryb2tlLWRhc2hhcnJheTozOzQ7ZmlsbC1ydWxlOm5vbnplcm87Ii8+ICAgPGNpcmNsZSBjeD0iNTUiIGN5PSI0NSIgcj0iMTUiIHN0eWxlPSJmaWxsOiNlZWU7c3Ryb2tlOiNkZGQ7c3Ryb2tlLXdpZHRoOjI7Ii8+ICAgPGxpbmUgeDE9IjAiIHkxPSI5NSIgeDI9IjEwMCIgeTI9IjExMiIgc3R5bGU9InN0cm9rZTojYmJiO3N0cm9rZS13aWR0aDoxOyIvPjwvc3ZnPg==");
+        object-fit: contain;
+    }
+</style>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
+             width="60">
+    </div>
+
+    <!-- Navbar -->
+    <nav th:replace="admin/fragments/navbar :: navbar"></nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-10">
+                        <!-- general form elements -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Cập nhật sản phẩm </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- form start -->
+                            <form th:object="${productEdit}" th:action="@{/admin/product/edit-product}" method="post" enctype="multipart/form-data">
+                                <input type="hidden" th:field="*{id}">
+                                <input type="hidden" th:field="*{hinhAnh}">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="maHang">Mã hàng</label>
+                                            <input type="text" class="form-control" id="maHang" placeholder="Mã hàng tự động" readonly>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="giaNhap">Giá nhập</label>
+                                            <input type="number" class="form-control" id="giaNhap" placeholder="Nhập giá nhập" th:field="*{giaNhap}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label for="tenSanPham">Tên sản phẩm</label>
+                                            <input type="text" class="form-control" id="tenSanPham" placeholder="Nhập tên sản phẩm" th:field="*{tenSP}">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="giaVon">Giá vốn</label>
+                                            <input type="number" class="form-control" id="giaVon" placeholder="Nhập giá vốn"  th:field="*{giaGoc}">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <label>Loại sản phẩm</label>
+                                            <select class="form-control" th:field="*{loaiSP.id}">
+                                                <option th:each="category : ${categoriesEdit}" th:value="${category.id}"
+                                                        th:text="${category.tenLoai}"
+                                                ></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="giaBan">Giá bán</label>
+                                            <input type="number" class="form-control" id="giaBan" placeholder="Nhập giá bán" th:field="*{giaBan}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-8">
+                                            <label for="moTa">Mô tả</label>
+                                            <textarea class="form-control" id="moTa" rows="3" placeholder="Nhập mô tả" th:field="*{moTa}"></textarea>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="tonKho">Tồn kho</label>
+                                            <input type="number" class="form-control" id="tonKho" placeholder="Nhập số lượng tồn kho" th:field="*{thuocTinhSP.soLuong}">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="chonAnh">Chọn ảnh</label>
+                                            <div class="custom-file">
+                                                <div class="preview-container">
+                                                    <img id="imageProduct"
+                                                         th:src="@{'/images/'+*{hinhAnh}}"
+                                                         alt="Default Image"
+                                                         style="width: 150px; height: 150px; cursor: pointer;"
+                                                         onclick="document.getElementById('chonAnh').click();">
+                                                </div>
+
+                                                <input type="file" class="custom-file-input" id="chonAnh"
+                                                       style="display: none;" onchange="updateImageDisplay(this);"
+                                                       name="fileImage"
+                                                >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>Size</label>
+                                            <select id="kichCo" name="kichCo" class="form-control" th:field="*{thuocTinhSP.kichCo.id}">
+                                                <option th:each="size : ${sizes}" th:value="${size.id}"
+                                                        th:text="${size.tenKichCo}" >
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>Màu sắc</label>
+                                            <select id="mauSac" name="mauSac" class="form-control" th:field="*{thuocTinhSP.mauSac.id}">
+                                                <option th:each="color : ${colors}" th:value="${color.id}"
+                                                        th:text="${color.tenMau}"
+                                                ></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer" style="display:flex;justify-content: flex-end">
+                                    <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.card -->
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer th:replace="admin/fragments/footer :: footer"></footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<div th:replace="admin/fragments/script :: script"></div>
+<script>
+    function updateImageDisplay(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var img = document.getElementById('imageProduct');
+            img.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+</script>
+</body>
+</html>

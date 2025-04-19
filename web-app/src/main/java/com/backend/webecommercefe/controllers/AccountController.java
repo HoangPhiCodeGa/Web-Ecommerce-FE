@@ -17,16 +17,19 @@ import com.backend.webecommercefe.entities.Account;
 import com.backend.webecommercefe.services.AccountService;
 import com.backend.webecommercefe.untils.ApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Map;
 
 import java.util.Map;
 
@@ -67,11 +70,9 @@ public class AccountController {
             ApiResponse response = accountService.register(account);
             log.info("Registration response: {}", response);
 
-            // Kiểm tra status 200 hoặc 201
             boolean isSuccess = response.getStatus() == HttpStatus.OK.value() ||
                     response.getStatus() == HttpStatus.CREATED.value();
 
-            // Nếu data chứa statusCodeValue = 201, cũng coi là thành công
             if (!isSuccess && response.getData() instanceof Map) {
                 Map<String, Object> data = (Map<String, Object>) response.getData();
                 Object statusCodeValue = data.get("statusCodeValue");
@@ -95,25 +96,45 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse> loginSubmit(@ModelAttribute("account") Account account) {
+    public String loginSubmit(@ModelAttribute("account") Account account,
+                              HttpSession session,
+                              RedirectAttributes redirectAttributes) {
         try {
             ApiResponse response = accountService.login(account.getUsername(), account.getPassword());
             log.info("Login response: {}", response);
 
             int status = response.getStatus();
             if (status == HttpStatus.OK.value() || status == HttpStatus.CREATED.value()) {
-                return ResponseEntity.ok(response);
+                if (response.getData() instanceof Map) {
+                    Map<String, Object> data = (Map<String, Object>) response.getData();
+                    if (data.containsKey("body") && data.get("body") instanceof Map) {
+                        Map<String, Object> body = (Map<String, Object>) data.get("body");
+                        String token = (String) body.get("token");
+                        if (token != null) {
+                            session.setAttribute("jwtToken", token);
+                            log.info("JWT token saved to session: {}", token);
+                            return "redirect:/admin/customer";
+                        }
+                    }
+                    redirectAttributes.addFlashAttribute("error", "Token not found in response");
+                    return "redirect:/account/login";
+                }
+                redirectAttributes.addFlashAttribute("error", "Invalid response format");
+                return "redirect:/account/login";
             }
-
-            // Trường hợp login không thành công
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-
+            redirectAttributes.addFlashAttribute("error", response.getErrors() != null ? response.getErrors() : "Login failed");
+            return "redirect:/account/login";
         } catch (Exception e) {
             log.error("Error in loginSubmit: {}", e.getMessage());
-            ApiResponse errorResponse = new ApiResponse();
-            errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            errorResponse.setErrors(Map.of("error", "An error occurred during login"));
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+            redirectAttributes.addFlashAttribute("error", "An error occurred during login");
+            return "redirect:/account/login";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        log.info("User logged out, session invalidated");
+        return "redirect:/account/login";
     }
 }
