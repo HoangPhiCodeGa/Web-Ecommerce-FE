@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="cc106c83-6982-4ce0-808d-0d6da43129d2" name="Changes" comment="" />
+    <list default="true" id="282e6f60-93f9-43b3-a49c-0814caf2721f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/00000000000.xd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot/chatSessions/xd.lck" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,67 +18,61 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;TanDat883&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/HoangPhiCodeGa/Web-Ecommerce-FE.git&quot;,
-    &quot;accountId&quot;: &quot;5700d0d2-9b01-4cda-ae39-7c7d0e4c8419&quot;
-  }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 0
-}</component>
-  <component name="ProjectId" id="2ucW9CrAHN7Twn53MDgeEuoGfia" />
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2vx2xesAlMDCQ4DEi2kCHOFkYp9" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dat",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Kientrucphammem/KTPM/Web-Ecommerce-FE/web-app/src/main/resources/templates",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
+    "spring.configuration.checksum": "821a23ed10c4b3cbe529cc9caee6f1c4",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\resources\templates" />
-      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\java\com\backend\webecommercefe\services\impl" />
-      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\java\com\backend\webecommercefe\services" />
-      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\java\com\backend\webecommercefe\dto" />
-      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\java\com\backend\webecommercefe\controllers" />
-    </key>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.300" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.300" />
-      </set>
-    </attachedChunks>
+  <component name="RunManager">
+    <configuration name="WebEcommerceFeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="web-app" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.backend.webecommercefe.WebEcommerceFeApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cc106c83-6982-4ce0-808d-0d6da43129d2" name="Changes" comment="" />
-      <created>1742548189164</created>
+      <changelist id="282e6f60-93f9-43b3-a49c-0814caf2721f" name="Changes" comment="" />
+      <created>1745072654565</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1742548189164</updated>
-      <workItem from="1742548190195" duration="16000" />
-      <workItem from="1742567230179" duration="11000" />
-      <workItem from="1745071717765" duration="223000" />
+      <updated>1745072654565</updated>
+      <workItem from="1745072655864" duration="86000" />
+      <workItem from="1745073114266" duration="14000" />
+      <workItem from="1745073868317" duration="730000" />
     </task>
     <servers />
   </component>
