@@ -110,7 +110,7 @@
                                 <li><a href="#"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
                                 <li><a href="#">About Us</a></li>
 <!--                                <li><a th:href="@{/my-account/profile}">My Account</a></li>-->
-                                <li><a id="accountLink"  th:href="@{/account/login}">My Account</a></li>
+                                <li><a id="accountLink" th:href="@{/account/login}">My Account</a></li>
                             </ul>
                         </li>
                     </ul><!-- End .top-menu -->
@@ -639,77 +639,27 @@
 </div><!-- End .modal -->
 
 <!-- Plugins JS File -->
-<script th:src="@{fe/js/jquery.min.js}"></script>
-<script th:src="@{fe/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{fe/js/jquery.hoverIntent.min.js}"></script>
-<script th:src="@{fe/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{fe/js/superfish.min.js}"></script>
-<script th:src="@{fe/js/owl.carousel.min.js}"></script>
-<script th:src="@{fe/js/wNumb.js}"></script>
-<script th:src="@{fe/js/bootstrap-input-spinner.js}"></script>
-<script th:src="@{fe/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{fe/js/nouislider.min.js}"></script>
+<!--<script th:src="@{fe/js/jquery.min.js}"></script>-->
+<!--<script th:src="@{fe/js/bootstrap.bundle.min.js}"></script>-->
+<!--<script th:src="@{fe/js/jquery.hoverIntent.min.js}"></script>-->
+<!--<script th:src="@{fe/js/jquery.waypoints.min.js}"></script>-->
+<!--<script th:src="@{fe/js/superfish.min.js}"></script>-->
+<!--<script th:src="@{fe/js/owl.carousel.min.js}"></script>-->
+<!--<script th:src="@{fe/js/wNumb.js}"></script>-->
+<!--<script th:src="@{fe/js/bootstrap-input-spinner.js}"></script>-->
+<!--<script th:src="@{fe/js/jquery.magnific-popup.min.js}"></script>-->
+<!--<script th:src="@{fe/js/nouislider.min.js}"></script>-->
 <!-- Main JS File -->
-<script th:src="@{assets/fe/js/main.js}"></script>
+<!--<script th:src="@{assets/fe/js/main.js}"></script>-->
 <script>
-    // // Lấy phần tử modal
-    // var modal = document.getElementById("productModal");
-    // var modalName = document.getElementById("modal-product-name");
-    // var modalImage = document.getElementById("modal-product-image");
-    // var modalPrice = document.getElementById("modal-product-price");
-    //
-    // // Lấy tất cả các nút mở modal
-    // var openModalBtns = document.getElementsByClassName("open-modal");
-    //
-    // // Lặp qua các nút và thêm sự kiện mở modal
-    // Array.from(openModalBtns).forEach(function(btn) {
-    //     btn.onclick = function() {
-    //         var id = btn.getAttribute("data-id");
-    //         var name = btn.getAttribute("data-name");
-    //         var image = btn.getAttribute("data-image");
-    //         var price = btn.getAttribute("data-price");
-    //
-    //         modalName.textContent = name;
-    //         modalImage.src = image;
-    //         modalPrice.textContent = price;
-    //
-    //         modal.style.display = "block";
-    //     };
-    // });
-    //
-    // // Đóng modal khi nhấn vào dấu "x"
-    // var closeBtn = document.getElementsByClassName("close")[0];
-    // closeBtn.onclick = function() {
-    //     modal.style.display = "none";
-    // };
-    //
-    // // Đóng modal khi nhấn bên ngoài modal
-    // window.onclick = function(event) {
-    //     if (event.target == modal) {
-    //         modal.style.display = "none";
-    //     }
-    // };
-
-    // account
     document.addEventListener("DOMContentLoaded", function () {
-        const token = localStorage.getItem("token");
-        console.log(token);
-        const myAccountLink = document.getElementById("accountLink");
-        if (token && myAccountLink) {
-            // Đổi nội dung thành "Logout"
-            myAccountLink.textContent = "Logout";
-            myAccountLink.href = "#"; // Hoặc "#" để không dẫn đi đâu
-
-            // Gán sự kiện click để logout
-            myAccountLink.addEventListener("click", function (e) {
-                e.preventDefault();
-                localStorage.removeItem("token");
-                window.location.reload(); // Reload lại trang sau khi logout
-            });
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.warn("No token found, redirecting...");
+            window.location.href = '/account/login';
         }
     });
 </script>
-
 </body>
 
 </html>
