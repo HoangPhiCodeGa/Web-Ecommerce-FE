@@ -34,14 +34,24 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "dat",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/DELL/IdeaProjects/SubProject_WWW-tung",
+    "last_opened_file_path": "D:/Kientrucphammem/KTPM/Web-Ecommerce-FE/web-app/src/main/resources/templates",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\resources\templates" />
+      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\java\com\backend\webecommercefe\services\impl" />
+      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\java\com\backend\webecommercefe\services" />
+      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\java\com\backend\webecommercefe\dto" />
+      <recent name="D:\Kientrucphammem\KTPM\Web-Ecommerce-FE\web-app\src\main\java\com\backend\webecommercefe\controllers" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -60,6 +70,7 @@
       <updated>1742548189164</updated>
       <workItem from="1742548190195" duration="16000" />
       <workItem from="1742567230179" duration="11000" />
+      <workItem from="1745071717765" duration="223000" />
     </task>
     <servers />
   </component>
