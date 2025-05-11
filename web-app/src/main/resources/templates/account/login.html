@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +8,7 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" th:href="@{/assets/plugins/fontawesome-free/css/all.min.css}">
     <!-- icheck bootstrap -->
@@ -15,104 +16,148 @@
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/assets/dist/css/adminlte.min.css}">
 </head>
+
 <body class="hold-transition login-page">
-<div class="login-box">
-    <div class="card card-outline card-primary">
-        <div class="card-header text-center">
-            <a href="#" class="h1"><b>Clothes</b>SHOP</a>
-        </div>
-        <div class="card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+    <div class="login-box">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="#" class="h1"><b>Clothes</b>SHOP</a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
 
-            <form id="loginForm">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" name="username" id="username">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                <form id="loginForm">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Username" name="username" id="username">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Password" name="password" id="password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password" name="password"
+                            id="password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">
-                                Remember Me
-                            </label>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
                         </div>
+                        <div class="col-4">
+                            <button type="button" onclick="login()" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                        <div id="error-message" class="alert alert-danger" style="display: none;"></div>
                     </div>
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                    </div>
-                    <div id="error-message" class="alert alert-danger" style="display: none;"></div>
-                </div>
-            </form>
+                </form>
 
-            <p class="mb-1">
-                <a th:href="@{/account/forgot-password}">I forgot my password</a>
-            </p>
-            <p class="mb-0">
-                <a th:href="@{/account/register}" class="text-center">Register a new membership</a>
-            </p>
+                <p class="mb-1">
+                    <a th:href="@{/account/forgot-password}">I forgot my password</a>
+                </p>
+                <p class="mb-0">
+                    <a th:href="@{/account/register}" class="text-center">Register a new membership</a>
+                </p>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- jQuery -->
-<script th:src="@{/assets/plugins/jquery/jquery.min.js}"></script>
-<!-- Bootstrap 4 -->
-<script th:src="@{/assets/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<!-- AdminLTE App -->
-<script th:src="@{/assets/dist/js/adminlte.js}"></script>
+    <!-- jQuery -->
+    <script th:src="@{/assets/plugins/jquery/jquery.min.js}"></script>
+    <!-- Bootstrap 4 -->
+    <script th:src="@{/assets/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <!-- AdminLTE App -->
+    <script th:src="@{/assets/dist/js/adminlte.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $('#loginForm').on('submit', function (event) {
-            event.preventDefault(); // Ngăn form submit truyền thống
+
+    <script>
+
+        function login() {
+            console.log("đang trong function login ");
 
             const username = $('#username').val();
             const password = $('#password').val();
 
-            $.ajax({
-                url: '/account/login',
-                type: 'POST',
-                contentType: 'application/x-www-form-urlencoded',
-                data: {
-                    username: username,
-                    password: password
-                },
-                success: function (response) {
-                    if (response.status === 200 || response.status === 201) {
-                        const token = response.data?.body?.token;
-                        console.log(token);
-                        if (token) {
-                            localStorage.setItem('token', token);
-                            console.log('JWT saved to localStorage:', token);
-                            window.location.href = '/';
+
+            const data = {
+                username: username,
+                password: password
+            };
+
+            console.log("data = ", data);
+
+
+            // Gửi yêu cầu POST tới API
+            axios.post('http://localhost:8080/api/account/sign-in', data)
+                .then(response => {
+                    console.log('Response:', response.data);
+
+                    var status = response.data.data.status_code_value;
+
+                    if (status == 200) {
+                        var token = response.data.data.body.token;
+                        const decodedToken = jwt_decode(token);
+                        var roles = decodedToken.roles;
+                        
+                        localStorage.setItem("TOKEN", token);
+                        localStorage.setItem("ROLES", roles);
+
+                        axios.get(`http://localhost:9090/add-local?token=${token}&role=${roles}`);
+
+                        const isAdmin = roles.includes("ADMIN");
+
+                        var titleStr = '';
+                        if (isAdmin) {
+                            titleStr = 'Đăng nhập với quyền admin thành công, chuyển hướng sau 2s';
                         } else {
-                            $('#error-message').text('JWT not found in response').show();
+                            titleStr = 'Đăng nhập thành công, chuyển hướng sau 2s'
                         }
-                    } else {
-                        $('#error-message').text(response.errors || 'Login failed').show();
+                        Swal.fire({
+                            icon: 'success',
+                            title: titleStr,
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        }).then(() => {
+                            setTimeout(() => {
+                                if (isAdmin) {
+                                    window.location.href = "http://localhost:9090/";  
+                                } else {
+                                    window.location.href = "/index";  
+                                }
+                            }, 2000);   
+                        });
+
+                    } else if (status == 400) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Username hoặc mật khẩu không chính xác',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                        })
                     }
-                },
-                error: function (xhr) {
-                    const errorResponse = xhr.responseJSON;
-                    $('#error-message').text(errorResponse?.errors || 'An error occurred during login').show();
-                }
-            });
-        });
-    });
-</script>
+                })
+                .catch(error => {
+                    console.error('Error:', error.response ? error.response.data : error.message);
+                });
+        }
+
+    </script>
 
 </body>
+
 </html>

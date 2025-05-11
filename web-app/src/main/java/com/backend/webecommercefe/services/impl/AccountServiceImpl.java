@@ -4,6 +4,7 @@ import com.backend.webecommercefe.entities.Role;
 import com.backend.webecommercefe.entities.User;
 import com.backend.webecommercefe.services.AccountService;
 import com.backend.webecommercefe.untils.ApiResponse;
+import com.backend.webecommercefe.untils.Utilfunctions;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,12 +34,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private String getJwtToken(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            String token = (String) session.getAttribute("jwtToken");
-            return token != null ? "Bearer " + token : null;
-        }
-        return null;
+//        HttpSession session = request.getSession(false);
+//        if (session != null) {
+//            String token = (String) session.getAttribute("jwtToken");
+//            return token != null ? "Bearer " + token : null;
+//        }
+//        return null;
+
+        return "Bearer " + Utilfunctions.GET_TOKEN_LOCAL();
     }
 
     @Override
@@ -522,6 +525,7 @@ public class AccountServiceImpl implements AccountService {
             ResponseEntity<String> responseEntity = restClient.get()
                     .uri(url)
                     .header("Content-Type", "application/json")
+                    .header("Authorization", getJwtToken(request))
                     // Bỏ header Authorization
                     .retrieve()
                     .toEntity(String.class);
@@ -531,10 +535,20 @@ public class AccountServiceImpl implements AccountService {
 
             if (rawResponse != null && !rawResponse.isEmpty()) {
                 Map<String, Object> responseMap = objectMapper.readValue(rawResponse, new TypeReference<Map<String, Object>>() {});
+//                if (responseMap.containsKey("data")) {
+//                    Map<String, Object> dataMap = (Map<String, Object>) responseMap.get("data");
+//                    List<User> users = objectMapper.convertValue(responseMap.get("data"), new TypeReference<List<User>>() {});
+//                    return users;
+//                }
+
                 if (responseMap.containsKey("data")) {
-                    List<User> users = objectMapper.convertValue(responseMap.get("data"), new TypeReference<List<User>>() {});
-                    return users;
+                    Map<String, Object> dataMap = (Map<String, Object>) responseMap.get("data");
+                    if (dataMap.containsKey("users")) {
+                        List<User> users = objectMapper.convertValue(dataMap.get("users"), new TypeReference<List<User>>() {});
+                        return users;
+                    }
                 }
+
             }
             return List.of();
         } catch (Exception e) {
@@ -555,6 +569,7 @@ public class AccountServiceImpl implements AccountService {
             ResponseEntity<String> responseEntity = restClient.get()
                     .uri(url)
                     .header("Content-Type", "application/json")
+                    .header("Authorization", getJwtToken(request))
                     // Bỏ header Authorization
                     .retrieve()
                     .toEntity(String.class);

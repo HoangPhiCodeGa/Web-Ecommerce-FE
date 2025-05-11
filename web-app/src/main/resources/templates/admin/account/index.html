@@ -75,7 +75,7 @@
                                                     <th>Username</th>
                                                     <th>Email</th>
                                                     <th>Roles</th>
-                                                    <th>Actions</th>
+                                                    <!-- <th>Actions</th> -->
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -87,9 +87,9 @@
                                                         <span th:each="role, iterStat : ${account.roles}" th:text=" ${role.name} " th:if="${!iterStat.last} + ', '"></span>
                                                         <span th:if="${#lists.isEmpty(account.roles)}">No roles</span>
                                                     </td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <a th:href="@{/admin/account/edit(id=${account.accountId})}">Edit</a>
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
                                                 </tbody>
                                                 <tfoot></tfoot>
@@ -134,6 +134,12 @@
 
 <script th:src="@{/assets/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/assets/dist/js/adminlte.min.js}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+<script src="/assets/custom/authen_admin.js"></script>
+
 <script th:inline="javascript">
     setTimeout(() => {
         const alertBox = document.getElementById("alert-box");
