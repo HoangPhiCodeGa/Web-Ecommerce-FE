@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -84,7 +85,7 @@ public class AccountController {
             if (isSuccess) {
                 model.setViewName("redirect:/account/login");
             } else {
-                model.addObject("error", response.getErrors() != null ? response.getErrors() : "Registration failed");
+                model.addObject("error", response.getErrors() != null ? response.getErrors() : "");
                 model.setViewName("account/register");
             }
         } catch (Exception e) {
@@ -96,38 +97,31 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute("account") Account account,
-                              HttpSession session,
-                              RedirectAttributes redirectAttributes) {
+    public ResponseEntity<ApiResponse> loginSubmit(@ModelAttribute("account") Account account,
+                                                   HttpSession session) {
         try {
+            // Kiểm tra dữ liệu đầu vào
+            if (account.getUsername() == null || account.getUsername().isEmpty() ||
+                    account.getPassword() == null || account.getPassword().isEmpty()) {
+                log.warn("Invalid login input: username={}, password={}", account.getUsername(), account.getPassword());
+                return ResponseEntity.badRequest()
+                        .body(new ApiResponse(HttpStatus.BAD_REQUEST.value(), "Username and password are required", null));
+            }
+
             ApiResponse response = accountService.login(account.getUsername(), account.getPassword());
             log.info("Login response: {}", response);
 
-            int status = response.getStatus();
-            if (status == HttpStatus.OK.value() || status == HttpStatus.CREATED.value()) {
-                if (response.getData() instanceof Map) {
-                    Map<String, Object> data = (Map<String, Object>) response.getData();
-                    if (data.containsKey("body") && data.get("body") instanceof Map) {
-                        Map<String, Object> body = (Map<String, Object>) data.get("body");
-                        String token = (String) body.get("token");
-                        if (token != null) {
-                            session.setAttribute("jwtToken", token);
-                            log.info("JWT token saved to session: {}", token);
-                            return "redirect:/admin/customer";
-                        }
-                    }
-                    redirectAttributes.addFlashAttribute("error", "Token not found in response");
-                    return "redirect:/account/login";
-                }
-                redirectAttributes.addFlashAttribute("error", "Invalid response format");
-                return "redirect:/account/login";
+            if (response.getStatus() == HttpStatus.OK.value()) {
+                // Lưu thông tin vào session (tùy chọn, nếu cần)
+                session.setAttribute("account", response.getData());
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.status(response.getStatus()).body(response);
             }
-            redirectAttributes.addFlashAttribute("error", response.getErrors() != null ? response.getErrors() : "Login failed");
-            return "redirect:/account/login";
         } catch (Exception e) {
-            log.error("Error in loginSubmit: {}", e.getMessage());
-            redirectAttributes.addFlashAttribute("error", "An error occurred during login");
-            return "redirect:/account/login";
+            log.error("Error in loginSubmit: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An error occurred during login: " + e.getMessage(), null));
         }
     }
 

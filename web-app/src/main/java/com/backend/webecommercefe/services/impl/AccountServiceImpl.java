@@ -38,8 +38,8 @@ public class AccountServiceImpl implements AccountService {
 
     private RestClient restClient;
     private ObjectMapper objectMapper;
-    private static final String USER_ENDPOINT = "http://localhost:9995/api"; // Cổng của user-service
-    private static final String AUTH_ENDPOINT = "http://localhost:9996/api";
+    private static final String USER_ENDPOINT = "http://localhost:8080/api"; // Cổng của user-service
+    private static final String AUTH_ENDPOINT = "http://localhost:8080/api";
 
     public AccountServiceImpl(RestClient restClient, ObjectMapper objectMapper) {
         this.restClient = restClient;
