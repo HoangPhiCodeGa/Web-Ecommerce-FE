@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cc106c83-6982-4ce0-808d-0d6da43129d2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/services/AccountService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/LocalController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/client/IndexController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/untils/Utilfunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/customer/customer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/account/change-password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/account/myorder.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/account/verify-password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/cart/cart.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/cart/index1_chiTietProducts.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/checkouts/alert.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/checkouts/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/fragments/head.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/fragments/navbar.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/home/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/user/home/myaccount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.history/admin/category/index_20250329145730.html" beforeDir="false" afterPath="$PROJECT_DIR$/.history/admin/category/index_20250329145730.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/entities/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/entities/Cart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/services/impl/AccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/java/com/backend/webecommercefe/services/impl/AccountServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/account/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/account/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/account/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/account/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/category/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/category/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/category/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/category/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/category/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/category/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/customer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/customer/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/product/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/product/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/product/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/product/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/product/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/admin/product/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web-app/src/main/resources/templates/fragments/sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-app/src/main/resources/templates/fragments/sidebar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,22 +67,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dat",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/DELL/IdeaProjects/Web-Ecommerce-",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.WebEcommerceFeApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/zzz_coding/alpha_working/call-api/Web-Ecommerce-FE&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager">
+    <configuration name="WebEcommerceFeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="web-app" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.backend.webecommercefe.WebEcommerceFeApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.300" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.300" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
       </set>
     </attachedChunks>
   </component>
@@ -66,7 +120,11 @@
       <updated>1742548189164</updated>
       <workItem from="1742548190195" duration="16000" />
       <workItem from="1742567230179" duration="11000" />
-      <workItem from="1742800261940" duration="6000" />
+      <workItem from="1746509315822" duration="36000" />
+      <workItem from="1746584319556" duration="2692000" />
+      <workItem from="1746587242441" duration="598000" />
+      <workItem from="1746753299937" duration="1182000" />
+      <workItem from="1746774018298" duration="60000" />
     </task>
     <servers />
   </component>

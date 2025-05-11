@@ -1,0 +1,275 @@
+<header class="header" th:fragment="navbar">
+  <div class="header-top">
+    <div class="container">
+      <div class="header-left">
+
+      </div><!-- End .header-left -->
+
+      <div class="header-right">
+        <ul class="top-menu">
+          <li>
+            <a href="#">Links</a>
+            <ul>
+              <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
+              <li><a href="#"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a th:href="@{/my-account/profile}">My Account</a></li>
+              <li><a th:href="@{/my-account/profile}" data-toggle="modal"><i class="icon-user"></i><span th:text="${name}"></span></a></li>
+            </ul>
+          </li>
+        </ul><!-- End .top-menu -->
+      </div><!-- End .header-right -->
+    </div><!-- End .container -->
+  </div><!-- End .header-top -->
+
+  <div class="header-middle sticky-header">
+    <div class="container">
+
+      <div class="header-left">
+        <button class="mobile-menu-toggler">
+          <span class="sr-only">Toggle mobile menu</span>
+          <i class="icon-bars"></i>
+        </button>
+
+        <a th:href="@{/static}" class="logo">
+          <img th:src="@{/fe/images/logo.png}" alt="Molla Logo" width="105" height="25">
+        </a>
+      </div>
+
+      <div class="header-center">
+        <form action="https://molla.pro.vn/search">
+          <div style="width: 570px;" class="dropdown compare-dropdown">
+            <div class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
+              <div class="header-search-wrapper search-wrapper-wide">
+                <input id="keywords" class="form-control" name="keywords" placeholder="Tìm kiếm sản phẩm ..." required="">
+                <input type="hidden" class="form-control" name="publish" value="2">
+                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+              </div><!-- End .header-search-wrapper -->
+            </div><!-- End .header-search -->
+            <div id="search-ajax"></div>
+          </div>
+        </form>
+      </div>
+
+      <div class="header-right">
+        <div class="header-search">
+          <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+          <form action="#" method="get">
+            <div class="header-search-wrapper">
+              <label for="q" class="sr-only">Search</label>
+              <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+            </div><!-- End .header-search-wrapper -->
+          </form>
+        </div><!-- End .header-search -->
+        <div class="dropdown compare-dropdown">
+          <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
+            <i class="icon-random"></i>
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right">
+            <ul class="compare-products">
+              <li class="compare-product">
+                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
+              </li>
+              <li class="compare-product">
+                <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
+              </li>
+            </ul>
+
+            <div class="compare-actions">
+              <a href="#" class="action-link">Clear All</a>
+              <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
+            </div>
+          </div><!-- End .dropdown-menu -->
+        </div><!-- End .compare-dropdown -->
+
+        <div class="dropdown cart-dropdown">
+          <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+            <i class="icon-shopping-cart"></i>
+            <span class="cart-count">2</span>
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right">
+
+
+
+            <div class="dropdown-cart-action">
+              <a href="cart.html" class="btn btn-primary">View Cart</a>
+              <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+            </div><!-- End .dropdown-cart-total -->
+          </div><!-- End .dropdown-menu -->
+        </div><!-- End .cart-dropdown -->
+      </div><!-- End .header-right -->
+    </div><!-- End .container -->
+  </div><!-- End .header-middle -->
+  <div class="header-bottom">
+    <div class="container">
+      <div class="header-left">
+        <div class="dropdown category-dropdown">
+          <a style="font-size: 1.8rem" href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
+            Nhóm Sản Phẩm
+          </a>
+          <div class="dropdown-menu">
+            <nav class="side-nav">
+              <ul class="menu-vertical sf-arrows sf-js-enabled" style="touch-action: pan-y;">
+                <li class="item-lead"><a style="font-size: 1.8rem" href="https://molla.pro.vn/flash-sale">Khuyến mãi</a></li>
+                <li class="item-lead"><a style="font-size: 1.8rem" href="https://molla.pro.vn/top-selling-product">Sản phẩm bán chạy</a></li>
+                <li><a style="font-size: 1.8rem" href="https://molla.pro.vn/new-product">Sản phẩm mới phát hành</a></li>
+              </ul><!-- End .menu-vertical -->
+            </nav><!-- End .side-nav -->
+          </div>
+        </div>
+      </div>
+      <div class="header-center">
+        <nav class="main-nav">
+          <ul class="menu sf-arrows sf-js-enabled" style="touch-action: pan-y;">
+            <li class="">
+              <a style="font-size: 1.8rem" href="https://molla.pro.vn/collections/nam" class="sf-with-ul">Nam
+              </a>
+
+              <div class="megamenu megamenu-sm" style="display: none;">
+                <div class="row no-gutters">
+                  <div class="col-md-6">
+                    <div class="menu-col">
+                      <ul>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/hunter">Hunter</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/giay-the-thao">Giày Thể Thao</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/giay-da-banh">Giày Đá Banh</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/giay-chay-bo">Giày Chạy Bộ</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/sandal">Sandal</a></li>
+                      </ul>
+                    </div><!-- End .menu-col -->
+                  </div><!-- End .col-md-6 -->
+                  <div class="col-md-6">
+                    <div class="banner banner-overlay">
+                      <a href="https://molla.pro.vn/collections/nam">
+                        <img src="/storage/uploads/thumb/categories/2024/07/01/Screenshot 2024-07-01 220302.png" alt="Banner">
+                      </a>
+                    </div><!-- End .banner -->
+                  </div><!-- End .col-md-6 -->
+                </div><!-- End .row -->
+              </div>
+            </li>
+            <li class="">
+              <a style="font-size: 1.8rem" href="https://molla.pro.vn/collections/nu" class="sf-with-ul">Nữ
+              </a>
+
+              <div class="megamenu megamenu-sm" style="display: none;">
+                <div class="row no-gutters">
+                  <div class="col-md-6">
+                    <div class="menu-col">
+                      <ul>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/hunter-nu">Hunter</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/giay-thoi-trang">Giày Thời Trang</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/giay-the-thao-nu">Giày Thể Thao</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/sandal-nu">Sandal</a></li>
+                      </ul>
+                    </div><!-- End .menu-col -->
+                  </div><!-- End .col-md-6 -->
+                  <div class="col-md-6">
+                    <div class="banner banner-overlay">
+                      <a href="https://molla.pro.vn/collections/nu">
+                        <img src="/storage/uploads/thumb/categories/2024/07/14/Screenshot 2024-07-15 011121.png" alt="Banner">
+                      </a>
+                    </div><!-- End .banner -->
+                  </div><!-- End .col-md-6 -->
+                </div><!-- End .row -->
+              </div>
+            </li>
+            <li class="">
+              <a style="font-size: 1.8rem" href="https://molla.pro.vn/collections/be-trai" class="sf-with-ul">Bé Trai
+              </a>
+
+              <div class="megamenu megamenu-sm" style="display: none;">
+                <div class="row no-gutters">
+                  <div class="col-md-6">
+                    <div class="menu-col">
+                      <ul>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/dep-be-trai">Dép</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/sandal-be-trai">Sandal</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/giay-the-thao-be-trai">Giày Thể Thao</a></li>
+                      </ul>
+                    </div><!-- End .menu-col -->
+                  </div><!-- End .col-md-6 -->
+                  <div class="col-md-6">
+                    <div class="banner banner-overlay">
+                      <a href="https://molla.pro.vn/collections/be-trai">
+                        <img src="/storage/uploads/thumb/categories/2024/07/14/image (1).jpg" alt="Banner">
+                      </a>
+                    </div><!-- End .banner -->
+                  </div><!-- End .col-md-6 -->
+                </div><!-- End .row -->
+              </div>
+            </li>
+            <li class="">
+              <a style="font-size: 1.8rem" href="https://molla.pro.vn/collections/be-gai" class="sf-with-ul">Bé Gái
+              </a>
+
+              <div class="megamenu megamenu-sm" style="display: none;">
+                <div class="row no-gutters">
+                  <div class="col-md-6">
+                    <div class="menu-col">
+                      <ul>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/dep-be-gai">Dép</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/sandal-be-gai">Sandal</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/giay-the-thao-be-gai">Giày Thể Thao</a></li>
+                      </ul>
+                    </div><!-- End .menu-col -->
+                  </div><!-- End .col-md-6 -->
+                  <div class="col-md-6">
+                    <div class="banner banner-overlay">
+                      <a href="https://molla.pro.vn/collections/be-gai">
+                        <img src="/storage/uploads/thumb/categories/2024/07/14/image.jpg" alt="Banner">
+                      </a>
+                    </div><!-- End .banner -->
+                  </div><!-- End .col-md-6 -->
+                </div><!-- End .row -->
+              </div>
+            </li>
+            <li class="">
+              <a style="font-size: 1.8rem" href="https://molla.pro.vn/collections/phu-kien" class="sf-with-ul">Phụ Kiện
+              </a>
+
+              <div class="megamenu megamenu-sm" style="display: none;">
+                <div class="row no-gutters">
+                  <div class="col-md-6">
+                    <div class="menu-col">
+                      <ul>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/tat-vo">Tất Vớ</a></li>
+                        <li><a style="font-size: 1.8rem;text-transform: none;" class="menu-title" href="https://molla.pro.vn/collections/lot-de">Lót Đế</a></li>
+                      </ul>
+                    </div><!-- End .menu-col -->
+                  </div><!-- End .col-md-6 -->
+                  <div class="col-md-6">
+                    <div class="banner banner-overlay">
+                      <a href="https://molla.pro.vn/collections/phu-kien">
+                        <img src="/storage/uploads/thumb/categories/2024/07/18/nike-kids.jpg" alt="Banner">
+                      </a>
+                    </div><!-- End .banner -->
+                  </div><!-- End .col-md-6 -->
+                </div><!-- End .row -->
+              </div>
+            </li>
+          </ul><!-- End .menu -->
+        </nav>
+      </div>
+      <div class="header-right">
+        <nav class="main-nav">
+          <ul class="menu sf-arrows sf-js-enabled" style="touch-action: pan-y;">
+            <li class="">
+              <a style="font-size: 1.8rem;text-transform: none;" href="https://molla.pro.vn">Trang Chủ</a>
+            </li>
+            <li class="">
+              <a style="font-size: 1.8rem;text-transform: none;" href="https://molla.pro.vn/news">Bài Viết</a>
+            </li>
+            <li class="">
+              <a style="font-size: 1.8rem;text-transform: none;" href="https://molla.pro.vn/contact">Liên Hệ</a>
+            </li>
+          </ul><!-- End .menu -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>

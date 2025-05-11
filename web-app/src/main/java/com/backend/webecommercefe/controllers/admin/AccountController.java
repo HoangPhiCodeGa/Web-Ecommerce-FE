@@ -37,6 +37,7 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping("/account")
+@Slf4j
 public class AccountController {
 
     @Autowired
@@ -119,9 +120,9 @@ public class AccountController {
                 return ResponseEntity.status(response.getStatus()).body(response);
             }
         } catch (Exception e) {
-            log.error("Error in loginSubmit: {}", e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An error occurred during login: " + e.getMessage(), null));
+            log.error("Error in loginSubmit: {}", e.getMessage());
+            redirectAttributes.addFlashAttribute("error", "An error occurred during login");
+            return "redirect:/account/login";
         }
     }
 

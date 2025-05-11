@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Preloader and other existing elements remain the same -->
+        <!-- Navbar -->
+        <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Dashboard</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Dashboard</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Small boxes (Stat box) - same as before -->
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <!-- <h3>150</h3> -->
+                                    <h3 th:text="${totalUsers}">0</h3>
+                                    <p>New Accounts</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <!-- <h3 id="revenue-total" th:text="${totalRenu}">0</h3><sup
+                                        style="font-size: 14px">đ</sup> -->
+                                    <h3 th:text="${totalRenu}">0</h3>
+                                    <p>Total Revenue</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <!-- <h3 id="order-count">1,240</h3> -->
+                                    <h3 th:text="${totalOrder}">0</h3>
+                                    <p>Total Orders</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <!-- <h3>65</h3> -->
+                                    <h3 th:text="${totalUsers}">0</h3>
+                                    <p>New Customers</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+
+                    <!-- Main row -->
+                    <div class="row">
+                        <!-- Revenue Chart -->
+                        <section class="col-lg-7 connectedSortable">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-chart-line mr-1"></i>
+                                        Revenue by Month
+                                    </h3>
+                                    <div class="card-tools">
+                                        <select id="year-selector" class="form-control form-control-sm"
+                                            style="width: 100px;">
+                                            <option value="2023">2023</option>
+                                            <option value="2024" selected>2024</option>
+                                            <option value="2025">2025</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="revenueChart" height="300" style="height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Order Count Chart -->
+                        <section class="col-lg-5 connectedSortable">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-shopping-cart mr-1"></i>
+                                        Order Count by Month
+                                    </h3>
+                                    <div class="card-tools">
+                                        <select id="order-year-selector" class="form-control form-control-sm"
+                                            style="width: 100px;">
+                                            <option value="2023">2023</option>
+                                            <option value="2024" selected>2024</option>
+                                            <option value="2025">2025</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="orderChart" height="300" style="height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </section>
+        </div>
+
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div th:replace="~{fragments/script :: script}"></div>
+    <script th:src="@{/assets/plugins/chart.js/Chart.min.js}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Months labels
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            // Sample data for different years
+            const revenueData = {
+                '2023': [4500000, 5200000, 4800000, 6200000, 7100000, 8300000, 9200000, 8800000, 7600000, 8500000, 9100000, 10500000],
+                '2024': [5500000, 6300000, 5800000, 7200000, 8100000, 9300000, 10200000, 9800000, 8600000, 9500000, 10100000, 11500000],
+                '2025': [6500000, 7300000, 6800000, 8200000, 9100000, 10300000, 11200000, 10800000, 9600000, 10500000, 11100000, 12500000]
+            };
+
+            const orderData = {
+                '2023': [120, 135, 125, 145, 160, 175, 185, 180, 170, 165, 175, 190],
+                '2024': [140, 155, 145, 165, 180, 195, 205, 200, 190, 185, 195, 210],
+                '2025': [160, 175, 165, 185, 200, 215, 225, 220, 210, 205, 215, 230]
+            };
+
+            // Format currency
+            function formatCurrency(value) {
+                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'đ';
+            }
+
+            // Initialize charts
+            let revenueChart = createChart('revenueChart', 'Revenue', revenueData['2024'], 'line', 'rgba(60,141,188,0.9)', true);
+            let orderChart = createChart('orderChart', 'Orders', orderData['2024'], 'bar', 'rgba(210, 214, 222, 1)', false);
+
+            // Update total display
+            document.getElementById('revenue-total').innerHTML =
+                formatCurrency(revenueData['2024'].reduce((a, b) => a + b, 0)) + '<sup style="font-size: 14px"></sup>';
+            document.getElementById('order-count').innerText =
+                orderData['2024'].reduce((a, b) => a + b, 0);
+
+            // Year selector event
+            document.getElementById('year-selector').addEventListener('change', function () {
+                const year = this.value;
+                updateChart(revenueChart, revenueData[year]);
+                document.getElementById('revenue-total').innerHTML =
+                    formatCurrency(revenueData[year].reduce((a, b) => a + b, 0)) + '<sup style="font-size: 14px"></sup>';
+            });
+
+            document.getElementById('order-year-selector').addEventListener('change', function () {
+                const year = this.value;
+                updateChart(orderChart, orderData[year]);
+                document.getElementById('order-count').innerText =
+                    orderData[year].reduce((a, b) => a + b, 0);
+            });
+
+            // Chart creation function
+            function createChart(canvasId, label, data, type, color, isCurrency) {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+                return new Chart(ctx, {
+                    type: type,
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: label,
+                            data: data,
+                            backgroundColor: color,
+                            borderColor: color.replace('0.9', '0.8'),
+                            borderWidth: 2,
+                            fill: type === 'line'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function (value) {
+                                        return isCurrency ? formatCurrency(value) : value;
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return isCurrency
+                                            ? formatCurrency(context.raw)
+                                            : context.raw + ' orders';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart update function
+            function updateChart(chart, newData) {
+                chart.data.datasets[0].data = newData;
+                chart.update();
+            }
+        });
+    </script>
+</body>
+
+</html>
