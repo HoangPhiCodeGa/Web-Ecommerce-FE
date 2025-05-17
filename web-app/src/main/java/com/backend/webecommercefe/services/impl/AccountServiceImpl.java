@@ -19,7 +19,9 @@ import com.backend.webecommercefe.entities.User;
 import com.backend.webecommercefe.services.AccountService;
 import com.backend.webecommercefe.untils.ApiResponse;
 import com.backend.webecommercefe.untils.Utilfunctions;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +30,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,6 +182,40 @@ public class AccountServiceImpl implements AccountService {
         } catch (Exception e) {
             log.error("Unexpected error during registration: {}", e.getMessage());
             return new ApiResponse(500, null, "Registration failed: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public ApiResponse forgotPassword(String email) {
+        try{
+            String url = AUTH_ENDPOINT + "/account/forgot-password?email=" + email;
+            log.info("Calling API: {}", url);
+            ResponseEntity<String> responseEntity = restClient.post()
+                    .uri(url)
+                    .header("Content-Type", "application/json")
+                    .retrieve()
+                    .toEntity(String.class);
+            String rawResponse = responseEntity.getBody();
+            log.info("Forgot password raw response: {}", rawResponse);
+            if (rawResponse != null && !rawResponse.isEmpty()) {
+                ApiResponse apiResponse = objectMapper.readValue(rawResponse, ApiResponse.class);
+                log.info("Parsed forgot password response: {}", apiResponse);
+                return apiResponse;
+            } else {
+                log.warn("Empty response from server");
+                return new ApiResponse(200, null, "No data received from server");
+            }
+        }catch (HttpClientErrorException e){
+            log.error("HTTP error during forgot password: {} - {}", e.getStatusCode(), e.getResponseBodyAsString());
+            String errorMessage = e.getResponseBodyAsString().isEmpty()
+                    ? "Error " + e.getStatusCode() + ": No details provided"
+                    : e.getResponseBodyAsString();
+            return new ApiResponse(e.getStatusCode().value(), null, errorMessage);
+        }catch (RestClientException e) {
+            log.error("Error during forgot password: {}", e.getMessage());
+            return new ApiResponse(500, null, "Forgot password failed: " + e.getMessage());
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -711,4 +748,5 @@ public class AccountServiceImpl implements AccountService {
     public void deleteUser(Long id, HttpServletRequest request) {
         throw new UnsupportedOperationException("Not implemented");
     }
+
 }

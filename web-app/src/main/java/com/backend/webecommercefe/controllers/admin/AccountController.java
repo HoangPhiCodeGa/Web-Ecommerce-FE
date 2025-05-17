@@ -8,11 +8,10 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -97,6 +96,9 @@ public class AccountController {
                         String token = (String) body.get("token");
                         if (token != null) {
                             session.setAttribute("jwtToken", token);
+                            session.setAttribute("account", account);
+                            session.setAttribute("loggedIn", true);// Lưu toàn bộ đối tượng Account vào session
+                            log.info("Account saved to session: {}", account);
                             log.info("JWT token saved to session: {}", token);
                             return "redirect:/admin/customer";
                         }
@@ -122,4 +124,17 @@ public class AccountController {
         log.info("User logged out, session invalidated");
         return "redirect:/account/login";
     }
+
+    @PostMapping("/forgot-password")
+    public String forgotPasswordPage(@RequestParam("email") String email, Model model) {
+        ApiResponse response = accountService.forgotPassword(email);
+        if (response.getStatus() == 200) {
+            return "redirect:/account/login";
+        } else {
+            model.addAttribute("message", response.getMessage());
+            model.addAttribute("alertType", "error");
+            return "redirect:/account/forgot-password";
+        }
+    }
+
 }

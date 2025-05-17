@@ -202,7 +202,14 @@
                                     <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
                                     <li><a href="#"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
                                     <li><a href="#">About Us</a></li>
-                                    <li><a id="accountLink" th:href="@{/account/login}">My Account</a></li>
+                                    <li>
+                                        <span th:if="${session.loggedIn}">
+                                            <a th:href="@{/account/logout}">Logout</a>
+                                        </span>
+                                        <span th:unless="${session.loggedIn}">
+                                            <a id="accountLink" th:href="@{/account/login}">My Account</a>
+                                        </span>
+                                    </li>
                                 </ul>
                             </li>
                         </ul><!-- End .top-menu -->

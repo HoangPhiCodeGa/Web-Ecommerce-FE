@@ -34,4 +34,5 @@ public interface AccountService {
     User createUser(User user, HttpServletRequest request);
     User updateUser(Long id, User user, HttpServletRequest request);
     void deleteUser(Long id, HttpServletRequest request);
+    ApiResponse forgotPassword(String email);
 }

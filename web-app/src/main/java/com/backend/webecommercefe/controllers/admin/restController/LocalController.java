@@ -26,6 +26,7 @@ public class LocalController {
 
             session.setAttribute("TOKEN", token);
             session.setAttribute("ROLE", role);
+            session.setAttribute("loggedIn", true);
 
             session.setMaxInactiveInterval(30 * 60);
             Utilfunctions.WRITE_TOKEN_LOCAL(token);
