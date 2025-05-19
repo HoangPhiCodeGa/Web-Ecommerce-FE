@@ -1,120 +1,178 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>QUẢN LÝ TÀI KHOẢN</title>
     <link rel="stylesheet" th:href="@{/assets/dist/css/adminlte.min.css}">
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60" width="60">
-    </div>
-
-    <!-- Navbar -->
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
-
-    <!-- Main Sidebar Container -->
-    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">QUẢN LÝ TÀI KHOẢN</h1>
-                    </div>
-                    <div class="col-3"></div>
-                    <div class="col-3">
-                        <div id="alert-box" class="alert alert-success position-absolute" th:if="${message}">
-                            <span th:text="${message}"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
+                width="60">
         </div>
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row" style="display: flex; justify-content: space-between; align-items: center">
-                                    <div class="col-md-5">
-                                        <form th:action="@{/admin/account}" method="get">
-                                            <div class="input-group">
-                                                <input type="search" name="keyword" class="form-control" placeholder="Type your keywords here" th:value="${keyword}">
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-default">
-                                                        <i class="fa fa-search"></i>
-                                                    </button>
+        <!-- Navbar -->
+        <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+        <!-- Main Sidebar Container -->
+        <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">QUẢN LÝ TÀI KHOẢN</h1>
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-3">
+                            <div id="alert-box" class="alert alert-success position-absolute" th:if="${message}">
+                                <span th:text="${message}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row"
+                                        style="display: flex; justify-content: space-between; align-items: center">
+                                        <div class="col-md-5">
+                                            <form th:action="@{/admin/account}" method="get">
+                                                <div class="input-group">
+                                                    <input type="search" name="keyword" class="form-control"
+                                                        placeholder="Type your keywords here" th:value="${keyword}">
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-default">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="card-body">
-                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6"></div>
-                                        <div class="col-sm-12 col-md-6"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline">
-                                                <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Username</th>
-                                                    <th>Email</th>
-                                                    <th>Roles</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="account : ${accounts}">
-                                                    <td th:text="${account.accountId}"></td>
-                                                    <td th:text="${account.username}"></td>
-                                                    <td th:text="${account.email}"></td>
-                                                    <td>
-                                                        <span th:each="role, iterStat : ${account.roles}" th:text=" ${role.name} " th:if="${!iterStat.last} + ', '"></span>
-                                                        <span th:if="${#lists.isEmpty(account.roles)}">No roles</span>
-                                                    </td>
-                                                    <td>
-                                                        <a th:href="@{/admin/account/edit(id=${account.accountId})}">Edit</a>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                                <tfoot></tfoot>
-                                            </table>
+                                <div class="card-body">
+                                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6"></div>
+                                            <div class="col-sm-12 col-md-6"></div>
                                         </div>
-                                    </div>
-                                    <div class="row" style="display: flex; justify-content: space-between; align-items: center;">
-                                        <div class="col-sm-12 col-md-5">
-                                            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                                                Showing <span th:text="${accounts.size()}"></span> entries
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table id="example2"
+                                                    class="table table-bordered table-hover dataTable dtr-inline">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Username</th>
+                                                            <th>Email</th>
+                                                            <th>Roles</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr th:each="account : ${accounts}">
+                                                            <td th:text="${account.accountId}"></td>
+                                                            <td th:text="${account.username}"></td>
+                                                            <td th:text="${account.email}"></td>
+
+                                                            <td>
+                                                                <span class="badge badge-pill"
+                                                                    th:each="role : ${account.roles}"
+                                                                    th:text="${role.name}"
+                                                                    th:classappend="${role.name == 'ADMIN'} ? 'badge-danger' : 'badge-primary'">
+                                                                </span>
+                                                                <span th:if="${#lists.isEmpty(account.roles)}"
+                                                                    class="badge badge-secondary">No roles</span>
+                                                            </td>
+                                                            <td>
+                                                                <form th:action="@{/admin/account/update-roles}"
+                                                                    method="post" class="role-form">
+                                                                    <input type="hidden" name="accountId"
+                                                                        th:value="${account.accountId}">
+
+                                                                    <div class="form-group mb-2">
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input"
+                                                                                type="checkbox"
+                                                                                id="admin-${account.accountId}"
+                                                                                name="roles" value="ADMIN"
+                                                                                th:checked="${account.roles.?[name == 'ADMIN'].size() > 0}">
+                                                                            <label class="form-check-label"
+                                                                                for="admin-${account.accountId}">ADMIN</label>
+                                                                        </div>
+
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input"
+                                                                                type="checkbox"
+                                                                                id="user-${account.accountId}"
+                                                                                name="roles" value="USER"
+                                                                                th:checked="${account.roles.?[name == 'USER'].size() > 0}">
+                                                                            <label class="form-check-label"
+                                                                                for="user-${account.accountId}">USER</label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-outline-primary"
+                                                                        onclick="updateRole(this)"
+                                                                        th:attr="data-account-id=${account.username}"
+                                                                    >
+                                                                        Update Roles</button>
+                                                                </form>
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot></tfoot>
+                                                </table>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-7" style="display: flex; justify-content: flex-end">
-                                            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                                <ul class="pagination">
-                                                    <li class="paginate_button page-item previous" th:classappend="${currentPage == 0} ? 'disabled'">
-                                                        <a th:href="@{/admin/account(page=${currentPage - 1}, keyword=${keyword})}" class="page-link">Previous</a>
-                                                    </li>
-                                                    <li class="paginate_button page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
-                                                        <a th:href="@{/admin/account(page=${i}, keyword=${keyword})}" th:text="${i + 1}" class="page-link"></a>
-                                                    </li>
-                                                    <li class="paginate_button page-item next" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                                                        <a th:href="@{/admin/account(page=${currentPage + 1}, keyword=${keyword})}" class="page-link">Next</a>
-                                                    </li>
-                                                </ul>
+                                        <div class="row"
+                                            style="display: flex; justify-content: space-between; align-items: center;">
+                                            <div class="col-sm-12 col-md-5">
+                                                <div class="dataTables_info" id="example2_info" role="status"
+                                                    aria-live="polite">
+                                                    Showing <span th:text="${accounts.size()}"></span> entries
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-7"
+                                                style="display: flex; justify-content: flex-end">
+                                                <div class="dataTables_paginate paging_simple_numbers"
+                                                    id="example2_paginate">
+                                                    <ul class="pagination">
+                                                        <li class="paginate_button page-item previous"
+                                                            th:classappend="${currentPage == 0} ? 'disabled'">
+                                                            <a th:href="@{/admin/account(page=${currentPage - 1}, keyword=${keyword})}"
+                                                                class="page-link">Previous</a>
+                                                        </li>
+                                                        <li class="paginate_button page-item"
+                                                            th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                                            th:classappend="${i == currentPage} ? 'active'">
+                                                            <a th:href="@{/admin/account(page=${i}, keyword=${keyword})}"
+                                                                th:text="${i + 1}" class="page-link"></a>
+                                                        </li>
+                                                        <li class="paginate_button page-item next"
+                                                            th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                                                            <a th:href="@{/admin/account(page=${currentPage + 1}, keyword=${keyword})}"
+                                                                class="page-link">Next</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -123,24 +181,74 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+        <aside class="control-sidebar control-sidebar-dark"></aside>
     </div>
 
-    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/assets/plugins/jquery/jquery.min.js}"></script>
+    <script th:src="@{/assets/dist/js/adminlte.min.js}"></script>
 
-    <aside class="control-sidebar control-sidebar-dark"></aside>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <script src="/assets/custom/authen_admin.js"></script>
 
-<script th:src="@{/assets/plugins/jquery/jquery.min.js}"></script>
-<script th:src="@{/assets/dist/js/adminlte.min.js}"></script>
-<script th:inline="javascript">
-    setTimeout(() => {
-        const alertBox = document.getElementById("alert-box");
-        if (alertBox) {
-            alertBox.style.display = "none";
+    <script th:inline="javascript">
+        setTimeout(() => {
+            const alertBox = document.getElementById("alert-box");
+            if (alertBox) {
+                alertBox.style.display = "none";
+            }
+        }, 3000);
+    </script>
+
+    <script>
+        function updateRole(buttonElement) {
+            const URL_UPDATE_ROLE = `http://localhost:8080/api/account/change-role/`
+
+            var accountName = buttonElement.getAttribute('data-account-id');
+
+            // Lấy form chứa các checkbox roles
+            var form = buttonElement.closest('form');
+
+            // Lấy tất cả các checkbox roles trong form
+            var checkboxes = form.querySelectorAll('input[name="roles"]:checked');
+            var selectedRoles = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            var token = localStorage.getItem("TOKEN");            
+
+            axios.post(URL_UPDATE_ROLE + accountName, selectedRoles, 
+                { headers: { Authorization: `Bearer ${token}` } })
+                .then(response => {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Cập nhật quyền thành công!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                    setTimeout(() => location.reload(), 1000);
+                })
+                .catch(err => {
+                    console.error('Lỗi cập nhật quyền:', err);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Cập nhật thất bại!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                });
         }
-    }, 3000);
-</script>
+    </script>
 </body>
+
 </html>

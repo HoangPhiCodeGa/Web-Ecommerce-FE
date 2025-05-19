@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ Hàng</title>
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" th:href="@{images/icons/apple-touch-icon.png}">
+  <link rel="icon" type="image/png" sizes="32x32" th:href="@{images/icons/favicon-32x32.png}">
+  <link rel="icon" type="image/png" sizes="16x16" th:href="@{images/icons/favicon-16x16.png}">
+  <link rel="manifest" th:href="@{images/icons/site.html}">
+  <link rel="mask-icon" th:href="@{images/icons/safari-pinned-tab.svg}" color="#666666">
+  <link rel="shortcut icon" th:href="@{images/icons/favicon.ico}">
+  <meta name="apple-mobile-web-app-title" content="Molla">
+  <meta name="application-name" content="Molla">
+  <meta name="msapplication-TileColor" content="#cc9966">
+  <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Plugins CSS File -->
+  <link rel="stylesheet" th:href="@{fe/css/bootstrap.min.css}">
+  <!-- Main CSS File -->
+  <link rel="stylesheet" th:href="@{fe/css/style.css}">
+  <link rel="stylesheet" th:href="@{fe/css/plugins/owl-carousel/owl.carousel.css}">
+  <link rel="stylesheet" th:href="@{fe/css/plugins/magnific-popup/magnific-popup.css}">
+  <link rel="stylesheet" th:href="@{fe/css/plugins/nouislider/nouislider.css}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<style>
+  a {
+    text-decoration: none;
+    /* Loại bỏ dấu gạch chân */
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    /* Sử dụng font Roboto cho toàn bộ trang */
+  }
+
+  footer {
+    font-family: 'Roboto', sans-serif;
+    /* Áp dụng cùng font cho phần footer */
+  }
+
+
+
+  .modal-body img {
+    max-width: 100%;
+    /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: center;
+    /* Căn giữa các nút ở footer */
+    padding: 15px 0;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* Thêm vào CSS của bạn */
+  .modal-body img {
+    width: 70%;
+    /* Đặt chiều rộng ảnh là 70% */
+    height: auto;
+    /* Đảm bảo tỉ lệ ảnh không bị méo */
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* Căn giữa ảnh */
+  }
+</style>
+
+<body>
+  <header class="header">
+    <div class="header-top">
+      <div class="container">
+        <div class="header-left">
+          <div class="header-dropdown">
+            <a href="#">Usd</a>
+            <div class="header-menu">
+              <ul>
+                <li><a href="#">Eur</a></li>
+                <li><a href="#">Usd</a></li>
+              </ul>
+            </div><!-- End .header-menu -->
+          </div><!-- End .header-dropdown -->
+
+          <div class="header-dropdown">
+            <a href="#">Eng</a>
+            <div class="header-menu">
+              <ul>
+                <li><a href="#">English</a></li>
+                <li><a href="#">French</a></li>
+                <li><a href="#">Spanish</a></li>
+              </ul>
+            </div><!-- End .header-menu -->
+          </div><!-- End .header-dropdown -->
+        </div><!-- End .header-left -->
+
+        <div class="header-right">
+          <ul class="top-menu">
+            <li>
+              <a href="#">Links</a>
+              <ul>
+                <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
+                <li><a href="#"><i class="icon-heart-o"></i>Wishlist <span>(3)</span></a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a id="accountLink" th:href="@{/account/login}">My Account</a></li>
+              </ul>
+            </li>
+          </ul><!-- End .top-menu -->
+        </div><!-- End .header-right -->
+      </div><!-- End .container -->
+    </div><!-- End .header-top -->
+
+    <div class="header-middle sticky-header">
+      <div class="container">
+        <div class="header-right">
+          <div class="header-search">
+            <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
+            <form action="/search" method="get">
+              <div class="header-search-wrapper">
+                <label for="q" class="sr-only">Search</label>
+                <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+              </div><!-- End .header-search-wrapper -->
+            </form>
+          </div><!-- End .header-search -->
+          <div class="dropdown compare-dropdown">
+            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false" data-display="static" title="Compare Products">
+              <i class="icon-random"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <ul class="compare-products">
+                <li class="compare-product">
+                  <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                  <h4 class="compare-product-title"><a href="#">Blue Night Dress</a></h4>
+                </li>
+                <li class="compare-product">
+                  <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                  <h4 class="compare-product-title"><a href="#">White Long Skirt</a></h4>
+                </li>
+              </ul>
+              <div class="compare-actions">
+                <a href="#" class="action-link">Clear All</a>
+                <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i
+                    class="icon-long-arrow-right"></i></a>
+              </div><!-- End .dropdown-menu -->
+            </div><!-- End .compare-dropdown -->
+            <div class="dropdown cart-dropdown">
+              <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" data-display="static">
+                <i class="icon-shopping-cart"></i>
+                <span id="cart-count" class="cart-count">0</span> <!-- Số lượng giỏ hàng -->
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-cart-action">
+                  <a th:href="@{/cart/view}" class="btn btn-primary">View Cart</a>
+                  <a href="/checkout" class="btn btn-outline-primary-2"><span>Checkout</span><i
+                      class="icon-long-arrow-right"></i></a>
+                </div><!-- End .dropdown-cart-total -->
+              </div><!-- End .dropdown-menu -->
+            </div><!-- End .cart-dropdown -->
+
+          </div><!-- End .header-right -->
+        </div><!-- End .container -->
+      </div><!-- End .header-middle -->
+    </div><!-- End .header -->
+  </header>
+  <div class="container my-5">
+    <h2>Giỏ Hàng</h2>
+
+    <div class="d-flex justify-content-end mt-3">
+      <a href="/" class="btn btn-primary">Quay về trang chủ</a>
+    </div>
+
+    <hr>
+
+    <!-- Hiển thị tổng giá trị đơn hàng -->
+    <!-- Hiển thị sản phẩm trong giỏ hàng -->
+    <div id="cart-items-container">
+      <!-- Các sản phẩm sẽ được hiển thị ở đây -->
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <span>Tổng cộng:</span>
+      <span id="total-price">0 VND</span>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <span>Phí giao hàng:</span>
+      <span id="shipping-fee">0 VND</span>
+    </div>
+
+    <div class="d-flex justify-content-between fw-bold">
+      <span>Tổng:</span>
+      <span id="total-with-shipping">0 VND</span>
+    </div>
+
+
+    <hr>
+
+    <a href="/checkout"><button class="btn btn-dark w-100 mt-3">Tiếp tục thanh toán</button></a>
+    <footer class="footer">
+      <div class="footer-middle">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 col-lg-3">
+              <div class="widget widget-about">
+
+                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna
+                  eros eu erat. </p>
+
+                <div class="social-icons">
+                  <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                  <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                  <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                  <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+                  <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+                </div><!-- End .soial-icons -->
+              </div><!-- End .widget about-widget -->
+            </div><!-- End .col-sm-6 col-lg-3 -->
+
+            <div class="col-sm-6 col-lg-3">
+              <div class="widget">
+                <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+                <ul class="widget-list">
+                  <li><a href="about.html">About Molla</a></li>
+                  <li><a href="#">How to shop on Molla</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="contact.html">Contact us</a></li>
+                  <li><a href="login.html">Log in</a></li>
+                </ul><!-- End .widget-list -->
+              </div><!-- End .widget -->
+            </div><!-- End .col-sm-6 col-lg-3 -->
+
+            <div class="col-sm-6 col-lg-3">
+              <div class="widget">
+                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                <ul class="widget-list">
+                  <li><a href="#">Payment Methods</a></li>
+                  <li><a href="#">Money-back guarantee!</a></li>
+                  <li><a href="#">Returns</a></li>
+                  <li><a href="#">Shipping</a></li>
+                  <li><a href="#">Terms and conditions</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul><!-- End .widget-list -->
+              </div><!-- End .widget -->
+            </div><!-- End .col-sm-6 col-lg-3 -->
+
+            <div class="col-sm-6 col-lg-3">
+              <div class="widget">
+                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                <ul class="widget-list">
+                  <li><a href="#">Sign In</a></li>
+                  <li><a href="cart.html">View Cart</a></li>
+                  <li><a href="#">My Wishlist</a></li>
+                  <li><a href="#">Track My Order</a></li>
+                  <li><a href="#">Help</a></li>
+                </ul><!-- End .widget-list -->
+              </div><!-- End .widget -->
+            </div><!-- End .col-sm-6 col-lg-3 -->
+          </div><!-- End .row -->
+        </div><!-- End .container -->
+      </div><!-- End .footer-middle -->
+
+      <div class="footer-bottom">
+        <div class="container">
+          <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+          <!-- End .footer-copyright -->
+          <figure class="footer-payments">
+            <img th:src="@{assets/fe/images/payments.png}" alt="Payment methods" width="272" height="20">
+          </figure><!-- End .footer-payments -->
+        </div><!-- End .container -->
+      </div><!-- End .footer-bottom -->
+    </footer>
+  </div>
+
+  <script>
+    // Lấy giỏ hàng từ localStorage và hiển thị lên trang
+    // Lấy giỏ hàng từ localStorage và hiển thị lên trang
+    // Lấy giỏ hàng từ localStorage và hiển thị lên trang
+    function displayCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartItemsContainer = document.getElementById('cart-items-container');
+      let total = 0;
+      cartItemsContainer.innerHTML = ''; // Xóa hết các sản phẩm cũ
+
+      // Kiểm tra nếu giỏ hàng trống
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = "<p>Giỏ hàng của bạn đang trống.</p>";
+        return;
+      }
+
+      // Duyệt qua các sản phẩm trong giỏ và hiển thị
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+
+        cartItemsContainer.innerHTML += `
+      <div class="row g-0 mb-3">
+        <div class="col-md-3">
+          <img src="${item.image}" alt="${item.name}" class="img-fluid rounded-start" style="max-height: 100px;">
+        </div>
+        <div class="col-md-9">
+          <h5 class="card-title">${item.name}</h5>
+          <p>Giá: ${item.price} VND</p>
+          <p>Số lượng:
+            <button onclick="decreaseQuantity(${item.productId})" class="btn btn-outline-secondary">-</button>
+            <span>${item.quantity}</span>
+            <button onclick="increaseQuantity(${item.productId})" class="btn btn-outline-secondary">+</button>
+          </p>
+          <button onclick="removeItemFromCart(${item.productId})" class="btn btn-danger">Xóa</button>
+        </div>
+      </div>
+    `;
+      });
+
+      // Cập nhật tổng giá trị
+      document.getElementById('total-price').innerText = total + " VND";
+
+      // Giả sử phí giao hàng là cố định, bạn có thể tính phí giao hàng tùy theo logic của bạn
+      let shippingFee = 30000; // Phí giao hàng (giả sử)
+      document.getElementById('shipping-fee').innerText = shippingFee + " VND";
+
+      // Cập nhật tổng cộng (tổng giá trị + phí giao hàng)
+      document.getElementById('total-with-shipping').innerText = total + shippingFee + " VND";
+    }
+
+    // Tăng số lượng sản phẩm trong giỏ hàng
+    function increaseQuantity(productId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Tìm sản phẩm trong giỏ hàng và tăng số lượng
+      const productIndex = cart.findIndex(item => item.productId === productId);
+      if (productIndex !== -1) {
+        cart[productIndex].quantity += 1;
+      }
+
+      // Lưu lại giỏ hàng đã sửa
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // Hiển thị lại giỏ hàng sau khi thay đổi
+      displayCart();
+    }
+
+    // Giảm số lượng sản phẩm trong giỏ hàng
+    function decreaseQuantity(productId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Tìm sản phẩm trong giỏ hàng và giảm số lượng
+      const productIndex = cart.findIndex(item => item.productId === productId);
+      if (productIndex !== -1 && cart[productIndex].quantity > 1) {
+        cart[productIndex].quantity -= 1;
+      }
+
+      // Lưu lại giỏ hàng đã sửa
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // Hiển thị lại giỏ hàng sau khi thay đổi
+      displayCart();
+    }
+
+    // Xóa sản phẩm khỏi giỏ hàng
+    function removeItemFromCart(productId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Tìm sản phẩm và xóa nó khỏi giỏ hàng
+      cart = cart.filter(item => item.productId !== productId);
+
+      // Lưu lại giỏ hàng đã sửa
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // Hiển thị lại giỏ hàng sau khi xóa sản phẩm
+      displayCart();
+    }
+
+    // Gọi hàm displayCart để hiển thị giỏ hàng khi trang được tải
+    displayCart();
+
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

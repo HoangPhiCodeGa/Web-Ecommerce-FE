@@ -1,245 +1,566 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="admin/fragments/head :: head"></head>
+<head th:replace="~{fragments/head :: head}"></head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
-             width="60">
-    </div>
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
+                width="60">
+        </div>
 
-    <!-- Navbar -->
-    <nav th:replace="admin/fragments/navbar :: navbar"></nav>
-    <!-- /.navbar -->
+        <!-- Navbar -->
+        <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+        <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
-    <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
+        <!-- Main Sidebar Container -->
+        <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">QUẢN LÝ ĐƠN HÀNG</h1>
-                    </div><!-- /.col -->
-                    <!--                    <div class="col-sm-6">-->
-                    <!--                        <ol class="breadcrumb float-sm-right">-->
-                    <!--                            <li class="breadcrumb-item"><a href="#">Quản lý đơn hàng</a></li>-->
-                    <!--                            <li class="breadcrumb-item active">Dashboard v1</li>-->
-                    <!--                        </ol>-->
-                    <!--                    </div>-->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">QUẢN LÝ ĐƠN HÀNG</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- /.content-header -->
+            <!-- /.content-header -->
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row"
-                                     style="display: flex;justify-content: space-between;align-items: center">
-                                    <div class="col-md-5">
-                                        <form>
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row"
+                                        style="display: flex;justify-content: space-between;align-items: center">
+                                        <div class="col-md-5">
                                             <div class="input-group">
-                                                <input type="search" name="keyword" class="form-control"
-                                                       placeholder="Type your keywords here">
+                                                <input type="search" id="search-keyword" class="form-control"
+                                                    placeholder="Type your keywords here" hidden>
                                                 <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-default">
+                                                    <button type="button" id="search-btn" class="btn btn-default" hidden>
                                                         <i class="fa fa-search"></i>
                                                     </button>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6"></div>
-                                        <div class="col-sm-12 col-md-6"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <table id="example2"
-                                                   class="table table-bordered table-hover dataTable dtr-inline"
-                                                   aria-describedby="example2_info">
-                                                <thead>
-                                                <tr>
-                                                    <th class="sorting sorting_asc" tabindex="0"
-                                                        aria-controls="example2" rowspan="1" colspan="1"
-                                                        aria-sort="ascending"
-                                                        aria-label="Rendering engine: activate to sort column descending">
-                                                        ID
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Browser: activate to sort column ascending">
-                                                        Ngày đặt hàng
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Platform(s): activate to sort column ascending">
-                                                        Tổng tiền
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Engine version: activate to sort column ascending">
-                                                        Trạng thái
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">
-                                                        Khách hàng
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">
-                                                        Khuyến mãi
-                                                    </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example2"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">
-                                                        Action
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <!-- Lặp danh sách orders-->
-                                                <tr class="odd" th:each="order : ${orders}">
-                                                    <td class="dtr-control sorting_1" tabindex="0"
-                                                        th:text="${order.getId()}"></td>
-                                                    <td th:text="${order.getNgayDatHang()}"></td>
-                                                    <!--                                                    <td th:text="${order.getTongTien()}"></td>-->
-                                                    <td th:text="${#numbers.formatDecimal(order.getTongTien(), 3, 'COMMA', 0, 'POINT') + ' VND'}"
-                                                        class="text-right"></td>
-                                                    <td th:text="${order.getTrangThai()}"></td>
-                                                    <td th:text="${order.getKhachHang().getTenKH()}"></td>
-                                                    <td>
-                                                                <span th:if="${order.getKhuyenMai() != null}"
-                                                                      th:text="${order.getKhuyenMai().getTenKhuyenMai()}"></span>
-                                                        <span
-                                                                th:if="${order.getKhuyenMai() == null}">Không</span>
-                                                    </td>
-                                                    <td style="text-align: center; vertical-align: middle;">
-                                                        <a class="btn btn-primary"
-                                                           onclick="handleDetailClick(this)"
-                                                           th:data-id="${order.getId()}">Chi tiết</a>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                                <tfoot>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6"></div>
+                                            <div class="col-sm-12 col-md-6"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table id="example2"
+                                                    class="table table-bordered table-hover dataTable dtr-inline"
+                                                    aria-describedby="example2_info">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="sorting sorting_asc" tabindex="0"
+                                                                aria-controls="example2" rowspan="1" colspan="1"
+                                                                aria-sort="ascending"
+                                                                aria-label="Rendering engine: activate to sort column descending">
+                                                                ID
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Browser: activate to sort column ascending">
+                                                                Ngày đặt hàng
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Platform(s): activate to sort column ascending">
+                                                                Tổng tiền
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Engine version: activate to sort column ascending">
+                                                                Trạng thái
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="CSS grade: activate to sort column ascending">
+                                                                Khách hàng
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="CSS grade: activate to sort column ascending">
+                                                                Khuyến mãi
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="CSS grade: activate to sort column ascending">
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
 
-                                                </tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="row"
-                                         style="display: flex;justify-content: space-between;align-items: center;">
-                                        <div class="col-sm-12 col-md-5">
-                                            <div class="dataTables_info" id="example2_info" role="status"
-                                                 aria-live="polite">
+                                                    <tbody id="orders-body">
+                                                        <!-- dữ liệu sẽ được render bằng JS -->
+                                                    </tbody>
+
+                                                    <tfoot>
+
+                                                    </tfoot>
+                                                </table>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-7"
-                                             style="display: flex;justify-content: flex-end">
-                                            <div class="dataTables_paginate paging_simple_numbers"
-                                                 id="example2_paginate">
-                                                <ul class="pagination" th:if="${totalPage > 0}">
-                                                    <li class="paginate_button page-item previous"
-                                                        th:if="${currentPage > 1}">
-                                                        <a th:href="@{${keyword != null && keyword!='' ? '?keyword='+keyword+'&':'?'}+'pageNo='+ ${currentPage - 1}}"
-                                                           class="page-link">Previous</a>
-                                                    </li>
-                                                    <li class="paginate_button page-item "
-                                                        th:each="i:${#numbers.sequence(1,totalPage)}"
-                                                        th:classappend="${currentPage == i ? 'active' : '' }">
-                                                        <a th:href="@{${keyword != null && keyword!='' ? '?keyword='+keyword+'&':'?'}+'pageNo='+${i}}"
-                                                           class="page-link" th:text="${i}"></a>
-                                                    </li>
-                                                    <li class="paginate_button page-item next"
-                                                        th:if="${currentPage < totalPage}">
-                                                        <a th:href="@{${keyword != null && keyword!='' ? '?keyword='+keyword+'&':'?'}+'pageNo='+${currentPage + 1}}"
-                                                           class="page-link">Next</a>
-                                                    </li>
-                                                </ul>
+                                        <div class="row"
+                                            style="display: flex;justify-content: space-between;align-items: center;">
+                                            <div class="col-sm-12 col-md-5">
+                                                <div class="dataTables_info" id="pagination-info" role="status"
+                                                    aria-live="polite">
+                                                    Hiển thị 1 đến 10 của 0 bản ghi
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-7"
+                                                style="display: flex;justify-content: flex-end">
+                                                <div class="dataTables_paginate paging_simple_numbers"
+                                                    id="example2_paginate">
+                                                    <ul class="pagination" id="pagination-container">
+                                                        <!-- Phân trang sẽ được render bằng JS -->
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card-body -->
+                            <!-- /.card -->
                         </div>
-                        <!-- /.card -->
+                        <!-- /.col -->
                     </div>
-                    <!-- /.col -->
                 </div>
-            </div>
-        </section>
-        <!-- /.content -->
+            </section>
+            <!-- /.content -->
+        </div>
+
+        <!-- /.content-wrapper -->
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+
     </div>
+    <!-- ./wrapper -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">CHI TIẾT ĐƠN HÀNG</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-    <!-- /.content-wrapper -->
-    <footer th:replace="admin/fragments/footer :: footer"></footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-
-</div>
-<!-- ./wrapper -->
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">CHI TIẾT ĐƠN HÀNG</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- ./Modal -->
-<script>
-    function handleDetailClick(id) {
-        var orderID = $(id).data('id');
-        $.ajax({
-            url: 'http://localhost:9090/admin/order/detail/' + orderID,
-            method: 'GET',
-            success: function (res) {
-                $('#myModal .modal-body').html(res);
-            },
-            error: function (err) {
-                alert('Có lỗi xảy ra');
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <script src="/assets/custom/authen_admin.js"></script>
+
+
+    <!-- ./Modal -->
+    <script th:inline="javascript">
+        // Khai báo biến toàn cục
+        const statusOptions = [
+            "Đang xử lý",
+            "Chưa thanh toán",
+            "Đã thanh toán",
+            "Đã giao",
+            "Đã nhận",
+            "Đã hủy"
+        ];
+        let currentOrderId = null;
+        let currentOrderStatus = null;
+        
+        // Biến cho phân trang
+        let allOrders = [];
+        let filteredOrders = [];
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let keyword = '';
+        
+        // Hàm tải dữ liệu đơn hàng
+        function loadOrders() {
+            axios.get('http://localhost:9292/api/v1/orders')
+                .then(function (response) {
+                    allOrders = response.data.data || [];
+                    filteredOrders = [...allOrders];
+                    renderOrders();
+                })
+                .catch(function (error) {
+                    console.error('Lỗi khi gọi API đơn hàng:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Không thể tải dữ liệu đơn hàng. Vui lòng thử lại sau.'
+                    });
+                });
+        }
+        
+        // Hàm lọc đơn hàng theo từ khóa
+        function filterOrders(keyword) {
+            if (!keyword || keyword.trim() === '') {
+                filteredOrders = [...allOrders];
+            } else {
+                keyword = keyword.toLowerCase();
+                filteredOrders = allOrders.filter(order => 
+                    order.id.toString().includes(keyword) ||
+                    order.ngayDatHang.toLowerCase().includes(keyword) ||
+                    order.tongTien.toString().includes(keyword) ||
+                    order.status.toLowerCase().includes(keyword) ||
+                    (order.customerId && order.customerId.toString().toLowerCase().includes(keyword))
+                );
+            }
+            currentPage = 1;
+            renderOrders();
+        }
+        
+        // Hàm hiển thị đơn hàng theo trang
+        function renderOrders() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, filteredOrders.length);
+            const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
+            
+            const tbody = document.getElementById('orders-body');
+            tbody.innerHTML = '';
+            
+            if (paginatedOrders.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = '<td colspan="7" class="text-center">Không có đơn hàng nào</td>';
+                tbody.appendChild(emptyRow);
+            } else {
+                paginatedOrders.forEach(order => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${order.id}</td>
+                        <td>${order.ngayDatHang}</td>
+                        <td class="text-right">${order.tongTien.toLocaleString()} VND</td>
+                        <td>${order.status}</td>
+                        <td>${order.customerId || 'N/A'}</td>
+                        <td>Không</td>
+                        <td style="text-align: center;">
+                            <a class="btn btn-primary btn-sm" onclick="handleDetailClick(this)" data-id="${order.id}">Chi tiết</a>
+                            <button class="btn btn-success btn-sm" onclick="openStatusModal(${order.id}, '${order.status}')">Cập nhật</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+            
+            // Cập nhật thông tin phân trang
+            updatePaginationInfo(startIndex, endIndex, filteredOrders.length);
+            
+            // Cập nhật điều khiển phân trang
+            renderPagination(filteredOrders.length, currentPage, itemsPerPage);
+        }
+        
+        // Hàm cập nhật thông tin phân trang
+        function updatePaginationInfo(startIndex, endIndex, totalItems) {
+            const paginationInfo = document.getElementById('pagination-info');
+            if (totalItems === 0) {
+                paginationInfo.textContent = 'Không có bản ghi nào';
+            } else {
+                paginationInfo.textContent = `Hiển thị ${startIndex + 1} đến ${endIndex} của ${totalItems} bản ghi`;
+            }
+        }
+        
+        // Hàm tạo điều khiển phân trang
+        function renderPagination(totalItems, currentPage, itemsPerPage) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
+            
+            // Nút Previous
+            const prevLi = document.createElement('li');
+            prevLi.className = `paginate_button page-item previous ${currentPage === 1 ? 'disabled' : ''}`;
+            const prevLink = document.createElement('a');
+            prevLink.className = 'page-link';
+            prevLink.href = '#';
+            prevLink.textContent = 'Previous';
+            prevLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    goToPage(currentPage - 1);
+                }
+            });
+            prevLi.appendChild(prevLink);
+            paginationContainer.appendChild(prevLi);
+            
+            // Tính toán số trang hiển thị
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+            
+            if (endPage - startPage < 4 && totalPages > 5) {
+                startPage = Math.max(1, endPage - 4);
+            }
+            
+            // Nút trang đầu tiên
+            if (startPage > 1) {
+                const firstLi = document.createElement('li');
+                firstLi.className = 'paginate_button page-item';
+                const firstLink = document.createElement('a');
+                firstLink.className = 'page-link';
+                firstLink.href = '#';
+                firstLink.textContent = '1';
+                firstLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    goToPage(1);
+                });
+                firstLi.appendChild(firstLink);
+                paginationContainer.appendChild(firstLi);
+                
+                // Dấu ba chấm nếu cần
+                if (startPage > 2) {
+                    const ellipsisLi = document.createElement('li');
+                    ellipsisLi.className = 'paginate_button page-item disabled';
+                    const ellipsisLink = document.createElement('a');
+                    ellipsisLink.className = 'page-link';
+                    ellipsisLink.href = '#';
+                    ellipsisLink.textContent = '...';
+                    ellipsisLi.appendChild(ellipsisLink);
+                    paginationContainer.appendChild(ellipsisLi);
+                }
+            }
+            
+            // Các nút số trang
+            for (let i = startPage; i <= endPage; i++) {
+                const pageLi = document.createElement('li');
+                pageLi.className = `paginate_button page-item ${i === currentPage ? 'active' : ''}`;
+                const pageLink = document.createElement('a');
+                pageLink.className = 'page-link';
+                pageLink.href = '#';
+                pageLink.textContent = i;
+                pageLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    goToPage(i);
+                });
+                pageLi.appendChild(pageLink);
+                paginationContainer.appendChild(pageLi);
+            }
+            
+            // Dấu ba chấm và trang cuối cùng
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const ellipsisLi = document.createElement('li');
+                    ellipsisLi.className = 'paginate_button page-item disabled';
+                    const ellipsisLink = document.createElement('a');
+                    ellipsisLink.className = 'page-link';
+                    ellipsisLink.href = '#';
+                    ellipsisLink.textContent = '...';
+                    ellipsisLi.appendChild(ellipsisLink);
+                    paginationContainer.appendChild(ellipsisLi);
+                }
+                
+                const lastLi = document.createElement('li');
+                lastLi.className = 'paginate_button page-item';
+                const lastLink = document.createElement('a');
+                lastLink.className = 'page-link';
+                lastLink.href = '#';
+                lastLink.textContent = totalPages;
+                lastLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    goToPage(totalPages);
+                });
+                lastLi.appendChild(lastLink);
+                paginationContainer.appendChild(lastLi);
+            }
+            
+            // Nút Next
+            const nextLi = document.createElement('li');
+            nextLi.className = `paginate_button page-item next ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}`;
+            const nextLink = document.createElement('a');
+            nextLink.className = 'page-link';
+            nextLink.href = '#';
+            nextLink.textContent = 'Next';
+            nextLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentPage < totalPages) {
+                    goToPage(currentPage + 1);
+                }
+            });
+            nextLi.appendChild(nextLink);
+            paginationContainer.appendChild(nextLi);
+        }
+        
+        // Hàm chuyển đến trang cụ thể
+        function goToPage(page) {
+            currentPage = page;
+            renderOrders();
+            
+            // Cuộn lên đầu bảng
+            document.getElementById('example2').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Hàm mở modal cập nhật trạng thái
+        function openStatusModal(orderId, currentStatus) {
+            currentOrderId = orderId;
+            currentOrderStatus = currentStatus;
+
+            Swal.fire({
+                title: `Cập nhật trạng thái đơn hàng #${orderId}`,
+                input: 'select',
+                inputOptions: statusOptions.reduce((opts, status) => {
+                    opts[status] = status;
+                    return opts;
+                }, {}),
+                inputValue: currentStatus,
+                inputPlaceholder: 'Chọn trạng thái mới',
+                showCancelButton: true,
+                confirmButtonText: 'Cập nhật',
+                cancelButtonText: 'Hủy',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Bạn cần chọn trạng thái!';
+                    }
+                }
+            }).then(result => {
+                if (result.isConfirmed && result.value !== currentOrderStatus) {
+                    updateStatus(currentOrderId, result.value);
+                }
+            });
+        }
+
+        // Hàm cập nhật trạng thái đơn hàng
+        function updateStatus(orderId, newStatus) {
+            axios.put(`http://localhost:9292/api/v1/orders/updateStatus/${orderId}?status=${newStatus}`)
+                .then(() => {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `Cập nhật đơn hàng #${orderId} thành "${newStatus}" thành công!`,
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                    
+                    // Cập nhật trạng thái trong dữ liệu cục bộ
+                    const orderIndex = allOrders.findIndex(order => order.id === orderId);
+                    if (orderIndex !== -1) {
+                        allOrders[orderIndex].status = newStatus;
+                        
+                        // Cập nhật lại danh sách đã lọc
+                        filterOrders(keyword);
+                    }
+                })
+                .catch(err => {
+                    console.error(`Lỗi cập nhật trạng thái đơn hàng #${orderId}`, err);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Cập nhật thất bại!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                });
+        }
+
+        // Hàm xem chi tiết đơn hàng
+        function handleDetailClick(btn) {
+            var orderID = $(btn).data('id');
+            axios.get(`http://localhost:9292/api/v1/orders/${orderID}`)
+                .then(function (response) {
+                    console.log("response ====== ", response);
+                    console.log("hang chi tiet === ", response.data.orderDetailDTOS);
+                    
+                    // Nếu API trả về orderDetails là mảng con
+                    let html = `
+                <h5>Thông tin đơn hàng</h5>
+                
+                <h5>Chi tiết sản phẩm</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá bán</th>
+                            <th>Giá gốc</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+                    if (response.data.orderDetailDTOS && response.data.orderDetailDTOS.length > 0) {
+                        response.data.orderDetailDTOS.forEach((detail, idx) => {
+                            html += `
+                        <tr>
+                            <td>${idx + 1}</td>
+                            <td>${detail.productId}</td>
+                            <td>${detail.soLuong}</td>
+                            <td>${detail.giaBan.toLocaleString()} VND</td>
+                            <td>${detail.giaGoc.toLocaleString()} VND</td>
+                        </tr>
+                    `;
+                        });
+                    } else {
+                        html += `<tr><td colspan="5" class="text-center">Không có sản phẩm</td></tr>`;
+                    }
+                    html += `
+                    </tbody>
+                </table>
+            `;
+                    $('#myModal .modal-body').html(html);
+                    $('#myModal').modal('show');
+                })
+                .catch(function (error) {
+                    console.log("err ====== ", error);
+                    $('#myModal .modal-body').html('<div class="alert alert-danger">Không lấy được chi tiết đơn hàng!</div>');
+                    $('#myModal').modal('show');
+                });
+        }
+        
+        // Xử lý sự kiện tìm kiếm
+        document.getElementById('search-btn').addEventListener('click', function() {
+            keyword = document.getElementById('search-keyword').value;
+            filterOrders(keyword);
+        });
+        
+        // Xử lý sự kiện nhấn Enter trong ô tìm kiếm
+        document.getElementById('search-keyword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                keyword = this.value;
+                filterOrders(keyword);
             }
         });
-        $('#myModal').modal('show');
-    }
-</script>
+        
+        // Tải dữ liệu khi trang được tải
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrders();
+        });
+    </script>
 
-<!-- jQuery -->
-<div th:replace="admin/fragments/script :: script"></div>
+    <!-- jQuery -->
+    <div th:replace="~{fragments/script :: script}"></div>
 </body>
 
 </html>

@@ -48,6 +48,8 @@
                             </div>
 
                             <form id="product-form" th:action="@{/admin/product/edit-product/{id}(id=${product != null ? product['id'] : ''})}" method="post" enctype="multipart/form-data">
+                                <input type="hidden" id="old_image" class="old_image" th:value="${product != null ? product['hinhAnh'] : ''}" name="old_image">
+                                
                                 <div class="card-body">
                                     <div class="form-row">
                                         <div class="form-group col-md-8">
@@ -57,18 +59,18 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="gia_nhap">Giá nhập</label>
-                                            <input type="number" class="form-control" id="gia_nhap" name="gia_nhap" th:value="${product != null ? product['gia_nhap'] : ''}" placeholder="Nhập giá nhập" required>
+                                            <input type="number" class="form-control" id="gia_nhap" name="gia_nhap" th:value="${product != null ? product['giaNhap'] : ''}" placeholder="Nhập giá nhập" required>
                                         </div>
                                     </div>
 
                                     <div class="form-row">
                                         <div class="form-group col-md-8">
                                             <label for="ten_sp">Tên sản phẩm</label>
-                                            <input type="text" class="form-control" id="ten_sp" name="ten_sp" th:value="${product != null ? product['ten_sp'] : ''}" placeholder="Nhập tên sản phẩm" required>
+                                            <input type="text" class="form-control" id="ten_sp" name="ten_sp" th:value="${product != null ? product['tensp'] : ''}" placeholder="Nhập tên sản phẩm" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="gia_goc">Giá vốn</label>
-                                            <input type="number" class="form-control" id="gia_goc" name="gia_goc" th:value="${product != null ? product['gia_goc'] : ''}" placeholder="Nhập giá vốn" required>
+                                            <input type="number" class="form-control" id="gia_goc" name="gia_goc" th:value="${product != null ? product['giaGoc'] : ''}" placeholder="Nhập giá vốn" required>
                                         </div>
                                     </div>
 
@@ -78,25 +80,25 @@
                                             <select class="form-control" id="category_id" name="category_id" required>
                                                 <option th:each="category : ${categories}"
                                                         th:value="${category.id}"
-                                                        th:text="${category['ten_loai']}"
+                                                        th:text="${category['tenLoai']}"
                                                         th:selected="${product != null and product['category_id'] == category.id}">
                                                 </option>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="gia_ban">Giá bán</label>
-                                            <input type="number" class="form-control" id="gia_ban" name="gia_ban" th:value="${product != null ? product['gia_ban'] : ''}" placeholder="Nhập giá bán" required>
+                                            <input type="number" class="form-control" id="gia_ban" name="gia_ban" th:value="${product != null ? product['giaBan'] : ''}" placeholder="Nhập giá bán" required>
                                         </div>
                                     </div>
 
                                     <div class="form-row">
                                         <div class="form-group col-md-8">
                                             <label for="mo_ta">Mô tả</label>
-                                            <textarea class="form-control" id="mo_ta" name="mo_ta" rows="3" th:text="${product != null ? product['mo_ta'] : ''}" placeholder="Nhập mô tả"></textarea>
+                                            <textarea class="form-control" id="mo_ta" name="mo_ta" rows="3" th:text="${product != null ? product['moTa'] : ''}" placeholder="Nhập mô tả"></textarea>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="so_luong">Tồn kho</label>
-                                            <input type="number" class="form-control" id="so_luong" name="so_luong" th:value="${product != null ? product['so_luong'] : ''}" placeholder="Nhập số lượng tồn kho" required>
+                                            <input type="number" class="form-control" id="so_luong" name="so_luong" th:value="${product != null ? product['soLuong'] : ''}" placeholder="Nhập số lượng tồn kho" required>
                                         </div>
                                     </div>
 
@@ -113,9 +115,10 @@
                                         <div class="form-group col-md-4">
                                             <label for="kich_co">Size</label>
                                             <select class="form-control" id="kich_co" name="kich_co">
-                                                <option value="Standard" th:selected="${product != null and product['kich_co'] == 'Standard'}">Standard</option>
-                                                <option value="14-inch" th:selected="${product != null and product['kich_co'] == '14-inch'}">14-inch</option>
-                                                <option value="One Size" th:selected="${product != null and product['kich_co'] == 'One Size'}">One Size</option>
+                                                <option value="X" th:selected="${product != null and product['kich_co'] == 'X'}">X</option>
+                                                <option value="L" th:selected="${product != null and product['kich_co'] == 'L'}">L</option>
+                                                <option value="M" th:selected="${product != null and product['kich_co'] == 'M'}">M</option>
+                                                <option value="XL" th:selected="${product != null and product['kich_co'] == 'XL'}">XL</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4">
@@ -124,6 +127,8 @@
                                                 <option value="Đen" th:selected="${product != null and product['mau_sac'] == 'Đen'}">Đen</option>
                                                 <option value="Trắng" th:selected="${product != null and product['mau_sac'] == 'Trắng'}">Trắng</option>
                                                 <option value="Xám" th:selected="${product != null and product['mau_sac'] == 'Xám'}">Xám</option>
+                                                <option value="Đỏ" th:selected="${product != null and product['mau_sac'] == 'Đỏ'}">Đỏ</option>
+                                                <option value="Hồng" th:selected="${product != null and product['mau_sac'] == 'Hồng'}">Hồng</option>
                                             </select>
                                         </div>
                                     </div>

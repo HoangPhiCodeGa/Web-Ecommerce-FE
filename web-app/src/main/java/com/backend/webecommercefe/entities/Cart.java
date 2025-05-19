@@ -26,4 +26,6 @@ public class Cart {
     private Long cartId;
     private double totalPrice;
     private List<CartItem> cartItems;
+
+
 }

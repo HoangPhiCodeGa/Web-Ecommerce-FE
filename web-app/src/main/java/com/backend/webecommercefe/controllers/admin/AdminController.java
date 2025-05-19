@@ -1,4 +1,4 @@
-package com.backend.webecommercefe.controllers;
+package com.backend.webecommercefe.controllers.admin;
 
 import com.backend.webecommercefe.dto.EditUserDTO;
 import com.backend.webecommercefe.entities.Account;
@@ -37,6 +37,8 @@ public class AdminController {
      * @param model Đối tượng Model để truyền dữ liệu sang view
      * @return Tên template (admin/account/index.html)
      */
+
+
     @GetMapping
     public String index(@RequestParam(value = "page", defaultValue = "0") int page,
                         @RequestParam(value = "keyword", required = false) String keyword,

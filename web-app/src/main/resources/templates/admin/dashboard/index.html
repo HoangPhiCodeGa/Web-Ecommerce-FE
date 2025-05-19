@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Preloader and other existing elements remain the same -->
+        <!-- Navbar -->
+        <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Dashboard</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Dashboard</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Small boxes (Stat box) - same as before -->
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3 th:text="${totalUsers}">0</h3>
+                                    <p>New Accounts</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-person-add"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3 id="revenue-total" th:text="${totalRenu}">0</h3>
+                                    <p>Total Revenue</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3 id="order-count" th:text="${totalOrder}">0</h3>
+                                    <p>Total Orders</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3 th:text="${totalUsers}">0</h3>
+                                    <p>New Customers</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-pie-graph"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">More info <i
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+
+                    <!-- Main row -->
+                    <div class="row">
+                        <!-- Revenue Chart -->
+                        <section class="col-lg-7 connectedSortable">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-chart-line mr-1"></i>
+                                        Revenue by Month
+                                    </h3>
+                                    <div class="card-tools">
+                                        <select id="year-selector" class="form-control form-control-sm"
+                                            style="width: 100px;">
+                                            <option value="2023">2023</option>
+                                            <option value="2024" selected>2024</option>
+                                            <option value="2025">2025</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="revenueChart" height="300" style="height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Order Count Chart -->
+                        <section class="col-lg-5 connectedSortable">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-shopping-cart mr-1"></i>
+                                        Order Count by Month
+                                    </h3>
+                                    <div class="card-tools">
+                                        <select id="order-year-selector" class="form-control form-control-sm"
+                                            style="width: 100px;">
+                                            <option value="2023">2023</option>
+                                            <option value="2024" selected>2024</option>
+                                            <option value="2025">2025</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="orderChart" height="300" style="height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </section>
+        </div>
+
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div th:replace="~{fragments/script :: script}"></div>
+    <script th:src="@{/assets/plugins/chart.js/Chart.min.js}"></script>
+
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            // Months labels
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            // Khởi tạo biến để lưu trữ dữ liệu từ API
+            let revenueData = {};
+            let orderData = {};
+            
+            // Format currency
+            function formatCurrency(value) {
+                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'đ';
+            }
+            
+            // Hàm lấy dữ liệu doanh thu từ API
+            async function fetchRevenueData(year) {
+                try {
+                    const response = await axios.get(`http://localhost:9292/api/v1/static/static-venue?year=${year}`);
+                    return response.data;
+                } catch (error) {
+                    console.error('Lỗi khi lấy dữ liệu doanh thu:', error);
+                    return Array(12).fill(0); // Trả về mảng 12 phần tử với giá trị 0 nếu có lỗi
+                }
+            }
+            
+            // Hàm lấy dữ liệu đơn hàng từ API
+            async function fetchOrderData(year) {
+                try {
+                    const response = await axios.get(`http://localhost:9292/api/v1/static/static-order?year=${year}`);
+                    return response.data;
+                } catch (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng:', error);
+                    return Array(12).fill(0); // Trả về mảng 12 phần tử với giá trị 0 nếu có lỗi
+                }
+            }
+            
+            // Hàm chuyển đổi dữ liệu từ API sang mảng
+            function convertApiDataToArray(data) {
+                const result = [];
+                for (let i = 1; i <= 12; i++) {
+                    const monthKey = i.toString();
+                    result.push(data[monthKey] || 0);
+                }
+                return result;
+            }
+            
+            // Hàm tính tổng doanh thu
+            function calculateTotalRevenue(data) {
+                return Object.values(data).reduce((total, value) => total + (parseFloat(value) || 0), 0);
+            }
+            
+            // Hàm tính tổng đơn hàng
+            function calculateTotalOrders(data) {
+                return Object.values(data).reduce((total, value) => total + (parseInt(value) || 0), 0);
+            }
+            
+            // Khởi tạo biểu đồ
+            let revenueChart;
+            let orderChart;
+            
+            // Hàm tạo biểu đồ
+            function createChart(canvasId, label, data, type, color, isCurrency) {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+                return new Chart(ctx, {
+                    type: type,
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: label,
+                            data: data,
+                            backgroundColor: color,
+                            borderColor: color.replace('0.9', '0.8'),
+                            borderWidth: 2,
+                            fill: type === 'line'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function (value) {
+                                        return isCurrency ? formatCurrency(value) : value;
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return isCurrency
+                                            ? formatCurrency(context.raw)
+                                            : context.raw + ' orders';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Hàm cập nhật biểu đồ
+            function updateChart(chart, newData) {
+                chart.data.datasets[0].data = newData;
+                chart.update();
+            }
+            
+            // Hàm khởi tạo dữ liệu và biểu đồ
+            async function initializeData(year) {
+                // Lấy dữ liệu từ API
+                const venueData = await fetchRevenueData(year);
+                const orderDataFromApi = await fetchOrderData(year);
+                
+                // Lưu trữ dữ liệu
+                if (!revenueData[year]) {
+                    revenueData[year] = venueData;
+                }
+                
+                if (!orderData[year]) {
+                    orderData[year] = orderDataFromApi;
+                }
+                
+                // Chuyển đổi dữ liệu thành mảng
+                const revenueArray = convertApiDataToArray(revenueData[year]);
+                const orderArray = convertApiDataToArray(orderData[year]);
+                
+                // Cập nhật tổng doanh thu và đơn hàng
+                const totalRevenue = calculateTotalRevenue(revenueData[year]);
+                const totalOrders = calculateTotalOrders(orderData[year]);
+                
+                // Cập nhật hiển thị tổng
+                const revenueTotalElement = document.getElementById('revenue-total');
+                const orderCountElement = document.getElementById('order-count');
+                
+                if (revenueTotalElement) {
+                    revenueTotalElement.textContent = formatCurrency(totalRevenue);
+                }
+                
+                if (orderCountElement) {
+                    orderCountElement.textContent = totalOrders;
+                }
+                
+                // Khởi tạo hoặc cập nhật biểu đồ
+                if (!revenueChart) {
+                    revenueChart = createChart('revenueChart', 'Revenue', revenueArray, 'line', 'rgba(60,141,188,0.9)', true);
+                } else {
+                    updateChart(revenueChart, revenueArray);
+                }
+                
+                if (!orderChart) {
+                    orderChart = createChart('orderChart', 'Orders', orderArray, 'bar', 'rgba(210, 214, 222, 1)', false);
+                } else {
+                    updateChart(orderChart, orderArray);
+                }
+            }
+            
+            // Khởi tạo dữ liệu ban đầu
+            initializeData('2024');
+            
+            // Xử lý sự kiện thay đổi năm cho biểu đồ doanh thu
+            document.getElementById('year-selector').addEventListener('change', function () {
+                const year = this.value;
+                initializeData(year);
+            });
+            
+            // Xử lý sự kiện thay đổi năm cho biểu đồ đơn hàng
+            document.getElementById('order-year-selector').addEventListener('change', function () {
+                const year = this.value;
+                initializeData(year);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

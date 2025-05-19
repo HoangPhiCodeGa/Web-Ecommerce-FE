@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" th:src="@{/assets/dist/img/AdminLTELogo.png}" alt="AdminLTELogo" height="60"
+                width="60">
+        </div>
+
+        <!-- Navbar -->
+        <!-- <nav th:replace="admin/fragments/navbar :: navbar"></nav> -->
+        <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <!-- <aside th:replace="admin/fragments/sidebar :: sidebar"></aside> -->
+        <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">QUẢN LÝ ĐƠN HÀNG</h1>
+                        </div><!-- /.col -->
+                        <!--                    <div class="col-sm-6">-->
+                        <!--                        <ol class="breadcrumb float-sm-right">-->
+                        <!--                            <li class="breadcrumb-item"><a href="#">Quản lý đơn hàng</a></li>-->
+                        <!--                            <li class="breadcrumb-item active">Dashboard v1</li>-->
+                        <!--                        </ol>-->
+                        <!--                    </div>-->
+                    </div>
+                </div>
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row"
+                                        style="display: flex;justify-content: space-between;align-items: center">
+                                        <div class="col-md-5">
+                                            <form>
+                                                <div class="input-group">
+                                                    <input type="search" name="keyword" class="form-control"
+                                                        placeholder="Type your keywords here">
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-default">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6"></div>
+                                            <div class="col-sm-12 col-md-6"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table id="example2"
+                                                    class="table table-bordered table-hover dataTable dtr-inline"
+                                                    aria-describedby="example2_info">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="sorting sorting_asc" tabindex="0"
+                                                                aria-controls="example2" rowspan="1" colspan="1"
+                                                                aria-sort="ascending"
+                                                                aria-label="Rendering engine: activate to sort column descending">
+                                                                ID
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Browser: activate to sort column ascending">
+                                                                Ngày đặt hàng
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Platform(s): activate to sort column ascending">
+                                                                Tổng tiền
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="Engine version: activate to sort column ascending">
+                                                                Trạng thái
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="CSS grade: activate to sort column ascending">
+                                                                Khách hàng
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="CSS grade: activate to sort column ascending">
+                                                                Khuyến mãi
+                                                            </th>
+                                                            <th class="sorting" tabindex="0" aria-controls="example2"
+                                                                rowspan="1" colspan="1"
+                                                                aria-label="CSS grade: activate to sort column ascending">
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody id="orders-body">
+                                                        <!-- dữ liệu sẽ được render bằng JS -->
+                                                    </tbody>
+
+                                                    <tfoot>
+
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="row"
+                                            style="display: flex;justify-content: space-between;align-items: center;">
+                                            <div class="col-sm-12 col-md-5">
+                                                <div class="dataTables_info" id="example2_info" role="status"
+                                                    aria-live="polite">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-7"
+                                                style="display: flex;justify-content: flex-end">
+                                                <div class="dataTables_paginate paging_simple_numbers"
+                                                    id="example2_paginate">
+                                                    <ul class="pagination" th:if="${totalPage > 0}">
+                                                        <li class="paginate_button page-item previous"
+                                                            th:if="${currentPage > 1}">
+                                                            <a th:href="@{${keyword != null && keyword!='' ? '?keyword='+keyword+'&':'?'}+'pageNo='+ ${currentPage - 1}}"
+                                                                class="page-link">Previous</a>
+                                                        </li>
+                                                        <li class="paginate_button page-item "
+                                                            th:each="i:${#numbers.sequence(1,totalPage)}"
+                                                            th:classappend="${currentPage == i ? 'active' : '' }">
+                                                            <a th:href="@{${keyword != null && keyword!='' ? '?keyword='+keyword+'&':'?'}+'pageNo='+${i}}"
+                                                                class="page-link" th:text="${i}"></a>
+                                                        </li>
+                                                        <li class="paginate_button page-item next"
+                                                            th:if="${currentPage < totalPage}">
+                                                            <a th:href="@{${keyword != null && keyword!='' ? '?keyword='+keyword+'&':'?'}+'pageNo='+${currentPage + 1}}"
+                                                                class="page-link">Next</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+
+        <!-- /.content-wrapper -->
+        <!-- <footer th:replace="admin/fragments/footer :: footer"></footer> -->
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+        <!-- Control Sidebar -->
+        <!-- <aside class="control-sidebar control-sidebar-dark"> -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+
+    </div>
+    <!-- ./wrapper -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">CHI TIẾT ĐƠN HÀNG</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <script src="/assets/custom/authen_admin.js"></script>
+
+
+    <!-- ./Modal -->
+    <script>
+
+        const statusOptions = [
+            "Đang xử lý",
+            "Chưa thanh toán",
+            "Đã thanh toán",
+            "Đã giao",
+            "Đã nhận",
+            "Đã hủy"
+        ];
+        let currentOrderId = null;
+        let currentOrderStatus = null
+
+        axios.get('http://localhost:9292/api/v1/orders')
+            .then(function (response) {
+                const orders = response.data;
+                const tbody = document.getElementById('orders-body');
+                tbody.innerHTML = '';
+
+                orders.data.forEach(order => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.ngayDatHang}</td>
+                    <td class="text-right">${order.tongTien.toLocaleString()} VND</td>
+                    <td>${order.status}</td>
+                    <td>${order.customerId}</td>
+                    <td>Không</td>
+                    <td style="text-align: center;">
+                        <a class="btn btn-primary" onclick="handleDetailClick(this)" data-id="${order.id}">Chi tiết</a>
+                        <button class="btn btn-success" onclick="openStatusModal(${order.id}, '${order.status}')">Cập nhật</button>
+                    </td>
+                `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(function (error) {
+                console.error('Lỗi khi gọi API đơn hàng:', error);
+            });
+
+        function openStatusModal(orderId, currentStatus) {
+            currentOrderId = orderId;
+            currentOrderStatus = currentStatus;
+
+            Swal.fire({
+                title: `Cập nhật trạng thái đơn hàng #${orderId}`,
+                input: 'select',
+                inputOptions: statusOptions.reduce((opts, status) => {
+                    opts[status] = status;
+                    return opts;
+                }, {}),
+                inputValue: currentStatus,
+                inputPlaceholder: 'Chọn trạng thái mới',
+                showCancelButton: true,
+                confirmButtonText: 'Cập nhật',
+                cancelButtonText: 'Hủy',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Bạn cần chọn trạng thái!';
+                    }
+                }
+            }).then(result => {
+                if (result.isConfirmed && result.value !== currentOrderStatus) {
+                    updateStatus(currentOrderId, result.value);
+                }
+            });
+        }
+
+        function updateStatus(orderId, newStatus) {
+            axios.put(`http://localhost:9292/api/v1/orders/updateStatus/${orderId}?status=${newStatus}`)
+                .then(() => {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: `Cập nhật đơn hàng #${orderId} thành "${newStatus}" thành công!`,
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                    setTimeout(() => location.reload(), 1000);
+                })
+                .catch(err => {
+                    console.error(`Lỗi cập nhật trạng thái đơn hàng #${orderId}`, err);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Cập nhật thất bại!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                });
+        }
+
+
+        // -----------------------------------
+
+        function handleDetailClick(btn) {
+            var orderID = $(btn).data('id');
+            axios.get(`http://localhost:9292/api/v1/orders/${orderID}`)
+                .then(function (response) {
+
+                    console.log("response ====== ", response);
+                    console.log("hang chi tiet === ", response.data.orderDetailDTOS);
+                    
+                    
+                    // Nếu API trả về orderDetails là mảng con
+                    let html = `
+                <h5>Thông tin đơn hàng</h5>
+                
+                <h5>Chi tiết sản phẩm</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá bán</th>
+                            <th>Giá gốc</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+                    if (response.data.orderDetailDTOS && response.data.orderDetailDTOS.length > 0) {
+                        response.data.orderDetailDTOS.forEach((detail, idx) => {
+                            html += `
+                        <tr>
+                            <td>${idx + 1}</td>
+                            <td>${detail.productId}</td>
+                            <td>${detail.soLuong}</td>
+                            <td>${detail.giaBan.toLocaleString()} VND</td>
+                            <td>${detail.giaGoc.toLocaleString()} VND</td>
+                        </tr>
+                    `;
+                        });
+                    } else {
+                        html += `<tr><td colspan="5" class="text-center">Không có sản phẩm</td></tr>`;
+                    }
+                    html += `
+                    </tbody>
+                </table>
+            `;
+                    $('#myModal .modal-body').html(html);
+                    $('#myModal').modal('show');
+                })
+                .catch(function (error) {
+                    console.log("err ====== ", error);
+                    $('#myModal .modal-body').html('<div class="alert alert-danger">Không lấy được chi tiết đơn hàng!</div>');
+                    $('#myModal').modal('show');
+                });
+        }
+
+    </script>
+
+    <!-- jQuery -->
+    <!-- <div th:replace="admin/fragments/script :: script"></div> -->
+    <div th:replace="~{fragments/script :: script}"></div>
+</body>
+
+</html>

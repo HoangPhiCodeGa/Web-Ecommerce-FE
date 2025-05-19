@@ -1,4 +1,4 @@
-package com.backend.webecommercefe.controllers;
+package com.backend.webecommercefe.controllers.admin;
 
 import com.backend.webecommercefe.entities.Account;
 import com.backend.webecommercefe.services.AccountService;
