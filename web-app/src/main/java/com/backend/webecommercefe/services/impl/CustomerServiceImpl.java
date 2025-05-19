@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<User> getCustomers(String keyword, int pageNo, int pageSize, HttpServletRequest request) {
-        StringBuilder url = new StringBuilder("http://localhost:9995/api/user?page=" + pageNo + "&size=" + pageSize);
+        StringBuilder url = new StringBuilder("http://45.63.79.165:8080/api/user?page=" + pageNo + "&size=" + pageSize);
         if (keyword != null && !keyword.isEmpty()) {
             url.append("&keyword=").append(keyword);
         }
@@ -67,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public long getTotalCustomers(String keyword, HttpServletRequest request) {
-        StringBuilder url = new StringBuilder("http://localhost:9995/api/user?page=0&size=1");
+        StringBuilder url = new StringBuilder("http://45.63.79.165:8080/api/user?page=0&size=1");
         if (keyword != null && !keyword.isEmpty()) {
             url.append("&keyword=").append(keyword);
         }
@@ -93,7 +93,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public User getCustomerById(Long id, HttpServletRequest request) {
-        String url = "http://localhost:9995/api/user/" + id;
+        String url = "http://45.63.79.165:8080/api/user/" + id;
 
         try {
             String response = restClient.get()
@@ -118,7 +118,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void updateCustomer(User user, HttpServletRequest request) {
-        String url = "http://localhost:9995/api/user/" + user.getUserId();
+        String url = "http://45.63.79.165:8080/api/user/" + user.getUserId();
         String token = getJwtToken(request);
         if (token == null) {
             throw new RuntimeException("No JWT token found in session");

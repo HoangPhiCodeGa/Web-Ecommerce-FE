@@ -20,7 +20,7 @@ public class StaticService {
     private ObjectMapper objectMapper;
 
     public Long countUser(){
-        String apiUrl = "http://localhost:8080/api/user";
+        String apiUrl = "http://45.63.79.165:8080/api/user";
         String bearer = Utilfunctions.GET_BEAR_LOCAL();
 
         String response = restClient.get()
@@ -48,7 +48,7 @@ public class StaticService {
     }
 
     public Double countRenue(){
-        String apiUrl = "http://localhost:9292/api/v1/orders";
+        String apiUrl = "http://45.63.79.165:9292/api/v1/orders";
         String bearer = Utilfunctions.GET_BEAR_LOCAL();
 
         String response = restClient.get()
@@ -78,7 +78,7 @@ public class StaticService {
     }
 
     public Long countOrder(){
-        String apiUrl = "http://localhost:9292/api/v1/orders";
+        String apiUrl = "http://45.63.79.165:9292/api/v1/orders";
         String bearer = Utilfunctions.GET_BEAR_LOCAL();
 
         String response = restClient.get()
