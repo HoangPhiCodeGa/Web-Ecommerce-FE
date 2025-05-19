@@ -99,7 +99,7 @@
 
 
             // Gửi yêu cầu POST tới API
-            axios.post('http://45.63.79.165:8080/api/account/sign-in', data)
+            axios.post('http://localhost:8080/api/account/sign-in', data)
                 .then(response => {
                     console.log('Response:', response.data);
 
@@ -109,9 +109,10 @@
                         var token = response.data.data.body.token;
                         const decodedToken = jwt_decode(token);
                         var roles = decodedToken.roles;
-
+                        
                         localStorage.setItem("TOKEN", token);
                         localStorage.setItem("ROLES", roles);
+                        localStorage.setItem("ID", decodedToken.accountId);
 
                         axios.get(`http://localhost:9090/add-local?token=${token}&role=${roles}`);
 
@@ -133,11 +134,11 @@
                         }).then(() => {
                             setTimeout(() => {
                                 if (isAdmin) {
-                                    window.location.href = "http://localhost:9090/";
+                                    window.location.href = "http://localhost:9090/";  
                                 } else {
-                                    window.location.href = "/index";
+                                    window.location.href = "/index";  
                                 }
-                            }, 2000);
+                            }, 2000);   
                         });
 
                     } else if (status == 400) {

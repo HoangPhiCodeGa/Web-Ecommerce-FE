@@ -20,6 +20,7 @@ import com.backend.webecommercefe.services.AccountService;
 import com.backend.webecommercefe.untils.ApiResponse;
 import com.backend.webecommercefe.untils.Utilfunctions;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.backend.webecommercefe.util.Utilfunctions;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -568,9 +569,10 @@ public class AccountServiceImpl implements AccountService {
     public List<User> getAllUsers(String keyword, int page, int size, HttpServletRequest request) {
         try {
             String url = USER_ENDPOINT + "/user?page=" + page + "&size=" + size;
-            if (keyword != null && !keyword.isEmpty()) {
-                url += "&keyword=" + keyword;
-            }
+//            if (keyword != null && !keyword.isEmpty()) {
+//                log.error(">>>> key word ==== " + keyword);
+//                url += "&keyword=" + keyword;
+//            }
             log.info("Calling API: {}", url);
 
             ResponseEntity<String> responseEntity = restClient.get()
@@ -586,11 +588,7 @@ public class AccountServiceImpl implements AccountService {
 
             if (rawResponse != null && !rawResponse.isEmpty()) {
                 Map<String, Object> responseMap = objectMapper.readValue(rawResponse, new TypeReference<Map<String, Object>>() {});
-//                if (responseMap.containsKey("data")) {
-//                    Map<String, Object> dataMap = (Map<String, Object>) responseMap.get("data");
-//                    List<User> users = objectMapper.convertValue(responseMap.get("data"), new TypeReference<List<User>>() {});
-//                    return users;
-//                }
+
 
                 if (responseMap.containsKey("data")) {
                     Map<String, Object> dataMap = (Map<String, Object>) responseMap.get("data");

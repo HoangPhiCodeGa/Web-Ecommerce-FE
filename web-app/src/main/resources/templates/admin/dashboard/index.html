@@ -41,7 +41,6 @@
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <!-- <h3>150</h3> -->
                                     <h3 th:text="${totalUsers}">0</h3>
                                     <p>New Accounts</p>
                                 </div>
@@ -55,9 +54,7 @@
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <!-- <h3 id="revenue-total" th:text="${totalRenu}">0</h3><sup
-                                        style="font-size: 14px">đ</sup> -->
-                                    <h3 th:text="${totalRenu}">0</h3>
+                                    <h3 id="revenue-total" th:text="${totalRenu}">0</h3>
                                     <p>Total Revenue</p>
                                 </div>
                                 <div class="icon">
@@ -70,8 +67,7 @@
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <!-- <h3 id="order-count">1,240</h3> -->
-                                    <h3 th:text="${totalOrder}">0</h3>
+                                    <h3 id="order-count" th:text="${totalOrder}">0</h3>
                                     <p>Total Orders</p>
                                 </div>
                                 <div class="icon">
@@ -84,7 +80,6 @@
                         <div class="col-lg-3 col-6">
                             <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <!-- <h3>65</h3> -->
                                     <h3 th:text="${totalUsers}">0</h3>
                                     <p>New Customers</p>
                                 </div>
@@ -163,55 +158,67 @@
     <div th:replace="~{fragments/script :: script}"></div>
     <script th:src="@{/assets/plugins/chart.js/Chart.min.js}"></script>
 
-    <script>
+    <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function () {
             // Months labels
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-            // Sample data for different years
-            const revenueData = {
-                '2023': [4500000, 5200000, 4800000, 6200000, 7100000, 8300000, 9200000, 8800000, 7600000, 8500000, 9100000, 10500000],
-                '2024': [5500000, 6300000, 5800000, 7200000, 8100000, 9300000, 10200000, 9800000, 8600000, 9500000, 10100000, 11500000],
-                '2025': [6500000, 7300000, 6800000, 8200000, 9100000, 10300000, 11200000, 10800000, 9600000, 10500000, 11100000, 12500000]
-            };
-
-            const orderData = {
-                '2023': [120, 135, 125, 145, 160, 175, 185, 180, 170, 165, 175, 190],
-                '2024': [140, 155, 145, 165, 180, 195, 205, 200, 190, 185, 195, 210],
-                '2025': [160, 175, 165, 185, 200, 215, 225, 220, 210, 205, 215, 230]
-            };
-
+            
+            // Khởi tạo biến để lưu trữ dữ liệu từ API
+            let revenueData = {};
+            let orderData = {};
+            
             // Format currency
             function formatCurrency(value) {
                 return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'đ';
             }
-
-            // Initialize charts
-            let revenueChart = createChart('revenueChart', 'Revenue', revenueData['2024'], 'line', 'rgba(60,141,188,0.9)', true);
-            let orderChart = createChart('orderChart', 'Orders', orderData['2024'], 'bar', 'rgba(210, 214, 222, 1)', false);
-
-            // Update total display
-            document.getElementById('revenue-total').innerHTML =
-                formatCurrency(revenueData['2024'].reduce((a, b) => a + b, 0)) + '<sup style="font-size: 14px"></sup>';
-            document.getElementById('order-count').innerText =
-                orderData['2024'].reduce((a, b) => a + b, 0);
-
-            // Year selector event
-            document.getElementById('year-selector').addEventListener('change', function () {
-                const year = this.value;
-                updateChart(revenueChart, revenueData[year]);
-                document.getElementById('revenue-total').innerHTML =
-                    formatCurrency(revenueData[year].reduce((a, b) => a + b, 0)) + '<sup style="font-size: 14px"></sup>';
-            });
-
-            document.getElementById('order-year-selector').addEventListener('change', function () {
-                const year = this.value;
-                updateChart(orderChart, orderData[year]);
-                document.getElementById('order-count').innerText =
-                    orderData[year].reduce((a, b) => a + b, 0);
-            });
-
-            // Chart creation function
+            
+            // Hàm lấy dữ liệu doanh thu từ API
+            async function fetchRevenueData(year) {
+                try {
+                    const response = await axios.get(`http://localhost:9292/api/v1/static/static-venue?year=${year}`);
+                    return response.data;
+                } catch (error) {
+                    console.error('Lỗi khi lấy dữ liệu doanh thu:', error);
+                    return Array(12).fill(0); // Trả về mảng 12 phần tử với giá trị 0 nếu có lỗi
+                }
+            }
+            
+            // Hàm lấy dữ liệu đơn hàng từ API
+            async function fetchOrderData(year) {
+                try {
+                    const response = await axios.get(`http://localhost:9292/api/v1/static/static-order?year=${year}`);
+                    return response.data;
+                } catch (error) {
+                    console.error('Lỗi khi lấy dữ liệu đơn hàng:', error);
+                    return Array(12).fill(0); // Trả về mảng 12 phần tử với giá trị 0 nếu có lỗi
+                }
+            }
+            
+            // Hàm chuyển đổi dữ liệu từ API sang mảng
+            function convertApiDataToArray(data) {
+                const result = [];
+                for (let i = 1; i <= 12; i++) {
+                    const monthKey = i.toString();
+                    result.push(data[monthKey] || 0);
+                }
+                return result;
+            }
+            
+            // Hàm tính tổng doanh thu
+            function calculateTotalRevenue(data) {
+                return Object.values(data).reduce((total, value) => total + (parseFloat(value) || 0), 0);
+            }
+            
+            // Hàm tính tổng đơn hàng
+            function calculateTotalOrders(data) {
+                return Object.values(data).reduce((total, value) => total + (parseInt(value) || 0), 0);
+            }
+            
+            // Khởi tạo biểu đồ
+            let revenueChart;
+            let orderChart;
+            
+            // Hàm tạo biểu đồ
             function createChart(canvasId, label, data, type, color, isCurrency) {
                 const ctx = document.getElementById(canvasId).getContext('2d');
                 return new Chart(ctx, {
@@ -254,14 +261,79 @@
                     }
                 });
             }
-
-            // Chart update function
+            
+            // Hàm cập nhật biểu đồ
             function updateChart(chart, newData) {
                 chart.data.datasets[0].data = newData;
                 chart.update();
             }
+            
+            // Hàm khởi tạo dữ liệu và biểu đồ
+            async function initializeData(year) {
+                // Lấy dữ liệu từ API
+                const venueData = await fetchRevenueData(year);
+                const orderDataFromApi = await fetchOrderData(year);
+                
+                // Lưu trữ dữ liệu
+                if (!revenueData[year]) {
+                    revenueData[year] = venueData;
+                }
+                
+                if (!orderData[year]) {
+                    orderData[year] = orderDataFromApi;
+                }
+                
+                // Chuyển đổi dữ liệu thành mảng
+                const revenueArray = convertApiDataToArray(revenueData[year]);
+                const orderArray = convertApiDataToArray(orderData[year]);
+                
+                // Cập nhật tổng doanh thu và đơn hàng
+                const totalRevenue = calculateTotalRevenue(revenueData[year]);
+                const totalOrders = calculateTotalOrders(orderData[year]);
+                
+                // Cập nhật hiển thị tổng
+                const revenueTotalElement = document.getElementById('revenue-total');
+                const orderCountElement = document.getElementById('order-count');
+                
+                if (revenueTotalElement) {
+                    revenueTotalElement.textContent = formatCurrency(totalRevenue);
+                }
+                
+                if (orderCountElement) {
+                    orderCountElement.textContent = totalOrders;
+                }
+                
+                // Khởi tạo hoặc cập nhật biểu đồ
+                if (!revenueChart) {
+                    revenueChart = createChart('revenueChart', 'Revenue', revenueArray, 'line', 'rgba(60,141,188,0.9)', true);
+                } else {
+                    updateChart(revenueChart, revenueArray);
+                }
+                
+                if (!orderChart) {
+                    orderChart = createChart('orderChart', 'Orders', orderArray, 'bar', 'rgba(210, 214, 222, 1)', false);
+                } else {
+                    updateChart(orderChart, orderArray);
+                }
+            }
+            
+            // Khởi tạo dữ liệu ban đầu
+            initializeData('2024');
+            
+            // Xử lý sự kiện thay đổi năm cho biểu đồ doanh thu
+            document.getElementById('year-selector').addEventListener('change', function () {
+                const year = this.value;
+                initializeData(year);
+            });
+            
+            // Xử lý sự kiện thay đổi năm cho biểu đồ đơn hàng
+            document.getElementById('order-year-selector').addEventListener('change', function () {
+                const year = this.value;
+                initializeData(year);
+            });
         });
     </script>
+
 </body>
 
 </html>

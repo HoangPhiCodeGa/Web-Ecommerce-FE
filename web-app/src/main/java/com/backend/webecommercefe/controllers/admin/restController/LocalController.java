@@ -1,6 +1,6 @@
 package com.backend.webecommercefe.controllers.admin.restController;
 
-import com.backend.webecommercefe.untils.Utilfunctions;
+import com.backend.webecommercefe.util.Utilfunctions;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,16 +17,9 @@ public class LocalController {
     public String addLocal(@RequestParam("token") String token, @RequestParam("role") String role, HttpSession session){
         try {
 
-//            Utilfunctions.UTIL_ROLE = role;
-//            Utilfunctions.UTIL_TOKEN = token;
-//
-//            log.error("token add = " + token);
-//            log.error("role add = " + role);
-//            Utilfunctions.WRITE_TOKEN_LOCAL(token);
-
+            Utilfunctions.WRITE_TOKEN_LOCAL(token);
             session.setAttribute("TOKEN", token);
             session.setAttribute("ROLE", role);
-            session.setAttribute("loggedIn", true);
 
             session.setMaxInactiveInterval(30 * 60);
             Utilfunctions.WRITE_TOKEN_LOCAL(token);
@@ -40,11 +33,6 @@ public class LocalController {
     @GetMapping("/get-local")
     public String getLocal(){
         try {
-//            String token = Utilfunctions.GET_TOKEN();
-//            String role = Utilfunctions.GET_ROLE();
-
-//            log.error("token = " + Utilfunctions.UTIL_TOKEN);
-//            log.error("role = " + Utilfunctions.UTIL_ROLE);
             return "true";
         }catch (Exception e){
             return "fail";

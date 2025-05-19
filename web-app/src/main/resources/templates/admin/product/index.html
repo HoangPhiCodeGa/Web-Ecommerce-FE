@@ -133,8 +133,15 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr th:each="product : ${listProduct}">
+                                                            <!-- <td>
+                                                                <img th:src="@{'/' + ${product['hinhAnh']}}"
+                                                                    alt="Product Image" class="img-size-50">
+
+                                                            </td> -->
+
                                                             <td>
-                                                             <img th:src="@{'/' + ${product['hinhAnh']}}" alt="Product Image" class="img-size-50">
+                                                                <img th:src="${product['hinhAnh'] ?: 'https://res.cloudinary.com/khnguo/image/upload/v1747043211/upload/file_ozvd1q.png' }"
+                                                                    alt="Product Image" class="img-size-50">
 
                                                             </td>
                                                             <td th:text="${product['tensp']}"></td>
@@ -224,6 +231,9 @@
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
+
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <script src="/assets/custom/authen_admin.js"></script>
     <div th:replace="~{fragments/script :: script}"></div>
 </body>
 

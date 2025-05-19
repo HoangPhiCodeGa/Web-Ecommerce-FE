@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,6 +29,18 @@ public class CustomerController {
                               @RequestParam(value = "size", defaultValue = "10") int size,
                               HttpServletRequest request) {
         List<User> users = accountService.getAllUsers(keyword, page, size, request);
+
+        List<User> tmp = new ArrayList<>();
+        if(keyword != null && !keyword.isEmpty()){
+            for (User item: users){
+                if((item.getFullName() != null && item.getFullName().contains(keyword))
+                        || (item.getUsername() != null && item.getUsername().contains(keyword)) )
+                    tmp.add(item);
+
+            }
+            users = tmp;
+        }
+
         log.info("Fetched users: {}", users);
 
         long totalUsers = accountService.getTotalUsers(keyword, request); // Sử dụng getTotalUsers từ AccountService

@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 
 @Controller
 public class DashboardController {
-    private static final Logger log = LoggerFactory.getLogger(MainController.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
 
     @Autowired
     private RestClient restClient;

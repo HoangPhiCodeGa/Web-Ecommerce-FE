@@ -1,13 +1,12 @@
 package com.backend.webecommercefe.services.impl;
 
-import com.backend.webecommercefe.untils.Utilfunctions;
+import com.backend.webecommercefe.util.Utilfunctions;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
 
 @Service
@@ -20,7 +19,7 @@ public class StaticService {
     private ObjectMapper objectMapper;
 
     public Long countUser(){
-        String apiUrl = "http://45.63.79.165:8080/api/user";
+        String apiUrl = "http://localhost:8080/api/user";
         String bearer = Utilfunctions.GET_BEAR_LOCAL();
 
         String response = restClient.get()
@@ -48,7 +47,7 @@ public class StaticService {
     }
 
     public Double countRenue(){
-        String apiUrl = "http://45.63.79.165:9292/api/v1/orders";
+        String apiUrl = "http://localhost:9292/api/v1/orders";
         String bearer = Utilfunctions.GET_BEAR_LOCAL();
 
         String response = restClient.get()
@@ -78,7 +77,7 @@ public class StaticService {
     }
 
     public Long countOrder(){
-        String apiUrl = "http://45.63.79.165:9292/api/v1/orders";
+        String apiUrl = "http://localhost:9292/api/v1/orders";
         String bearer = Utilfunctions.GET_BEAR_LOCAL();
 
         String response = restClient.get()

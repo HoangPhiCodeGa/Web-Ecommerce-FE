@@ -22,4 +22,5 @@ public class User {
     private LocalDate dateOfBirth;
     private Boolean gender;
     private String email;
+    private String username;
 }

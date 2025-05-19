@@ -47,6 +47,7 @@
 
 
 
+
   .modal-body img {
     max-width: 100%;
     /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
@@ -69,7 +70,7 @@
 
   /* Thêm vào CSS của bạn */
   .modal-body img {
-    width: 70%;
+    width: 1000%;
     /* Đặt chiều rộng ảnh là 70% */
     height: auto;
     /* Đảm bảo tỉ lệ ảnh không bị méo */
@@ -79,6 +80,128 @@
     margin-right: auto;
     /* Căn giữa ảnh */
   }
+  .order-summary-container {
+    border: 1px solid #ddd; /* Viền khung */
+    padding: 20px; /* Khoảng cách bên trong */
+    border-radius: 10px; /* Bo góc khung */
+    background-color: #f9f9f9; /* Màu nền sáng */
+    margin-top: 20px; /* Khoảng cách phía trên */
+  }
+
+  .order-summary-container .d-flex {
+    margin-bottom: 10px; /* Khoảng cách giữa các dòng */
+  }
+
+  .order-summary-container .fw-bold {
+    font-weight: bold;
+  }
+
+  .order-summary-container span {
+    font-size: 1.5rem;
+  }
+
+  .container {
+    max-width: 1140px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .col-md-8 {
+    padding-right: 15px;
+  }
+
+  .col-md-4 {
+    padding-left: 15px;
+  }
+
+  .btn-dark {
+    background-color: #343a40;
+    border-color: #343a40;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  .qty-input {
+    color: #000; /* Black color */
+    background: #fff; /* White background */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .product-qty,
+  .qty-count {
+    background: transparent;
+    color: inherit;
+    font-weight: bold;
+    font-size: inherit;
+    border: none;
+    display: inline-block;
+    min-width: 0;
+    height: 2.5rem;
+    line-height: 1;
+  }
+
+  .product-qty {
+    width: 50px;
+    min-width: 0;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .qty-count {
+    padding: 0;
+    cursor: pointer;
+    width: 2.5rem;
+    font-size: 1.25em;
+    text-indent: -100px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .qty-count:before,
+  .qty-count:after {
+    content: "";
+    height: 2px;
+    width: 10px;
+    position: absolute;
+    display: block;
+    background: #000; /* Black color */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .qty-count--minus {
+    border-right: 1px solid #d3d3d3; /* Light gray */
+  }
+
+  .qty-count--add {
+    border-left: 1px solid #d3d3d3; /* Light gray */
+  }
+
+  .qty-count--add:after {
+    transform: rotate(90deg);
+  }
+
+
+  /* Cắt ngắn các nút */
+  /* Cắt ngắn các nút */
+
+
+
+
+
 </style>
 
 <body>
@@ -152,11 +275,12 @@
                   <h4 class="compare-product-title"><a href="#">White Long Skirt</a></h4>
                 </li>
               </ul>
-              <div class="compare-actions">
+              <!-- <div class="compare-actions">
                 <a href="#" class="action-link">Clear All</a>
                 <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i
                     class="icon-long-arrow-right"></i></a>
-              </div><!-- End .dropdown-menu -->
+              </div> -->
+              <!-- End .dropdown-menu -->
             </div><!-- End .compare-dropdown -->
             <div class="dropdown cart-dropdown">
               <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -166,7 +290,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-cart-action">
-                  <a th:href="@{/cart/view}" class="btn btn-primary">View Cart</a>
+                  <a th:href="@{/cart}" class="btn btn-primary">View Cart</a>
                   <a href="/checkout" class="btn btn-outline-primary-2"><span>Checkout</span><i
                       class="icon-long-arrow-right"></i></a>
                 </div><!-- End .dropdown-cart-total -->
@@ -179,63 +303,72 @@
     </div><!-- End .header -->
   </header>
   <div class="container my-5">
-    <h2>Giỏ Hàng</h2>
 
     <div class="d-flex justify-content-end mt-3">
-      <a href="/" class="btn btn-primary">Quay về trang chủ</a>
+      <a href="/index" class="btn btn-primary">Quay về trang chủ</a>
     </div>
 
-    <hr>
+    <div class="container my-5" id="my-cart">
+      <h2 class="text-center mb-4">Giỏ Hàng</h2>
 
-    <!-- Hiển thị tổng giá trị đơn hàng -->
-    <!-- Hiển thị sản phẩm trong giỏ hàng -->
-    <div id="cart-items-container">
-      <!-- Các sản phẩm sẽ được hiển thị ở đây -->
+      <div class="row">
+        <!-- Cột bên trái hiển thị sản phẩm trong giỏ hàng -->
+        <div class="col-md-8">
+          <div id="cart-items-container">
+            <!-- Các sản phẩm sẽ được hiển thị ở đây -->
+          </div>
+        </div>
+
+        <!-- Cột bên phải hiển thị tổng giá trị đơn hàng và nút thanh toán -->
+        <div class="col-md-4">
+          <div class="order-summary-container">
+            <div class="d-flex justify-content-between mt-4" style="font-size: 2rem;">
+              <span>Tổng cộng:</span>
+              <span id="total-price">0 VND</span>
+            </div>
+
+            <div class="d-flex justify-content-between" style="font-size: 2rem;">
+              <span>Phí giao hàng:</span>
+              <span id="shipping-fee">0 VND</span>
+            </div>
+
+            <div class="d-flex justify-content-between fw-bold" style="font-size: 2rem;">
+              <span>Tổng:</span>
+              <span id="total-with-shipping">0 VND</span>
+            </div>
+          </div>
+
+
+          <a href="/checkout">
+            <button class="btn btn-dark w-100 mt-3">Tiếp tục thanh toán</button>
+          </a>
+        </div>
+      </div>
     </div>
 
-    <div class="d-flex justify-content-between">
-      <span>Tổng cộng:</span>
-      <span id="total-price">0 VND</span>
-    </div>
-
-    <div class="d-flex justify-content-between">
-      <span>Phí giao hàng:</span>
-      <span id="shipping-fee">0 VND</span>
-    </div>
-
-    <div class="d-flex justify-content-between fw-bold">
-      <span>Tổng:</span>
-      <span id="total-with-shipping">0 VND</span>
-    </div>
 
 
-    <hr>
-
-    <a href="/checkout"><button class="btn btn-dark w-100 mt-3">Tiếp tục thanh toán</button></a>
-    <footer class="footer">
+    <!-- Footer -->
+    <footer class="footer mt-5">
       <div class="footer-middle">
         <div class="container">
           <div class="row">
             <div class="col-sm-6 col-lg-3">
               <div class="widget widget-about">
-
-                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna
-                  eros eu erat. </p>
-
+                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.</p>
                 <div class="social-icons">
                   <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
                   <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
                   <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
                   <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
                   <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
-                </div><!-- End .soial-icons -->
+                </div><!-- End .social-icons -->
               </div><!-- End .widget about-widget -->
             </div><!-- End .col-sm-6 col-lg-3 -->
 
             <div class="col-sm-6 col-lg-3">
               <div class="widget">
                 <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
-
                 <ul class="widget-list">
                   <li><a href="about.html">About Molla</a></li>
                   <li><a href="#">How to shop on Molla</a></li>
@@ -249,7 +382,6 @@
             <div class="col-sm-6 col-lg-3">
               <div class="widget">
                 <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
-
                 <ul class="widget-list">
                   <li><a href="#">Payment Methods</a></li>
                   <li><a href="#">Money-back guarantee!</a></li>
@@ -264,7 +396,6 @@
             <div class="col-sm-6 col-lg-3">
               <div class="widget">
                 <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
-
                 <ul class="widget-list">
                   <li><a href="#">Sign In</a></li>
                   <li><a href="cart.html">View Cart</a></li>
@@ -281,14 +412,16 @@
       <div class="footer-bottom">
         <div class="container">
           <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
-          <!-- End .footer-copyright -->
           <figure class="footer-payments">
-            <img th:src="@{assets/fe/images/payments.png}" alt="Payment methods" width="272" height="20">
+            <img src="assets/fe/images/payments.png" alt="Payment methods" width="272" height="20">
           </figure><!-- End .footer-payments -->
         </div><!-- End .container -->
       </div><!-- End .footer-bottom -->
     </footer>
   </div>
+
+  <!-- Include Bootstrap JS -->
+
 
   <script>
     // Lấy giỏ hàng từ localStorage và hiển thị lên trang
@@ -311,21 +444,30 @@
         total += item.price * item.quantity;
 
         cartItemsContainer.innerHTML += `
-      <div class="row g-0 mb-3">
-        <div class="col-md-3">
-          <img src="${item.image}" alt="${item.name}" class="img-fluid rounded-start" style="max-height: 100px;">
-        </div>
-        <div class="col-md-9">
-          <h5 class="card-title">${item.name}</h5>
-          <p>Giá: ${item.price} VND</p>
-          <p>Số lượng:
-            <button onclick="decreaseQuantity(${item.productId})" class="btn btn-outline-secondary">-</button>
-            <span>${item.quantity}</span>
-            <button onclick="increaseQuantity(${item.productId})" class="btn btn-outline-secondary">+</button>
-          </p>
-          <button onclick="removeItemFromCart(${item.productId})" class="btn btn-danger">Xóa</button>
-        </div>
+             <div class="row g-0 mb-3">
+   <div class="row g-0 mb-3">
+    <div class="col-md-3">
+      <img src="${item.image}" alt="${item.name}" class="img-fluid rounded-start" style="max-height: 200px;">
+    </div>
+    <div class="col-md-9 d-flex align-items-center justify-content-between">
+      <div class="me-4">
+        <h5 class="card-title" style="font-size: 1.5rem;">${item.name}</h5>
+        <p style="font-size: 1.3rem;">Giá: ${item.price} VND</p>
       </div>
+
+      <!-- Thẻ qty-input -->
+      <div class="qty-input d-flex align-items-center me-4">
+        <p class="mb-0" style="font-size: 1.5rem; color: #555; margin-right: 10px;">Số lượng:</p>
+        <button onclick="decreaseQuantity(${item.productId})" class="qty-count qty-count--minus" style="padding: 5px 15px;">-</button>
+        <span class="product-qty" style="font-size: 18px; padding: 0 15px;">${item.quantity}</span>
+        <button onclick="increaseQuantity(${item.productId})" class="qty-count qty-count--add" style="padding: 5px 15px;">+</button>
+      </div>
+
+      <button onclick="removeItemFromCart(${item.productId})" class="btn btn-danger" style="padding: 8px 20px; border-radius: 5px;">Xóa</button>
+    </div>
+  </div>
+
+
     `;
       });
 
@@ -395,6 +537,11 @@
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  <script src="/assets/custom/client/cart.js"></script>
 </body>
 
 </html>
